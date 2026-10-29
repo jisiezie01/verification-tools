@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "composite": true,
+    "skipLibCheck": true,
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "allowSyntheticDefaultImports": true,
+    "outDir": ".artifacts/ts-node"
+  },
+  "include": [
+    "vite.config.ts",
+    "catalog-server.ts",
+    "src/data/toolCatalog/*.ts",
+    "src/types/index.ts"
+  ]
+}

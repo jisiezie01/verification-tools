@@ -1,0 +1,50 @@
+import assert from "node:assert/strict"
+import { connectBrowser } from "./browser-client.mjs"
+import { catalogFixture } from "./catalog-browser-fixture.mjs"
+import { makeCatalog } from "./fixtures/tools.mjs"
+import { importTypeScript } from "./import-typescript.mjs"
+const { createElement } = await importTypeScript("src/screens/CreateTool/functions.ts")
+const file = await catalogFixture()
+const browser = await connectBrowser()
+const { navigate, waitFor, click, clickText, fill, evaluate } = browser
+try {
+    const catalog = makeCatalog()
+    const tool = catalog.tools[0]
+    tool.elements.push({ ...createElement("Output text", tool), id: "summary", generatedText: { default: "Summary: ${name_input}" } })
+    await file.seed(catalog)
+    await navigate("http://127.0.0.1:5173/create-tool?toolId=agreement")
+    await click('[data-builder-element="agreement-generate"]')
+    await evaluate("Array.from(document.querySelectorAll('label')).find(label => label.textContent === 'summary').querySelector('input').click()")
+    await click('[data-builder-element="agreement-output"]')
+    await fill("Generated text ID", "summary")
+    assert.equal(await evaluate("Array.from(document.querySelectorAll('button')).find(b => b.textContent === 'Apply ID').disabled"), true)
+    await fill("Generated text ID", "letter")
+    await clickText("Apply ID")
+    assert.equal(await evaluate("!!document.querySelector('[data-builder-element=\"letter\"]')"), true)
+    await clickText("Save tool")
+    await waitFor("document.body.textContent.includes('Ready to publish')")
+    const saved = (await file.read()).tools.find(t => t.id === "agreement")
+    assert.deepEqual(saved.elements.find(e => e.id === "agreement-generate").link, ["letter", "summary"])
+    assert.equal(saved.elements.find(e => e.id === "agreement-copy").link, "letter")
+    await navigate("http://127.0.0.1:5173/create-tool?toolId=agreement")
+    await click('[data-builder-element="agreement-generate"]')
+    assert.equal(await evaluate("Array.from(document.querySelectorAll('fieldset input:checked')).length"), 2)
+    await navigate("http://127.0.0.1:5173/tools?category=references")
+    await click('[data-runtime-element="agreement-generate"] button')
+    assert.equal(await evaluate("document.querySelector('[data-runtime-element=\"agreement-name\"]').textContent.includes('Please enter Full name.')"), true)
+    assert.equal(await evaluate("document.querySelector('[data-runtime-element=\"agreement-consent\"]').textContent.includes('Please select an option.')"), true)
+    assert.equal(await evaluate("!!document.querySelector('[data-runtime-element=\"letter\"], [data-runtime-element=\"summary\"]')"), false)
+    await fill("Full name", "   ")
+    await click('[data-runtime-element="agreement-consent"] input[value="yes"]')
+    await click('[data-runtime-element="agreement-generate"] button')
+    assert.equal(await evaluate("document.querySelector('[data-runtime-element=\"agreement-name\"]').textContent.includes('Please enter Full name.')"), true)
+    await fill("Full name", "jane doe")
+    await click('[data-runtime-element="agreement-consent"] input[value="yes"]')
+    await click('[data-runtime-element="agreement-generate"] button')
+    assert.equal(await evaluate("document.querySelector('[data-runtime-element=\"letter\"]').textContent"), "I, Jane Doe agree")
+    assert.equal(await evaluate("document.querySelector('[data-runtime-element=\"summary\"]').textContent"), "Summary: Jane Doe")
+    await click('[data-runtime-element="agreement-reset"] button')
+    assert.equal(await evaluate("!!document.querySelector('[data-runtime-element=\"letter\"], [data-runtime-element=\"summary\"]')"), false)
+    assert.deepEqual(browser.runtimeErrors, [])
+    console.log("Multiple outputs browser checks passed: multi-selection, editable IDs, collision guard, link updates, JSON reload, generation, and reset.")
+} finally { browser.close(); await file.restore() }
