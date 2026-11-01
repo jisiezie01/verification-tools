@@ -1,0 +1,1 @@
+import"./modulepreload-polyfill-P2Xu9kJm.js";var e=window.location.hash.slice(1);/^\/(tools(?:\/|\?|$)|create-tool(?:\?|$)|manage-tools(?:\?|$))/.test(e)&&window.location.replace(`/verification-tools/${e.slice(1)}`);
