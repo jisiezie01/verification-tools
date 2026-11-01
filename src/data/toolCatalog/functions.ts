@@ -44,11 +44,14 @@ export const loadToolCatalog = (): ToolCatalogResultType => {
     catch (error) { return { categories: [], tools: [], error: error instanceof Error ? error.message : "Saved tools could not be loaded." } }
 }
 
-// Serialize writes and only update memory after the server confirms the file was saved.
+// Serialize updates. Published demos stay in memory; local edits wait for the file write.
 export const updateToolCatalog = (update: (current: ToolCatalogType) => ToolCatalogType): Promise<ToolCatalogType> => {
     const operation = pending.then(async () => {
-        if (!writable) throw new Error("This is the published catalog. Edit locally and redeploy to publish changes.")
         const next = parseToolCatalog({ version: 1, ...update(readToolCatalog()) })
+        if (!writable) {
+            catalog = next
+            return readToolCatalog()
+        }
         const response = await fetch(endpoint, { method: "PUT", headers: { "Content-Type": "application/json", "If-Match": revision }, body: JSON.stringify({ version: 1, ...next }) })
         if (!response.ok) {
             const result = await response.json().catch(() => ({}))

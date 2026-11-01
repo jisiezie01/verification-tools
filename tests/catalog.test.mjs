@@ -5,14 +5,31 @@ import { importTypeScript } from "./import-typescript.mjs"
 import { makeCatalog } from "./fixtures/tools.mjs"
 const store = await importTypeScript("src/data/toolCatalog/functions.ts")
 
-test("published catalog ignores browser storage and rejects writes", async () => {
+test("published demo ignores browser storage, validates updates, and never writes remotely", async () => {
     const expected = makeCatalog()
-    globalThis.localStorage = { getItem: () => "broken old data" }
-    await seedCatalog(expected, false)
+    globalThis.localStorage = { getItem: () => "broken old data", setItem: () => { throw new Error("Demo must not persist") } }
+    const server = await seedCatalog(expected, false)
+    const originalFetch = globalThis.fetch
+    let requests = 0
+    globalThis.fetch = (...args) => { requests++; return originalFetch(...args) }
     assert.deepEqual(store.readToolCatalog(), expected)
-    await assert.rejects(store.updateToolCatalog(current => ({ ...current, tools: [] })), /published catalog/)
-    assert.deepEqual(store.readToolCatalog(), expected)
+    await Promise.all([
+        store.updateToolCatalog(current => ({ ...current, categories: current.categories.map(c => ({ ...c, name: c.name + " demo" })) })),
+        store.updateToolCatalog(current => ({ ...current, tools: [] })),
+    ])
+    const result = store.readToolCatalog()
+    assert.equal(result.tools.length, 0)
+    assert.ok(result.categories.every(c => c.name.endsWith(" demo")))
+    assert.deepEqual(server.data, { version: 1, ...expected })
+    assert.equal(requests, 0)
+    result.categories[0].name = "mutated snapshot"
+    assert.notEqual(store.readToolCatalog().categories[0].name, "mutated snapshot")
+    await assert.rejects(store.updateToolCatalog(current => ({ ...current, categories: [...current.categories, current.categories[0]] })), /unique/)
+    await store.initializeToolCatalog("/catalog", false)
+    assert.deepEqual(store.readToolCatalog(), expected, "Reloading restores the published catalog")
+    assert.equal(requests, 1)
 })
+
 test("queued writes preserve both changes; stale revisions never overwrite the file", async () => {
     const state = await seedCatalog(makeCatalog())
     await Promise.all([

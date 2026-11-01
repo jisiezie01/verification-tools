@@ -6,6 +6,7 @@ export const pagesPrefix = "/verification-tools/"
 export async function startPagesServer(port, catalog) {
     const root = resolve("dist")
     const server = createServer(async (req, res) => {
+        if (!["GET", "HEAD"].includes(req.method)) { res.writeHead(405).end(); return }
         const url = new URL(req.url, "http://localhost")
         if (url.pathname === pagesPrefix.slice(0, -1)) { res.writeHead(301, { Location: pagesPrefix + url.search }).end(); return }
         if (!url.pathname.startsWith(pagesPrefix)) { res.writeHead(404).end(); return }

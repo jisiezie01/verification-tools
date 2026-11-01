@@ -53,7 +53,7 @@ try {
     await browser.navigate(origin + "#/tools")
     await browser.waitFor("location.pathname.startsWith('/verification-tools/tools') && !!document.querySelector('[data-tools-board]')")
     await browser.navigate(origin + "create-tool/")
-    await browser.waitFor("location.pathname === '/verification-tools/tools'")
+    await browser.waitFor("!!document.querySelector('[aria-label=\"Tool selection\"]') && !!document.querySelector('[data-demo-notice]')")
     assert.equal((await fetch(origin + "missing-page/")).status, 404)
     assert.ok((await (await fetch(origin + "sitemap.xml")).text()).includes("https://jisiezie01.github.io/verification-tools/"))
     assert.deepEqual(browser.runtimeErrors, [])

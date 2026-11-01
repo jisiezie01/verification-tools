@@ -21,12 +21,12 @@ const router = createBrowserRouter([
     {
         path: "/create-tool",
         errorElement: (<ScreenError />),
-        element: import.meta.env.DEV ? <ScreenCreateTool /> : <Navigate to="/tools" replace />
+        element: <ScreenCreateTool />
     },
     {
         path: "/manage-tools",
         errorElement: <ScreenError />,
-        element: import.meta.env.DEV ? <ScreenManageTools /> : <Navigate to="/tools" replace />
+        element: <ScreenManageTools />
     },
     {
         path: "/tools",

@@ -29,7 +29,7 @@ const ContainerCategoryWorkspace = ({ category, catalog, onSaved, className = ""
             const updated = saved.categories.find(candidate => candidate.id === category.id)!
             const nextDraft = createCategoryDraft(updated, saved.tools)
             dispatch({ type: "replace", draft: nextDraft })
-            setBaseline(draftFingerprint(nextDraft)); setError(""); setSavedMessage("Changes saved to tool-catalog.json.")
+            setBaseline(draftFingerprint(nextDraft)); setError(""); setSavedMessage(import.meta.env.DEV ? "Changes saved to tool-catalog.json." : "Applied to this demo only. Refreshing discards your changes.")
             onSaved(saved)
             return true
         } catch (cause) { setError(cause instanceof Error ? cause.message : "Changes could not be saved. Please try again."); return false }

@@ -20,7 +20,7 @@ The editor uses the existing Button, InputText, InputDate, and InputRadio compon
 
 The editor validates the name, category, element relationships, variable names, limits, and conditional rules before calling `onSave`. A rejected callback displays an error and leaves the draft intact. Editing while an asynchronous save runs keeps the edited draft marked unsaved.
 
-Without `onSave`, `saveTool(tool): Promise<ToolType>` saves to `public/tool-catalog.json` through the local development API and returns an independent snapshot after the write succeeds. Categories and layouts share the same JSON file. Failed writes keep the draft unsaved. Production loads the deployed JSON and disables authoring routes. See the root README for migration and deployment.
+Without `onSave`, `saveTool(tool): Promise<ToolType>` saves to `public/tool-catalog.json` through the local development API and returns an independent snapshot after the write succeeds. Categories and layouts share the same JSON file. Failed writes keep the draft unsaved. Production loads the deployed JSON and enables authoring as a temporary demo. Saves update the in-memory catalog only and reset on refresh, without server writes or browser storage. See the root README for migration and deployment.
 
 `createSavedTool(tool, catalog?): ToolType` validates and creates the same snapshot without storing it. Supply the other saved tools when validating Global references. Download exports that object as JSON. No preview values, selected-element state, React nodes, or executable functions are included.
 
