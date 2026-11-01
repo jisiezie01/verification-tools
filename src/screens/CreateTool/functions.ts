@@ -48,7 +48,7 @@ export const createElement = (type: ElementType["type"], tool: ToolType, contain
         case "Email input": return { ...base, ...input, type, placeholder: "you@example.com", copyButton, validation: { kind: "email", message: "Enter a valid email address." } }
         case "Phone input": return { ...base, ...input, type, placeholder: "(123) 456-7890", copyButton, format: "(###) ###-####", maxDigits: 10, validation: { kind: "phone", message: "Enter a valid 10-digit phone number." } }
         case "Date input": return { ...base, ...input, type, todayButton: { enabled: true, text: "Today" }, min: { mode: "none", value: "" }, max: { mode: "none", value: "" } }
-        case "Radio button": return { ...base, ...input, type, options: [{ id: createId(), label: "Option 1", value: "option_1" }] }
+        case "Radio button": return { ...base, ...input, type, direction: "column", wrap: "nowrap", justifyContent: "flex-start", alignContent: "stretch", gap: 8, options: [{ id: createId(), label: "Option 1", value: "option_1" }] }
         case "Divider": return { ...base, type, orientation: "horizontal" }
     }
 }
@@ -77,13 +77,47 @@ export const moveElement = (elements: Array<ElementType>, id: string, containerI
     remaining.splice(index < 0 ? remaining.length : index, 0, moved)
     return remaining
 }
+export const nextDuplicateName = (original: string, used: Set<string>): string => {
+    let suffix = 1
+    while (used.has(`${original}_${suffix}`)) suffix++
+    const name = `${original}_${suffix}`
+    used.add(name)
+    return name
+}
+export const duplicateContainer = (elements: Array<ElementType>, id: string) => {
+    if (!elements.some(element => element.id === id && element.type === "Container")) return null
+    const descendants = getDescendantIds(elements, id)
+    const originals = elements.filter(element => descendants.has(element.id))
+    const usedIds = new Set(elements.flatMap(element => [element.id, ...(element.type === "Radio button" ? element.options.map(option => option.id) : element.type === "Output text" ? element.conditions.map(rule => rule.id) : [])]))
+    const ids = new Map(originals.map(element => [element.id, nextDuplicateName(element.id, usedIds)]))
+    const usedVariables = new Set(elements.filter(isInputElement).map(element => element.variableName))
+    const variables = new Map(originals.filter(isInputElement).map(element => [element.variableName, nextDuplicateName(element.variableName, usedVariables)]))
+    const remapId = (value: string) => ids.get(value) ?? value
+    const remapText = (text: string) => text.replace(/\$\{([^}]+)\}/g, (match, name: string) => variables.has(name) ? "${" + variables.get(name) + "}" : match)
+    const copies = structuredClone(originals).map(element => {
+        element.id = remapId(element.id)
+        if (element.containerId) element.containerId = remapId(element.containerId)
+        if (isInputElement(element)) element.variableName = variables.get(element.variableName)!
+        if (element.type === "Generate button") element.link = Array.isArray(element.link) ? element.link.map(remapId) : remapId(element.link)
+        if (element.type === "Copy button") element.link = remapId(element.link)
+        if ((element.type === "Container" || element.type === "Output text") && element.visibility) element.visibility.inputId = remapId(element.visibility.inputId)
+        if (element.type === "Radio button") element.options = element.options.map(option => ({ ...option, id: nextDuplicateName(option.id, usedIds) }))
+        if (element.type === "Output text") {
+            element.generatedText = Object.fromEntries(Object.entries(element.generatedText).map(([key, text]) => [key, remapText(text)])) as typeof element.generatedText
+            element.conditions = element.conditions.map(rule => ({ ...rule, id: nextDuplicateName(rule.id, usedIds), inputId: remapId(rule.inputId), ...(rule.comparisonInputId ? { comparisonInputId: remapId(rule.comparisonInputId) } : {}), text: remapText(rule.text) }))
+        }
+        return element
+    })
+    const insertion = elements.findIndex(element => element.id === id) + 1
+    return { elements: [...elements.slice(0, insertion), ...copies, ...elements.slice(insertion)], selectedId: ids.get(id)! }
+}
 export const removeElement = (elements: Array<ElementType>, id: string) => {
     const removed = getDescendantIds(elements, id)
     return elements.filter(element => !removed.has(element.id)).map(element => {
         if (element.type === "Generate button") return { ...element, link: Array.isArray(element.link) ? generatedTextIds(element.link).filter(target => !removed.has(target)) : removed.has(element.link) ? "" : element.link }
         if (element.type === "Copy button" && removed.has(element.link)) return { ...element, link: "" }
         // Retain affected conditions so the editor can ask for a replacement variable.
-        if (element.type === "Output text") return { ...element, conditions: element.conditions.map(condition => removed.has(condition.inputId) ? { ...condition, inputId: "" } : condition) }
+        if (element.type === "Output text") return { ...element, visibility: element.visibility && removed.has(element.visibility.inputId) ? { ...element.visibility, inputId: "" } : element.visibility, conditions: element.conditions.map(condition => removed.has(condition.inputId) ? { ...condition, inputId: "" } : condition) }
         if (element.type === "Container" && element.visibility && removed.has(element.visibility.inputId)) return { ...element, visibility: { ...element.visibility, inputId: "" } }
         return element
     })
@@ -123,6 +157,12 @@ export const builderReducer = (state: BuilderStateType, action: BuilderActionTyp
         elements = updateElement(elements, action.element, action.previousId)
         if (elements === state.tool.elements) return state
         if (action.previousId && selectedId === action.previousId) selectedId = action.element.id
+    }
+    if (action.type === "duplicate") {
+        const duplicated = duplicateContainer(elements, action.id)
+        if (!duplicated) return state
+        elements = duplicated.elements
+        selectedId = duplicated.selectedId
     }
     if (action.type === "delete") {
         const removed = getDescendantIds(elements, action.id)
@@ -232,13 +272,13 @@ export const validateTool = (tool: ToolType, categories?: Array<ToolCategoryType
         }
         if (element.type === "Container" && [element.padding, element.gap].some(value => !Number.isFinite(value) || value < 0)) errors.push(`${name}: padding and gap must be nonnegative numbers.`)
         if (element.type === "Container" && element.justifyContent !== undefined && !["flex-start", "space-between"].includes(element.justifyContent)) errors.push(`${name}: choose a valid content alignment.`)
-        if (element.type === "Container" && element.visibility) {
+        if ((element.type === "Container" || element.type === "Output text") && element.visibility) {
             const rule = element.visibility
             const radio = tool.elements.find(candidate => candidate.id === rule.inputId)
             if (!["show", "hide"].includes(rule.mode)) errors.push(`${name}: choose a valid visibility mode.`)
             if (radio?.type !== "Radio button") errors.push(`${name}: choose a radio group for visibility.`)
             else {
-                if (getDescendantIds(tool.elements, element.id).has(radio.id)) errors.push(`${name}: the visibility radio group must be outside this container.`)
+                if (element.type === "Container" && getDescendantIds(tool.elements, element.id).has(radio.id)) errors.push(`${name}: the visibility radio group must be outside this container.`)
                 if (!radio.options.some(option => option.value === rule.value)) errors.push(`${name}: choose a valid radio option for visibility.`)
             }
         }

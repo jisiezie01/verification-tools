@@ -8,7 +8,7 @@ import ContainerOutputSettings from "../ContainerOutputSettings"
 import ContainerSizeSettings from "../ContainerSizeSettings"
 import type { ContainerElementSettingsProps } from "./types"
 
-const ContainerElementSettings = ({ element, elements, sharedInputs, onChange, onDelete, onToolSettings, className = "" }: ContainerElementSettingsProps) => {
+const ContainerElementSettings = ({ element, elements, sharedInputs, onChange, onDelete, onDuplicate, onToolSettings, className = "" }: ContainerElementSettingsProps) => {
     return <div className={`space-y-5 ${className}`}>
         <div><Button variant="ghost" className="mb-3 px-0 text-xs" onClick={onToolSettings}>Back to tool settings</Button><p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-slate-400">Element settings</p><h2 className="mt-1 text-lg font-semibold tracking-tight text-slate-800">{getElementLabel(element.type)}</h2></div>
         {(element.type === "Generate button" || element.type === "Reset button" || element.type === "Copy button") && <ContainerButtonSettings element={element} elements={elements} onChange={onChange} />}
@@ -17,6 +17,7 @@ const ContainerElementSettings = ({ element, elements, sharedInputs, onChange, o
         {isInputElement(element) && <ContainerInputSettings element={element} elements={elements} onChange={onChange} />}
         {element.type === "Output text" && <ContainerOutputSettings key={element.id} element={element} elements={elements} sharedInputs={sharedInputs} onChange={onChange} />}
         <ContainerSizeSettings element={element} elements={elements} onChange={onChange} />
+        {element.type === "Container" && <Button className="w-full text-xs" onClick={() => onDuplicate(element.id)}>Duplicate container and its contents</Button>}
         <Button variant="danger" className="w-full text-xs" onClick={() => onDelete(element.id)}>{element.type === "Container" ? "Delete container and its contents" : "Delete element"}</Button>
     </div>
 }

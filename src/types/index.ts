@@ -97,6 +97,7 @@ type ElementOutputTextType = {
     generatedText: { default: string } & Record<string, string>
     conditions: Array<TextConditionType>
     initiallyHidden: boolean
+    visibility?: ElementContainerType["visibility"]
 }
 type ElementGenerateButtonType = {
     type: "Generate button"
@@ -170,6 +171,11 @@ type RadioOptionType = { id: string; label: string; value: string }
 type ElementRadioButtonType = ElementInputSettingsType & {
     type: "Radio button"
     options: Array<RadioOptionType>
+    direction?: "column" | "row" | "row-reverse" | "column-reverse"
+    wrap?: "nowrap" | "wrap" | "wrap-reverse"
+    justifyContent?: CSSProperties["justifyContent"]
+    alignContent?: CSSProperties["alignContent"]
+    gap?: number
 }
 /**
  * Preview structure

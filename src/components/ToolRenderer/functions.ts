@@ -162,6 +162,10 @@ export const generateRuntimeState = (tool: ToolType, state: ToolRuntimeStateType
     }
     return { ...state, values, errors, message: "", outputs: { ...state.outputs, ...Object.fromEntries(targets.map(id => [id, generateOutput(id, tool, values, shared)])) }, visibleOutputIds: [...new Set([...state.visibleOutputIds, ...targets])] }
 }
+export const resolveRadioOutputs = (tool: ToolType, state: ToolRuntimeStateType, shared?: SharedRuntimeScopeType): ToolRuntimeStateType => ({
+    ...state,
+    outputs: { ...state.outputs, ...Object.fromEntries(tool.elements.filter(element => element.type === "Output text" && element.visibility && canShowElement(element, state, tool)).map(element => [element.id, generateOutput(element.id, tool, state.values, shared)])) },
+})
 export const resetRuntimeState = (): ToolRuntimeStateType => ({ values: {}, outputs: {}, visibleOutputIds: [], errors: {}, message: "" })
 export const canShowElement = (element: ElementType, state: ToolRuntimeStateType, tool: ToolType, visited = new Set<string>()): boolean => {
     if (visited.has(element.id)) return false
@@ -170,7 +174,7 @@ export const canShowElement = (element: ElementType, state: ToolRuntimeStateType
         const parent = tool.elements.find(candidate => candidate.id === element.containerId)
         if (!parent || !canShowElement(parent, state, tool, next)) return false
     }
-    if (element.type === "Container" && element.visibility) {
+    if ((element.type === "Container" || element.type === "Output text") && element.visibility) {
         const rule = element.visibility
         const radio = tool.elements.find(candidate => candidate.id === rule.inputId)
         if (radio?.type !== "Radio button" || !radio.options.some(option => option.value === rule.value)) return false

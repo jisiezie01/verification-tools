@@ -42,7 +42,7 @@ Every element has `id`, `toolId`, `categoryId`, `style`, and `size`. The saved a
 | Email input | `validation.kind: "email"` requests email validation, a red invalid border, and the configured red error message below the input. |
 | Phone input | `format: "(###) ###-####"`, `maxDigits: 10`, and `validation.kind: "phone"`. Keep at most 10 digits, format progressively, and validate a complete 10-digit number. The complete formatted string has 14 characters. Use a red invalid border and the configured red message below it. |
 | Date input | `todayButton` configures the paired Today action. `min`/`max` have mode `none`, `fixed` (ISO date in `value`), or `today` (evaluate the local current date at runtime). |
-| Radio button | One group with at least one `{ id, label, value }` option. Labels sit to the right. Its variable is the selected option's `value`, initially empty. |
+| Radio button | One group with at least one `{ id, label, value }` option. Labels sit to the right. Flex direction defaults to column; row and reversed directions are available. Flex wrap supports no wrap (default), wrap, and reversed wrap. Justify content, align content, and gap are configurable, defaulting to start, stretch, and 8px respectively. Its variable is the selected option's `value`, initially empty. |
 | Divider | `orientation` is `horizontal` or `vertical`. |
 | Text / legacy headings and Label | `text` contains plain text; `style` contains font size, weight, and colors. |
 | Output text | `generatedText.default`, ordered `conditions`, and `initiallyHidden`. No rich-text or executable expressions. |
@@ -88,3 +88,7 @@ Select a generated text element, edit **Generated text ID**, and click **Apply I
 Clicking Generate requires nonblank values for variables in the selected output template and conditions evaluated before it. Unused conditional templates and unrelated empty inputs are not required. Whitespace-only text is empty; numeric zero is valid. Local inputs show inline messages (for example, Please enter Full name or Please select an option), with a summary below the tool. Missing Global inputs identify their source tool in the summary. If any linked output lacks required values, all linked outputs keep their previous results and visibility until validation succeeds.
 
 Number and date conditions can compare against another input of the same type using `comparisonInputId`. An optional `offset` adds to the comparison value; dates use whole calendar days (e.g. 60 means 60 days after the comparison date). Fixed values and `today` remain supported.
+
+Generated text supports **Show when selected**: choose a radio group in the same tool and an option. This replaces Hide until generated while enabled, displays text immediately using current inputs, and hides it on other selections or Reset. Conditional text rules still apply. Copy buttons configured to follow the output visibility hide with it.
+
+Select a container and use **Duplicate container and its contents** in Element settings to copy its full subtree beside the original. Element IDs receive the first available suffix (`_1`, `_2`, etc.). Input variable names are also made unique; internal links, visibility rules, conditions, and template variables follow the copies. References outside the container stay unchanged.

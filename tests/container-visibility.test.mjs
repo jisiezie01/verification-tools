@@ -59,3 +59,38 @@ test("visibility survives serialization and rejects missing, removed, or descend
     assert.equal(tool.elements.find(e => e.id === container.id).visibility.inputId, "")
     assert.ok(builder.validateTool(tool).some(error => error.includes("radio group for visibility")))
 })
+
+
+test("radio-controlled output reveals current text, follows selection and parent visibility, and resets", () => {
+    const { tool, output, copy, container } = fixture()
+    output.visibility = { mode: "show", inputId: "radio", value: "yes" }
+    output.generatedText.default = "Selected: ${radio_group}"
+    copy.link = output.id
+    let state = runtime.createRuntimeState(tool)
+    assert.equal(runtime.canShowElement(output, state, tool), false)
+    state.values.radio = "yes"
+    state = runtime.resolveRadioOutputs(tool, state)
+    assert.equal(runtime.canShowElement(output, state, tool), true)
+    assert.equal(runtime.getCopyValue(output.id, tool, state), "Selected: yes")
+    assert.equal(runtime.canShowElement(copy, state, tool), true)
+    state.values.radio = "no"
+    assert.equal(runtime.canShowElement(output, state, tool), false)
+    assert.equal(runtime.canShowElement(copy, state, tool), false)
+    assert.equal(runtime.canShowElement(output, runtime.resetRuntimeState(), tool), false)
+    state.values.radio = "yes"
+    output.containerId = container.id
+    container.visibility.value = "no"
+    assert.equal(runtime.canShowElement(output, state, tool), false)
+})
+
+test("output visibility persists and validates deleted radios and options", () => {
+    const { tool, output, radio } = fixture()
+    output.visibility = { mode: "show", inputId: radio.id, value: "yes" }
+    assert.deepEqual(builder.validateTool(tool), [])
+    assert.deepEqual(builder.createSavedTool(tool).elements.find(e => e.id === output.id).visibility, output.visibility)
+    output.visibility.value = "missing"
+    assert.ok(builder.validateTool(tool).some(error => error.includes("valid radio option")))
+    tool.elements = builder.removeElement(tool.elements, radio.id)
+    assert.equal(tool.elements.find(e => e.id === output.id).visibility.inputId, "")
+    assert.ok(builder.validateTool(tool).some(error => error.includes("radio group for visibility")))
+})

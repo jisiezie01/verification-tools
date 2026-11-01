@@ -171,3 +171,49 @@ test("comparison variables must match types and date offsets must be whole days"
     rule.offset = 0.5
     assert.ok(builder.validateTool(state).some(error => error.includes("whole days")))
 })
+
+
+test("duplicate container copies nested contents, remaps dependencies, and allocates unique names", () => {
+    const original = tool()
+    const parent = add(original, "Container")
+    const external = add(original, "Number input")
+    const root = add(original, "Container", parent.id); root.id = "section_id"
+    const nested = add(original, "Container", root.id)
+    const radio = add(original, "Radio button", root.id)
+    const input = add(original, "Number input", nested.id)
+    const output = add(original, "Output text", nested.id)
+    const generate = add(original, "Generate button", root.id)
+    const copy = add(original, "Copy button", root.id)
+    nested.visibility = { mode: "show", inputId: radio.id, value: radio.options[0].value }
+    output.visibility = { ...nested.visibility }
+    output.generatedText.default = "${" + input.variableName + "} / ${" + external.variableName + "}"
+    output.conditions = [{ id: "rule", inputId: input.id, comparisonInputId: external.id, operator: "equals", value: "", text: "${" + input.variableName + "}" }]
+    generate.link = [output.id]
+    copy.link = output.id
+    const snapshot = structuredClone(original)
+    let state = builder.builderReducer(builder.createBuilderState(original), { type: "duplicate", id: root.id })
+    const findCopy = element => state.tool.elements.find(item => item.id === element.id + "_1")
+    assert.equal(state.selectedId, "section_id_1")
+    assert.equal(findCopy(root).containerId, parent.id)
+    assert.equal(findCopy(input).containerId, nested.id + "_1")
+    assert.equal(findCopy(input).variableName, input.variableName + "_1")
+    assert.equal(findCopy(nested).visibility.inputId, radio.id + "_1")
+    assert.equal(findCopy(output).visibility.inputId, radio.id + "_1")
+    assert.equal(findCopy(output).generatedText.default, "${" + input.variableName + "_1} / ${" + external.variableName + "}")
+    assert.equal(findCopy(output).conditions[0].inputId, input.id + "_1")
+    assert.equal(findCopy(output).conditions[0].comparisonInputId, external.id)
+    assert.deepEqual(findCopy(generate).link, [output.id + "_1"])
+    assert.equal(findCopy(copy).link, output.id + "_1")
+    assert.equal(findCopy(radio).options[0].id, radio.options[0].id + "_1")
+    assert.deepEqual(builder.validateTool(state.tool), [])
+    assert.deepEqual(original, snapshot)
+    findCopy(radio).options[0].label = "Changed copy"
+    assert.equal(original.elements.find(e => e.id === radio.id).options[0].label, "Option 1")
+    state = builder.builderReducer(state, { type: "duplicate", id: root.id })
+    assert.equal(state.selectedId, "section_id_2")
+    assert.equal(new Set(state.tool.elements.map(e => e.id)).size, state.tool.elements.length)
+    assert.deepEqual(builder.validateTool(state.tool), [])
+    const siblings = state.tool.elements.filter(e => e.containerId === parent.id)
+    assert.deepEqual(siblings.map(e => e.id), [root.id, "section_id_2", "section_id_1"])
+    assert.equal(builder.builderReducer(state, { type: "duplicate", id: "missing" }), state)
+})

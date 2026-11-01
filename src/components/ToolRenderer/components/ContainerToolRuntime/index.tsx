@@ -1,7 +1,7 @@
 import { useContext, useState } from "react"
 import { CategoryRuntimeContext } from "../../../ContainerCategoryRuntime/data"
 import { getSharedScope } from "../../../../data/toolVariables/functions"
-import { createRuntimeState, formatPhone, generateRuntimeState, getCopyValue, inputError, normalizeInput, resetRuntimeState } from "../../functions"
+import { createRuntimeState, formatPhone, generateRuntimeState, getCopyValue, inputError, normalizeInput, resetRuntimeState, resolveRadioOutputs } from "../../functions"
 import type { RuntimeInputType } from "../../types"
 import ContainerRenderedElements from "../ContainerRenderedElements"
 import type { ContainerToolRuntimeProps } from "./types"
@@ -10,7 +10,7 @@ const ContainerToolRuntime = ({ tool, className = "" }: ContainerToolRuntimeProp
     const category = useContext(CategoryRuntimeContext)
     const shared = getSharedScope(tool, category?.tools ?? [], category?.values ?? {})
     const [localState, setState] = useState(() => createRuntimeState(tool, shared))
-    const state = tool.isGlobal && category ? { ...localState, values: category.values[tool.id] ?? {} } : localState
+    const state = resolveRadioOutputs(tool, tool.isGlobal && category ? { ...localState, values: category.values[tool.id] ?? {} } : localState, shared)
     const onInput = (element: RuntimeInputType, raw: string) => {
         const value = element.type === "Phone input" ? formatPhone(raw) : raw
         if (tool.isGlobal) category?.setInput(tool.id, element.id, value)

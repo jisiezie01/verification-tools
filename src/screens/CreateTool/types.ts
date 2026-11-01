@@ -51,4 +51,5 @@ export type BuilderActionType =
     | { type: "drop"; item: BuilderDragItem; containerId?: string; beforeId?: string }
     | { type: "change"; element: ElementType; previousId?: string }
     | { type: "delete"; id: string }
+    | { type: "duplicate"; id: string }
     | { type: "move"; id: string; direction: -1 | 1 }

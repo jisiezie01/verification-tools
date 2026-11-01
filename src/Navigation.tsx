@@ -1,4 +1,4 @@
-import { Navigate, RouterProvider, createBrowserRouter, createHashRouter } from 'react-router-dom'
+import { Navigate, RouterProvider, createBrowserRouter } from 'react-router-dom'
 import ScreenCreateTool from './screens/CreateTool'
 import ScreenManageTools from './screens/ManageTools'
 import ScreenViewTool from './screens/ViewTool'
@@ -12,7 +12,7 @@ const Navigation = () => {
     )
 }
 const ScreenError = () => (<p>Error</p>)
-const router = (import.meta.env.DEV ? createBrowserRouter : createHashRouter)([
+const router = createBrowserRouter([
     {
         path: "/",
         errorElement: (<ScreenError />),
@@ -38,5 +38,5 @@ const router = (import.meta.env.DEV ? createBrowserRouter : createHashRouter)([
         errorElement: <ScreenError />,
         element: <ScreenViewTool />
     }
-])
+], { basename: import.meta.env.BASE_URL })
 export default Navigation

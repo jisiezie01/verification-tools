@@ -12,8 +12,8 @@
         "placements": [
           {
             "toolId": "b6e2a46b-e390-462d-84b2-595368217184",
-            "width": 981,
-            "height": 1954
+            "width": 913,
+            "height": 752
           }
         ],
         "removedToolIds": [
@@ -32,8 +32,8 @@
         "placements": [
           {
             "toolId": "b605e602-0772-4005-8455-68f9a78e90a4",
-            "width": 1359,
-            "height": 664
+            "width": 894,
+            "height": 4333
           }
         ],
         "removedToolIds": []
@@ -236,70 +236,15 @@
               "value": 100
             },
             "height": {
-              "unit": "px",
-              "value": 1831
+              "unit": "auto",
+              "value": 80
             }
           },
           "type": "Container",
           "direction": "row",
-          "gap": 16,
+          "gap": 10,
           "padding": 0,
-          "justifyContent": "flex-start"
-        },
-        {
-          "id": "cd5bab02-c924-4061-8122-b00664ac5a55",
-          "toolId": "b6e2a46b-e390-462d-84b2-595368217184",
-          "categoryId": "a5fdac86-18c1-4733-855f-242170dc0061",
-          "style": {},
-          "size": {
-            "width": {
-              "unit": "%",
-              "value": 17
-            },
-            "height": {
-              "unit": "px",
-              "value": 232
-            }
-          },
-          "variableName": "property_calls",
-          "label": "Property Calls",
-          "showLabel": true,
-          "placeholder": "",
-          "type": "Radio button",
-          "options": [
-            {
-              "id": "6cb66655-0c60-4653-91f8-06cb5e56bd8d",
-              "label": "Re-open Request",
-              "value": "option_re_open_request"
-            },
-            {
-              "id": "aa93f5d3-f2dc-4802-9327-383b950226c9",
-              "label": "Discontinue Request",
-              "value": "option_discontinue_request"
-            }
-          ],
-          "containerId": "0d19b996-6416-48f2-b8c3-0cd6f7e9d1e8"
-        },
-        {
-          "id": "ea68c617-e065-46f5-8d6b-c9fbe726a8e0",
-          "toolId": "b6e2a46b-e390-462d-84b2-595368217184",
-          "categoryId": "a5fdac86-18c1-4733-855f-242170dc0061",
-          "style": {},
-          "size": {
-            "width": {
-              "unit": "%",
-              "value": 80
-            },
-            "height": {
-              "unit": "px",
-              "value": 1776
-            }
-          },
-          "type": "Container",
-          "direction": "column",
-          "gap": 16,
-          "padding": 0,
-          "containerId": "0d19b996-6416-48f2-b8c3-0cd6f7e9d1e8"
+          "justifyContent": "space-between"
         },
         {
           "id": "7123b25d-8ac6-453c-91e3-267ee33cb87e",
@@ -309,18 +254,18 @@
           "size": {
             "width": {
               "unit": "%",
-              "value": 99
+              "value": 34
             },
             "height": {
-              "unit": "px",
-              "value": 183
+              "unit": "auto",
+              "value": 80
             }
           },
           "type": "Container",
           "direction": "column",
           "gap": 16,
           "padding": 0,
-          "containerId": "ea68c617-e065-46f5-8d6b-c9fbe726a8e0"
+          "containerId": "0d19b996-6416-48f2-b8c3-0cd6f7e9d1e8"
         },
         {
           "id": "e25cf3ca-f605-49d4-ac8c-3ffef2e64b06",
@@ -386,6 +331,86 @@
           "containerId": "7123b25d-8ac6-453c-91e3-267ee33cb87e"
         },
         {
+          "id": "cd5bab02-c924-4061-8122-b00664ac5a55",
+          "toolId": "b6e2a46b-e390-462d-84b2-595368217184",
+          "categoryId": "a5fdac86-18c1-4733-855f-242170dc0061",
+          "style": {},
+          "size": {
+            "width": {
+              "unit": "%",
+              "value": 99
+            },
+            "height": {
+              "unit": "px",
+              "value": 242
+            }
+          },
+          "variableName": "property_calls",
+          "label": "Property Calls",
+          "showLabel": true,
+          "placeholder": "",
+          "type": "Radio button",
+          "options": [
+            {
+              "id": "6cb66655-0c60-4653-91f8-06cb5e56bd8d",
+              "label": "Re-open Request",
+              "value": "option_re_open_request"
+            },
+            {
+              "id": "aa93f5d3-f2dc-4802-9327-383b950226c9",
+              "label": "Discontinue Request",
+              "value": "option_discontinue_request"
+            },
+            {
+              "id": "5abf14da-15f2-48ae-800e-32ec29aba4d1",
+              "label": "Verified Correct",
+              "value": "verified_correct"
+            },
+            {
+              "id": "a3cfe671-2d36-49df-b3ef-b376116d5b45",
+              "label": "Line Check",
+              "value": "line_check"
+            },
+            {
+              "id": "c86e6bb3-31f7-4393-8d70-d11b615cf710",
+              "label": "ROI (Release of Information)",
+              "value": "Release_of_Information"
+            },
+            {
+              "id": "4acb7163-871e-4869-81d4-8d62a80bfbfe",
+              "label": "Sending or Resending Form",
+              "value": "Sending_or_Resending_Form"
+            },
+            {
+              "id": "7984ebd4-c757-4954-bea9-39fc0f631b00",
+              "label": "Reference - Leaseholder",
+              "value": "Reference_Leaseholder"
+            }
+          ],
+          "containerId": "7123b25d-8ac6-453c-91e3-267ee33cb87e"
+        },
+        {
+          "id": "ea68c617-e065-46f5-8d6b-c9fbe726a8e0",
+          "toolId": "b6e2a46b-e390-462d-84b2-595368217184",
+          "categoryId": "a5fdac86-18c1-4733-855f-242170dc0061",
+          "style": {},
+          "size": {
+            "width": {
+              "unit": "%",
+              "value": 65
+            },
+            "height": {
+              "unit": "auto",
+              "value": 80
+            }
+          },
+          "type": "Container",
+          "direction": "column",
+          "gap": 16,
+          "padding": 0,
+          "containerId": "0d19b996-6416-48f2-b8c3-0cd6f7e9d1e8"
+        },
+        {
           "id": "490c1436-29c0-421c-b42c-5fa18bf30a09",
           "toolId": "b6e2a46b-e390-462d-84b2-595368217184",
           "categoryId": "a5fdac86-18c1-4733-855f-242170dc0061",
@@ -439,7 +464,7 @@
           "style": {
             "color": "#334155",
             "fontSize": 16,
-            "fontWeight": 400
+            "fontWeight": 600
           },
           "size": {
             "width": {
@@ -582,7 +607,7 @@
           },
           "type": "Output text",
           "generatedText": {
-            "default": "Lorem ipsum dolor sit amet."
+            "default": ""
           },
           "conditions": [
             {
@@ -590,7 +615,7 @@
               "inputId": "ef44a5bb-9a32-4871-bb81-c0dbbf1edef8",
               "operator": "equals",
               "value": "option_1",
-              "text": "We received a request from the property staff ${name_input} using the phone number ${phone_input} to re-open the ${re_open_request_radio_group_2} verification."
+              "text": "We received a request from the property staff ${name_input} using the phone number ${owner_phone_2_input} to re-open the ${re_open_request_radio_group_2} verification."
             },
             {
               "id": "8aaa1820-a6c2-4003-a7b1-e31609a6f6ba",
@@ -620,9 +645,10 @@
           },
           "type": "Container",
           "direction": "row",
-          "gap": 16,
+          "gap": 8,
           "padding": 0,
-          "containerId": "490c1436-29c0-421c-b42c-5fa18bf30a09"
+          "containerId": "490c1436-29c0-421c-b42c-5fa18bf30a09",
+          "justifyContent": "flex-start"
         },
         {
           "id": "25be94be-2e3c-4f0b-8e24-b6e3bbc49e26",
@@ -634,8 +660,8 @@
           },
           "size": {
             "width": {
-              "unit": "%",
-              "value": 49
+              "unit": "px",
+              "value": 130
             },
             "height": {
               "unit": "auto",
@@ -657,8 +683,8 @@
           },
           "size": {
             "width": {
-              "unit": "%",
-              "value": 49
+              "unit": "px",
+              "value": 130
             },
             "height": {
               "unit": "auto",
@@ -727,7 +753,7 @@
           "style": {
             "color": "#334155",
             "fontSize": 16,
-            "fontWeight": 400
+            "fontWeight": 600
           },
           "size": {
             "width": {
@@ -783,7 +809,7 @@
           },
           "type": "Output text",
           "generatedText": {
-            "default": "We received a request from the property staff ${name_input} using the phone number ${phone_input} requesting to discontinue the verification."
+            "default": "We received a request from the property staff ${name_input} using the phone number ${owner_phone_2_input} requesting to discontinue the verification."
           },
           "conditions": [],
           "initiallyHidden": true,
@@ -855,9 +881,10 @@
           },
           "type": "Container",
           "direction": "row",
-          "gap": 16,
+          "gap": 8,
           "padding": 0,
-          "containerId": "d85898d9-33d0-46a6-aa40-0f047a0eaf3f"
+          "containerId": "d85898d9-33d0-46a6-aa40-0f047a0eaf3f",
+          "justifyContent": "flex-start"
         },
         {
           "id": "117711a0-8e96-4d2e-a04c-2142b30cd5e9",
@@ -869,8 +896,8 @@
           },
           "size": {
             "width": {
-              "unit": "%",
-              "value": 49
+              "unit": "px",
+              "value": 130
             },
             "height": {
               "unit": "auto",
@@ -895,8 +922,8 @@
           },
           "size": {
             "width": {
-              "unit": "%",
-              "value": 49
+              "unit": "px",
+              "value": 130
             },
             "height": {
               "unit": "auto",
@@ -910,6 +937,2659 @@
           "confirmCopy": true,
           "confirmationMessage": "Copied to clipboard.",
           "containerId": "5151fb6d-9027-4cf9-a76d-4d817002baa5"
+        },
+        {
+          "id": "f0c92533-df18-46ee-8ad1-b753d02e0cec",
+          "toolId": "b6e2a46b-e390-462d-84b2-595368217184",
+          "categoryId": "a5fdac86-18c1-4733-855f-242170dc0061",
+          "style": {},
+          "size": {
+            "width": {
+              "unit": "%",
+              "value": 100
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Container",
+          "direction": "column",
+          "gap": 16,
+          "padding": 0,
+          "containerId": "ea68c617-e065-46f5-8d6b-c9fbe726a8e0",
+          "visibility": {
+            "mode": "show",
+            "inputId": "cd5bab02-c924-4061-8122-b00664ac5a55",
+            "value": "verified_correct"
+          }
+        },
+        {
+          "id": "dd879566-0c71-42d8-98af-08709258b3ea",
+          "toolId": "b6e2a46b-e390-462d-84b2-595368217184",
+          "categoryId": "a5fdac86-18c1-4733-855f-242170dc0061",
+          "style": {},
+          "size": {
+            "width": {
+              "unit": "%",
+              "value": 100
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Container",
+          "direction": "row",
+          "gap": 16,
+          "padding": 0,
+          "containerId": "f0c92533-df18-46ee-8ad1-b753d02e0cec"
+        },
+        {
+          "id": "90b9e452-e223-409c-beb8-ecdca8b43cee",
+          "toolId": "b6e2a46b-e390-462d-84b2-595368217184",
+          "categoryId": "a5fdac86-18c1-4733-855f-242170dc0061",
+          "style": {
+            "color": "#334155",
+            "fontSize": 16,
+            "fontWeight": 600
+          },
+          "size": {
+            "width": {
+              "unit": "auto",
+              "value": 240
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Text",
+          "text": "Verified Correct",
+          "containerId": "dd879566-0c71-42d8-98af-08709258b3ea"
+        },
+        {
+          "id": "2b97261f-de8e-428d-9a7b-dd94e15a1d88",
+          "toolId": "b6e2a46b-e390-462d-84b2-595368217184",
+          "categoryId": "a5fdac86-18c1-4733-855f-242170dc0061",
+          "style": {
+            "color": "#ffffff",
+            "backgroundColor": "#ef4444"
+          },
+          "size": {
+            "width": {
+              "unit": "auto",
+              "value": 0
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Reset button",
+          "text": "Reset",
+          "behavior": "clear-all-inputs-and-hide-outputs",
+          "containerId": "dd879566-0c71-42d8-98af-08709258b3ea"
+        },
+        {
+          "id": "3a0ca6b0-73c5-4c66-9c80-50c0a5d2a934",
+          "toolId": "b6e2a46b-e390-462d-84b2-595368217184",
+          "categoryId": "a5fdac86-18c1-4733-855f-242170dc0061",
+          "style": {},
+          "size": {
+            "width": {
+              "unit": "%",
+              "value": 100
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Container",
+          "direction": "column",
+          "gap": 8,
+          "padding": 0,
+          "containerId": "f0c92533-df18-46ee-8ad1-b753d02e0cec"
+        },
+        {
+          "id": "ecc86bdf-a9c9-4870-b9a8-f9bc7731bfb4",
+          "toolId": "b6e2a46b-e390-462d-84b2-595368217184",
+          "categoryId": "a5fdac86-18c1-4733-855f-242170dc0061",
+          "style": {},
+          "size": {
+            "width": {
+              "unit": "%",
+              "value": 100
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Container",
+          "direction": "row",
+          "gap": 8,
+          "padding": 0,
+          "containerId": "3a0ca6b0-73c5-4c66-9c80-50c0a5d2a934"
+        },
+        {
+          "id": "verified_correct_1_gen_text",
+          "toolId": "b6e2a46b-e390-462d-84b2-595368217184",
+          "categoryId": "a5fdac86-18c1-4733-855f-242170dc0061",
+          "style": {},
+          "size": {
+            "width": {
+              "unit": "%",
+              "value": 85
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Output text",
+          "generatedText": {
+            "default": "Verified correct from the incoming call of  ${name_input} using the phone number ${phone_input}."
+          },
+          "conditions": [],
+          "initiallyHidden": true,
+          "containerId": "ecc86bdf-a9c9-4870-b9a8-f9bc7731bfb4"
+        },
+        {
+          "id": "73bae24c-b75d-431d-8f75-24fb70204b1d",
+          "toolId": "b6e2a46b-e390-462d-84b2-595368217184",
+          "categoryId": "a5fdac86-18c1-4733-855f-242170dc0061",
+          "style": {
+            "color": "#ffffff",
+            "backgroundColor": "#3b82f6"
+          },
+          "size": {
+            "width": {
+              "unit": "auto",
+              "value": 0
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Copy button",
+          "text": "Copy",
+          "link": "verified_correct_1_gen_text",
+          "visibility": "when-target-visible",
+          "confirmCopy": true,
+          "confirmationMessage": "Copied to clipboard.",
+          "containerId": "ecc86bdf-a9c9-4870-b9a8-f9bc7731bfb4"
+        },
+        {
+          "id": "4c4c6739-57f0-4132-a507-a15cdb6c2843",
+          "toolId": "b6e2a46b-e390-462d-84b2-595368217184",
+          "categoryId": "a5fdac86-18c1-4733-855f-242170dc0061",
+          "style": {},
+          "size": {
+            "width": {
+              "unit": "%",
+              "value": 100
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Container",
+          "direction": "row",
+          "gap": 8,
+          "padding": 0,
+          "containerId": "3a0ca6b0-73c5-4c66-9c80-50c0a5d2a934"
+        },
+        {
+          "id": "verified_correct_2_gen_text",
+          "toolId": "b6e2a46b-e390-462d-84b2-595368217184",
+          "categoryId": "a5fdac86-18c1-4733-855f-242170dc0061",
+          "style": {},
+          "size": {
+            "width": {
+              "unit": "%",
+              "value": 85
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Output text",
+          "generatedText": {
+            "default": "Incoming call from the reference ${name_input} using the phone number ${phone_input} to provide verification but the call got disconnected."
+          },
+          "conditions": [],
+          "initiallyHidden": true,
+          "containerId": "4c4c6739-57f0-4132-a507-a15cdb6c2843"
+        },
+        {
+          "id": "e2caa6ff-0a45-4ad9-aa17-4aa11baa792b",
+          "toolId": "b6e2a46b-e390-462d-84b2-595368217184",
+          "categoryId": "a5fdac86-18c1-4733-855f-242170dc0061",
+          "style": {
+            "color": "#ffffff",
+            "backgroundColor": "#3b82f6"
+          },
+          "size": {
+            "width": {
+              "unit": "auto",
+              "value": 0
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Copy button",
+          "text": "Copy",
+          "link": "verified_correct_2_gen_text",
+          "visibility": "when-target-visible",
+          "confirmCopy": true,
+          "confirmationMessage": "Copied to clipboard.",
+          "containerId": "4c4c6739-57f0-4132-a507-a15cdb6c2843"
+        },
+        {
+          "id": "a8b4b222-9208-4b85-b1f6-fb3bc90ce0ae",
+          "toolId": "b6e2a46b-e390-462d-84b2-595368217184",
+          "categoryId": "a5fdac86-18c1-4733-855f-242170dc0061",
+          "style": {},
+          "size": {
+            "width": {
+              "unit": "%",
+              "value": 100
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Container",
+          "direction": "row",
+          "gap": 8,
+          "padding": 0,
+          "containerId": "3a0ca6b0-73c5-4c66-9c80-50c0a5d2a934"
+        },
+        {
+          "id": "verified_correct_3_gen_text",
+          "toolId": "b6e2a46b-e390-462d-84b2-595368217184",
+          "categoryId": "a5fdac86-18c1-4733-855f-242170dc0061",
+          "style": {},
+          "size": {
+            "width": {
+              "unit": "%",
+              "value": 85
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Output text",
+          "generatedText": {
+            "default": "Incoming call from the reference ${name_input} using the phone number ${phone_input} confirming ownership of the address on file and being the applicant’s relative/friend."
+          },
+          "conditions": [],
+          "initiallyHidden": true,
+          "containerId": "a8b4b222-9208-4b85-b1f6-fb3bc90ce0ae"
+        },
+        {
+          "id": "1531010b-6150-49dc-878b-e999f86b055b",
+          "toolId": "b6e2a46b-e390-462d-84b2-595368217184",
+          "categoryId": "a5fdac86-18c1-4733-855f-242170dc0061",
+          "style": {
+            "color": "#ffffff",
+            "backgroundColor": "#3b82f6"
+          },
+          "size": {
+            "width": {
+              "unit": "auto",
+              "value": 0
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Copy button",
+          "text": "Copy",
+          "link": "verified_correct_3_gen_text",
+          "visibility": "when-target-visible",
+          "confirmCopy": true,
+          "confirmationMessage": "Copied to clipboard.",
+          "containerId": "a8b4b222-9208-4b85-b1f6-fb3bc90ce0ae"
+        },
+        {
+          "id": "16609321-35ca-4c27-a610-dba7db2443f9",
+          "toolId": "b6e2a46b-e390-462d-84b2-595368217184",
+          "categoryId": "a5fdac86-18c1-4733-855f-242170dc0061",
+          "style": {},
+          "size": {
+            "width": {
+              "unit": "%",
+              "value": 100
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Container",
+          "direction": "row",
+          "gap": 8,
+          "padding": 0,
+          "containerId": "3a0ca6b0-73c5-4c66-9c80-50c0a5d2a934"
+        },
+        {
+          "id": "verified_correct_4_gen_text",
+          "toolId": "b6e2a46b-e390-462d-84b2-595368217184",
+          "categoryId": "a5fdac86-18c1-4733-855f-242170dc0061",
+          "style": {},
+          "size": {
+            "width": {
+              "unit": "%",
+              "value": 85
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Output text",
+          "generatedText": {
+            "default": "Unable to verify - No 3rd party history provided. The reference on file is a relative/friend."
+          },
+          "conditions": [],
+          "initiallyHidden": true,
+          "containerId": "16609321-35ca-4c27-a610-dba7db2443f9"
+        },
+        {
+          "id": "5c9e7f00-2cdb-42a8-ba3e-3bcf0a5a6a79",
+          "toolId": "b6e2a46b-e390-462d-84b2-595368217184",
+          "categoryId": "a5fdac86-18c1-4733-855f-242170dc0061",
+          "style": {
+            "color": "#ffffff",
+            "backgroundColor": "#3b82f6"
+          },
+          "size": {
+            "width": {
+              "unit": "auto",
+              "value": 0
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Copy button",
+          "text": "Copy",
+          "link": "verified_correct_4_gen_text",
+          "visibility": "when-target-visible",
+          "confirmCopy": true,
+          "confirmationMessage": "Copied to clipboard.",
+          "containerId": "16609321-35ca-4c27-a610-dba7db2443f9"
+        },
+        {
+          "id": "f390c81e-e103-48ad-afb9-26d85b6299d7",
+          "toolId": "b6e2a46b-e390-462d-84b2-595368217184",
+          "categoryId": "a5fdac86-18c1-4733-855f-242170dc0061",
+          "style": {
+            "color": "#ffffff",
+            "backgroundColor": "#22c55e"
+          },
+          "size": {
+            "width": {
+              "unit": "%",
+              "value": 100
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Generate button",
+          "text": "Generate",
+          "link": [
+            "verified_correct_1_gen_text",
+            "verified_correct_2_gen_text",
+            "verified_correct_3_gen_text",
+            "verified_correct_4_gen_text"
+          ],
+          "containerId": "f0c92533-df18-46ee-8ad1-b753d02e0cec"
+        },
+        {
+          "id": "da4323c8-02f3-4e3d-a87b-1f22f6da114d",
+          "toolId": "b6e2a46b-e390-462d-84b2-595368217184",
+          "categoryId": "a5fdac86-18c1-4733-855f-242170dc0061",
+          "style": {},
+          "size": {
+            "width": {
+              "unit": "%",
+              "value": 100
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Container",
+          "direction": "column",
+          "gap": 16,
+          "padding": 0,
+          "containerId": "ea68c617-e065-46f5-8d6b-c9fbe726a8e0",
+          "visibility": {
+            "mode": "show",
+            "inputId": "cd5bab02-c924-4061-8122-b00664ac5a55",
+            "value": "line_check"
+          }
+        },
+        {
+          "id": "ce2acc75-c478-41da-b85c-cd96271e6031",
+          "toolId": "b6e2a46b-e390-462d-84b2-595368217184",
+          "categoryId": "a5fdac86-18c1-4733-855f-242170dc0061",
+          "style": {},
+          "size": {
+            "width": {
+              "unit": "%",
+              "value": 100
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Container",
+          "direction": "row",
+          "gap": 16,
+          "padding": 0,
+          "containerId": "da4323c8-02f3-4e3d-a87b-1f22f6da114d"
+        },
+        {
+          "id": "713a34f7-1cf2-4b2c-8ce2-a99601b4b5d2",
+          "toolId": "b6e2a46b-e390-462d-84b2-595368217184",
+          "categoryId": "a5fdac86-18c1-4733-855f-242170dc0061",
+          "style": {
+            "color": "#334155",
+            "fontSize": 16,
+            "fontWeight": 600
+          },
+          "size": {
+            "width": {
+              "unit": "auto",
+              "value": 240
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Text",
+          "text": "Line Check",
+          "containerId": "ce2acc75-c478-41da-b85c-cd96271e6031"
+        },
+        {
+          "id": "9078e1af-e0c8-4120-8ff6-874580b34a61",
+          "toolId": "b6e2a46b-e390-462d-84b2-595368217184",
+          "categoryId": "a5fdac86-18c1-4733-855f-242170dc0061",
+          "style": {
+            "color": "#ffffff",
+            "backgroundColor": "#ef4444"
+          },
+          "size": {
+            "width": {
+              "unit": "auto",
+              "value": 0
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Reset button",
+          "text": "Reset",
+          "behavior": "clear-all-inputs-and-hide-outputs",
+          "containerId": "ce2acc75-c478-41da-b85c-cd96271e6031"
+        },
+        {
+          "id": "63a2cb39-1a98-4a83-848d-b236bb1e7875",
+          "toolId": "b6e2a46b-e390-462d-84b2-595368217184",
+          "categoryId": "a5fdac86-18c1-4733-855f-242170dc0061",
+          "style": {},
+          "size": {
+            "width": {
+              "unit": "%",
+              "value": 100
+            },
+            "height": {
+              "unit": "auto",
+              "value": 80
+            }
+          },
+          "variableName": "line_check_radio_group",
+          "label": "",
+          "showLabel": false,
+          "placeholder": "",
+          "type": "Radio button",
+          "direction": "row",
+          "wrap": "wrap",
+          "options": [
+            {
+              "id": "381c6933-2317-4dd6-b711-e48de44bd36c",
+              "label": "landline",
+              "value": "landline"
+            },
+            {
+              "id": "6de1537f-e1f5-48dc-9e44-758d5bc8e88d",
+              "label": "toll-free",
+              "value": "toll-free"
+            },
+            {
+              "id": "cb8e04b0-6be1-4b20-a64d-929b52b27ba4",
+              "label": "VOIP",
+              "value": "VOIP"
+            },
+            {
+              "id": "c8356dfa-56df-44f6-ab54-7a8e1659caaa",
+              "label": "cellphone",
+              "value": "cellphone"
+            }
+          ],
+          "containerId": "da4323c8-02f3-4e3d-a87b-1f22f6da114d",
+          "justifyContent": "center",
+          "gap": 64
+        },
+        {
+          "id": "line_check_gen_text",
+          "toolId": "b6e2a46b-e390-462d-84b2-595368217184",
+          "categoryId": "a5fdac86-18c1-4733-855f-242170dc0061",
+          "style": {},
+          "size": {
+            "width": {
+              "unit": "%",
+              "value": 100
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Output text",
+          "generatedText": {
+            "default": "Employer phone number ${owner_phone_2_input} is a ${line_check_radio_group} as verified by: https://www.phonevalidator.com/results.aspx."
+          },
+          "conditions": [],
+          "initiallyHidden": true,
+          "containerId": "da4323c8-02f3-4e3d-a87b-1f22f6da114d"
+        },
+        {
+          "id": "3cec63df-19dc-4c0e-956d-3f5eaeb041d4",
+          "toolId": "b6e2a46b-e390-462d-84b2-595368217184",
+          "categoryId": "a5fdac86-18c1-4733-855f-242170dc0061",
+          "style": {},
+          "size": {
+            "width": {
+              "unit": "%",
+              "value": 100
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Container",
+          "direction": "row",
+          "gap": 8,
+          "padding": 0,
+          "containerId": "da4323c8-02f3-4e3d-a87b-1f22f6da114d",
+          "justifyContent": "flex-start"
+        },
+        {
+          "id": "ea7b8b06-76ce-46df-8ed7-382aa186f0c9",
+          "toolId": "b6e2a46b-e390-462d-84b2-595368217184",
+          "categoryId": "a5fdac86-18c1-4733-855f-242170dc0061",
+          "style": {
+            "color": "#ffffff",
+            "backgroundColor": "#22c55e"
+          },
+          "size": {
+            "width": {
+              "unit": "px",
+              "value": 130
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Generate button",
+          "text": "Generate",
+          "link": [
+            "line_check_gen_text"
+          ],
+          "containerId": "3cec63df-19dc-4c0e-956d-3f5eaeb041d4"
+        },
+        {
+          "id": "b3beb4e2-bf20-44e2-811e-b1a11c1bc980",
+          "toolId": "b6e2a46b-e390-462d-84b2-595368217184",
+          "categoryId": "a5fdac86-18c1-4733-855f-242170dc0061",
+          "style": {
+            "color": "#ffffff",
+            "backgroundColor": "#3b82f6"
+          },
+          "size": {
+            "width": {
+              "unit": "px",
+              "value": 130
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Copy button",
+          "text": "Copy",
+          "link": "line_check_gen_text",
+          "visibility": "when-target-visible",
+          "confirmCopy": true,
+          "confirmationMessage": "Copied to clipboard.",
+          "containerId": "3cec63df-19dc-4c0e-956d-3f5eaeb041d4"
+        },
+        {
+          "id": "62e4c209-3c33-4a20-ac9b-622d33883a68",
+          "toolId": "b6e2a46b-e390-462d-84b2-595368217184",
+          "categoryId": "a5fdac86-18c1-4733-855f-242170dc0061",
+          "style": {},
+          "size": {
+            "width": {
+              "unit": "%",
+              "value": 100
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Container",
+          "direction": "column",
+          "gap": 16,
+          "padding": 0,
+          "containerId": "ea68c617-e065-46f5-8d6b-c9fbe726a8e0",
+          "visibility": {
+            "mode": "show",
+            "inputId": "cd5bab02-c924-4061-8122-b00664ac5a55",
+            "value": "Release_of_Information"
+          }
+        },
+        {
+          "id": "9b261890-7697-4c2b-a88b-6a465bf3946c",
+          "toolId": "b6e2a46b-e390-462d-84b2-595368217184",
+          "categoryId": "a5fdac86-18c1-4733-855f-242170dc0061",
+          "style": {},
+          "size": {
+            "width": {
+              "unit": "%",
+              "value": 100
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Container",
+          "direction": "row",
+          "gap": 16,
+          "padding": 0,
+          "containerId": "62e4c209-3c33-4a20-ac9b-622d33883a68"
+        },
+        {
+          "id": "f2b24e6d-8462-45c4-a878-4b784eacf747",
+          "toolId": "b6e2a46b-e390-462d-84b2-595368217184",
+          "categoryId": "a5fdac86-18c1-4733-855f-242170dc0061",
+          "style": {
+            "color": "#334155",
+            "fontSize": 16,
+            "fontWeight": 600
+          },
+          "size": {
+            "width": {
+              "unit": "auto",
+              "value": 240
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Text",
+          "text": "ROI (Release of Information)",
+          "containerId": "9b261890-7697-4c2b-a88b-6a465bf3946c"
+        },
+        {
+          "id": "bd0ce40d-b398-474a-be94-531dd2dd604a",
+          "toolId": "b6e2a46b-e390-462d-84b2-595368217184",
+          "categoryId": "a5fdac86-18c1-4733-855f-242170dc0061",
+          "style": {
+            "color": "#ffffff",
+            "backgroundColor": "#ef4444"
+          },
+          "size": {
+            "width": {
+              "unit": "auto",
+              "value": 0
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Reset button",
+          "text": "Reset",
+          "behavior": "clear-all-inputs-and-hide-outputs",
+          "containerId": "9b261890-7697-4c2b-a88b-6a465bf3946c"
+        },
+        {
+          "id": "c88fa2e9-ce4c-4f4f-b312-c935e3537e4f",
+          "toolId": "b6e2a46b-e390-462d-84b2-595368217184",
+          "categoryId": "a5fdac86-18c1-4733-855f-242170dc0061",
+          "style": {},
+          "size": {
+            "width": {
+              "unit": "%",
+              "value": 100
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "variableName": "ROI_radio_group",
+          "label": "",
+          "showLabel": false,
+          "placeholder": "",
+          "type": "Radio button",
+          "direction": "column",
+          "wrap": "nowrap",
+          "justifyContent": "flex-start",
+          "alignContent": "stretch",
+          "gap": 8,
+          "options": [
+            {
+              "id": "dfb60634-fc9a-44d2-9516-13f4d74f08f0",
+              "label": "Wet Signed",
+              "value": "Wet Signed"
+            },
+            {
+              "id": "72d2e362-3a51-4b86-a79d-2630666ae60a",
+              "label": "Either Wet or Electronically Signed",
+              "value": "Either Wet or Electronically Signed"
+            }
+          ],
+          "containerId": "62e4c209-3c33-4a20-ac9b-622d33883a68"
+        },
+        {
+          "id": "5b4628a1-861f-4951-b4dd-90baa552853d",
+          "toolId": "b6e2a46b-e390-462d-84b2-595368217184",
+          "categoryId": "a5fdac86-18c1-4733-855f-242170dc0061",
+          "style": {},
+          "size": {
+            "width": {
+              "unit": "%",
+              "value": 100
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "variableName": "ROI_email_input",
+          "label": "Email",
+          "showLabel": true,
+          "placeholder": "you@example.com",
+          "type": "Email input",
+          "copyButton": {
+            "enabled": false,
+            "text": "Copy",
+            "confirmCopy": true,
+            "confirmationMessage": "Copied to clipboard."
+          },
+          "validation": {
+            "kind": "email",
+            "message": "Enter a valid email address."
+          },
+          "containerId": "62e4c209-3c33-4a20-ac9b-622d33883a68"
+        },
+        {
+          "id": "roi_gen_text",
+          "toolId": "b6e2a46b-e390-462d-84b2-595368217184",
+          "categoryId": "a5fdac86-18c1-4733-855f-242170dc0061",
+          "style": {},
+          "size": {
+            "width": {
+              "unit": "%",
+              "value": 100
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Output text",
+          "generatedText": {
+            "default": ""
+          },
+          "conditions": [
+            {
+              "id": "dd5198ac-c959-44e9-b517-fff67696086e",
+              "inputId": "c88fa2e9-ce4c-4f4f-b312-c935e3537e4f",
+              "operator": "equals",
+              "value": "Either Wet or Electronically Signed",
+              "text": "Incoming call from the reference ${name_input} using the phone ${owner_phone_2_input} requesting a release of information from the applicant sent to ${ROI_email_input} – either wet or electronically signed. "
+            },
+            {
+              "id": "cf44d25a-d694-4742-9565-1d78ed06b487",
+              "inputId": "c88fa2e9-ce4c-4f4f-b312-c935e3537e4f",
+              "operator": "equals",
+              "value": "Wet Signed",
+              "text": "Incoming call from the reference ${name_input} using the phone ${owner_phone_2_input} requiring a release of information with a wet signature from the applicant sent to ${ROI_email_input}."
+            }
+          ],
+          "initiallyHidden": true,
+          "containerId": "62e4c209-3c33-4a20-ac9b-622d33883a68"
+        },
+        {
+          "id": "21982b84-dc3a-4b37-a3e1-15344b309b04",
+          "toolId": "b6e2a46b-e390-462d-84b2-595368217184",
+          "categoryId": "a5fdac86-18c1-4733-855f-242170dc0061",
+          "style": {},
+          "size": {
+            "width": {
+              "unit": "%",
+              "value": 100
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Container",
+          "direction": "row",
+          "gap": 8,
+          "padding": 0,
+          "containerId": "62e4c209-3c33-4a20-ac9b-622d33883a68",
+          "justifyContent": "flex-start"
+        },
+        {
+          "id": "2a1555c9-6f9f-434b-8a81-8e560303aedb",
+          "toolId": "b6e2a46b-e390-462d-84b2-595368217184",
+          "categoryId": "a5fdac86-18c1-4733-855f-242170dc0061",
+          "style": {
+            "color": "#ffffff",
+            "backgroundColor": "#22c55e"
+          },
+          "size": {
+            "width": {
+              "unit": "px",
+              "value": 130
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Generate button",
+          "text": "Generate",
+          "link": [
+            "roi_gen_text"
+          ],
+          "containerId": "21982b84-dc3a-4b37-a3e1-15344b309b04"
+        },
+        {
+          "id": "2f3e6b4f-6f66-4c91-ad1b-0a5190d9cc17",
+          "toolId": "b6e2a46b-e390-462d-84b2-595368217184",
+          "categoryId": "a5fdac86-18c1-4733-855f-242170dc0061",
+          "style": {
+            "color": "#ffffff",
+            "backgroundColor": "#3b82f6"
+          },
+          "size": {
+            "width": {
+              "unit": "px",
+              "value": 130
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Copy button",
+          "text": "Copy",
+          "link": "roi_gen_text",
+          "visibility": "when-target-visible",
+          "confirmCopy": true,
+          "confirmationMessage": "Copied to clipboard.",
+          "containerId": "21982b84-dc3a-4b37-a3e1-15344b309b04"
+        },
+        {
+          "id": "1a92f5e7-cd1f-48db-a054-333cd5ec5317",
+          "toolId": "b6e2a46b-e390-462d-84b2-595368217184",
+          "categoryId": "a5fdac86-18c1-4733-855f-242170dc0061",
+          "style": {},
+          "size": {
+            "width": {
+              "unit": "%",
+              "value": 100
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Container",
+          "direction": "column",
+          "gap": 16,
+          "padding": 0,
+          "containerId": "ea68c617-e065-46f5-8d6b-c9fbe726a8e0",
+          "visibility": {
+            "mode": "show",
+            "inputId": "cd5bab02-c924-4061-8122-b00664ac5a55",
+            "value": "Sending_or_Resending_Form"
+          }
+        },
+        {
+          "id": "051ff041-441a-41de-b990-c0b37a2def04",
+          "toolId": "b6e2a46b-e390-462d-84b2-595368217184",
+          "categoryId": "a5fdac86-18c1-4733-855f-242170dc0061",
+          "style": {},
+          "size": {
+            "width": {
+              "unit": "%",
+              "value": 100
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Container",
+          "direction": "row",
+          "gap": 16,
+          "padding": 0,
+          "containerId": "1a92f5e7-cd1f-48db-a054-333cd5ec5317"
+        },
+        {
+          "id": "9e97a3aa-5c50-4343-89bd-f850dbfa824e",
+          "toolId": "b6e2a46b-e390-462d-84b2-595368217184",
+          "categoryId": "a5fdac86-18c1-4733-855f-242170dc0061",
+          "style": {
+            "color": "#334155",
+            "fontSize": 16,
+            "fontWeight": 600
+          },
+          "size": {
+            "width": {
+              "unit": "auto",
+              "value": 240
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Text",
+          "text": "Sending or Resending Form",
+          "containerId": "051ff041-441a-41de-b990-c0b37a2def04"
+        },
+        {
+          "id": "f829b7cf-94d8-4b75-9c07-2574b3fa496b",
+          "toolId": "b6e2a46b-e390-462d-84b2-595368217184",
+          "categoryId": "a5fdac86-18c1-4733-855f-242170dc0061",
+          "style": {
+            "color": "#ffffff",
+            "backgroundColor": "#ef4444"
+          },
+          "size": {
+            "width": {
+              "unit": "auto",
+              "value": 0
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Reset button",
+          "text": "Reset",
+          "behavior": "clear-all-inputs-and-hide-outputs",
+          "containerId": "051ff041-441a-41de-b990-c0b37a2def04"
+        },
+        {
+          "id": "fa864f9d-f9ee-49ba-9c8a-b7de2650ded6",
+          "toolId": "b6e2a46b-e390-462d-84b2-595368217184",
+          "categoryId": "a5fdac86-18c1-4733-855f-242170dc0061",
+          "style": {},
+          "size": {
+            "width": {
+              "unit": "%",
+              "value": 100
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "variableName": "Sending_or_Resending_Form_radio_group",
+          "label": "",
+          "showLabel": false,
+          "placeholder": "",
+          "type": "Radio button",
+          "direction": "row",
+          "wrap": "nowrap",
+          "justifyContent": "flex-start",
+          "alignContent": "stretch",
+          "gap": 16,
+          "options": [
+            {
+              "id": "4883f199-d7f0-401b-bfef-768e0914ec19",
+              "label": "PDF Version",
+              "value": "PDF Version"
+            },
+            {
+              "id": "39f6108b-2430-4a77-a2da-998655027264",
+              "label": "Web Form",
+              "value": "Web Form"
+            }
+          ],
+          "containerId": "1a92f5e7-cd1f-48db-a054-333cd5ec5317"
+        },
+        {
+          "id": "cf6cd46d-5d64-4d54-b293-cac758f392cb",
+          "toolId": "b6e2a46b-e390-462d-84b2-595368217184",
+          "categoryId": "a5fdac86-18c1-4733-855f-242170dc0061",
+          "style": {},
+          "size": {
+            "width": {
+              "unit": "%",
+              "value": 100
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "variableName": "Sending_or_Resending_Form_email_input",
+          "label": "Email",
+          "showLabel": true,
+          "placeholder": "you@example.com",
+          "type": "Email input",
+          "copyButton": {
+            "enabled": false,
+            "text": "Copy",
+            "confirmCopy": true,
+            "confirmationMessage": "Copied to clipboard."
+          },
+          "validation": {
+            "kind": "email",
+            "message": "Enter a valid email address."
+          },
+          "containerId": "1a92f5e7-cd1f-48db-a054-333cd5ec5317"
+        },
+        {
+          "id": "Sending_or_Resending_Form_gen_text",
+          "toolId": "b6e2a46b-e390-462d-84b2-595368217184",
+          "categoryId": "a5fdac86-18c1-4733-855f-242170dc0061",
+          "style": {},
+          "size": {
+            "width": {
+              "unit": "%",
+              "value": 100
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Output text",
+          "generatedText": {
+            "default": ""
+          },
+          "conditions": [
+            {
+              "id": "493a54b1-121d-46f5-9c14-7d4456225367",
+              "inputId": "fa864f9d-f9ee-49ba-9c8a-b7de2650ded6",
+              "operator": "equals",
+              "value": "PDF Version",
+              "text": "Incoming call from the reference ${name_input} using the phone ${owner_phone_2_input} requesting to send the verification form in PDF version to ${Sending_or_Resending_Form_email_input}."
+            },
+            {
+              "id": "f37ff09b-38cf-4191-8c17-1cc808e13b10",
+              "inputId": "fa864f9d-f9ee-49ba-9c8a-b7de2650ded6",
+              "operator": "equals",
+              "value": "Web Form",
+              "text": "Incoming call from the reference ${name_input} using the phone ${owner_phone_2_input} requesting to send the webform to ${Sending_or_Resending_Form_email_input}"
+            }
+          ],
+          "initiallyHidden": true,
+          "containerId": "1a92f5e7-cd1f-48db-a054-333cd5ec5317"
+        },
+        {
+          "id": "097607d9-533d-45d2-bc76-e414ce0bcadc",
+          "toolId": "b6e2a46b-e390-462d-84b2-595368217184",
+          "categoryId": "a5fdac86-18c1-4733-855f-242170dc0061",
+          "style": {},
+          "size": {
+            "width": {
+              "unit": "%",
+              "value": 100
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Container",
+          "direction": "row",
+          "gap": 8,
+          "padding": 0,
+          "containerId": "1a92f5e7-cd1f-48db-a054-333cd5ec5317",
+          "justifyContent": "flex-start"
+        },
+        {
+          "id": "e1dffc67-7ece-4d90-99c2-a7f49489f4e9",
+          "toolId": "b6e2a46b-e390-462d-84b2-595368217184",
+          "categoryId": "a5fdac86-18c1-4733-855f-242170dc0061",
+          "style": {
+            "color": "#ffffff",
+            "backgroundColor": "#22c55e"
+          },
+          "size": {
+            "width": {
+              "unit": "px",
+              "value": 130
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Generate button",
+          "text": "Generate",
+          "link": [
+            "Sending_or_Resending_Form_gen_text"
+          ],
+          "containerId": "097607d9-533d-45d2-bc76-e414ce0bcadc"
+        },
+        {
+          "id": "18dcabdf-9190-496a-9cd0-1fe82e1b627b",
+          "toolId": "b6e2a46b-e390-462d-84b2-595368217184",
+          "categoryId": "a5fdac86-18c1-4733-855f-242170dc0061",
+          "style": {
+            "color": "#ffffff",
+            "backgroundColor": "#3b82f6"
+          },
+          "size": {
+            "width": {
+              "unit": "px",
+              "value": 130
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Copy button",
+          "text": "Copy",
+          "link": "Sending_or_Resending_Form_gen_text",
+          "visibility": "when-target-visible",
+          "confirmCopy": true,
+          "confirmationMessage": "Copied to clipboard.",
+          "containerId": "097607d9-533d-45d2-bc76-e414ce0bcadc"
+        },
+        {
+          "id": "27aae8f8-204a-4ffd-9786-30f57a14e6c7",
+          "toolId": "b6e2a46b-e390-462d-84b2-595368217184",
+          "categoryId": "a5fdac86-18c1-4733-855f-242170dc0061",
+          "style": {},
+          "size": {
+            "width": {
+              "unit": "%",
+              "value": 100
+            },
+            "height": {
+              "unit": "auto",
+              "value": 80
+            }
+          },
+          "type": "Container",
+          "direction": "column",
+          "gap": 16,
+          "padding": 0,
+          "containerId": "ea68c617-e065-46f5-8d6b-c9fbe726a8e0",
+          "visibility": {
+            "mode": "show",
+            "inputId": "cd5bab02-c924-4061-8122-b00664ac5a55",
+            "value": "Reference_Leaseholder"
+          }
+        },
+        {
+          "id": "5332307f-76a4-4ef5-ab3f-cc676af433f8",
+          "toolId": "b6e2a46b-e390-462d-84b2-595368217184",
+          "categoryId": "a5fdac86-18c1-4733-855f-242170dc0061",
+          "style": {},
+          "size": {
+            "width": {
+              "unit": "%",
+              "value": 100
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Container",
+          "direction": "row",
+          "gap": 16,
+          "padding": 0,
+          "containerId": "27aae8f8-204a-4ffd-9786-30f57a14e6c7"
+        },
+        {
+          "id": "88113cb5-00bc-43ab-a8fa-1d9f7c4a1686",
+          "toolId": "b6e2a46b-e390-462d-84b2-595368217184",
+          "categoryId": "a5fdac86-18c1-4733-855f-242170dc0061",
+          "style": {
+            "color": "#334155",
+            "fontSize": 16,
+            "fontWeight": 600
+          },
+          "size": {
+            "width": {
+              "unit": "auto",
+              "value": 240
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Text",
+          "text": "Reference - Leaseholder",
+          "containerId": "5332307f-76a4-4ef5-ab3f-cc676af433f8"
+        },
+        {
+          "id": "3b058aeb-be96-4d5d-ad8f-5d11bf1ad02d",
+          "toolId": "b6e2a46b-e390-462d-84b2-595368217184",
+          "categoryId": "a5fdac86-18c1-4733-855f-242170dc0061",
+          "style": {
+            "color": "#ffffff",
+            "backgroundColor": "#ef4444"
+          },
+          "size": {
+            "width": {
+              "unit": "auto",
+              "value": 0
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Reset button",
+          "text": "Reset",
+          "behavior": "clear-all-inputs-and-hide-outputs",
+          "containerId": "5332307f-76a4-4ef5-ab3f-cc676af433f8"
+        },
+        {
+          "id": "7450c115-c6fb-4c5c-b781-da8e2d5e9dd5",
+          "toolId": "b6e2a46b-e390-462d-84b2-595368217184",
+          "categoryId": "a5fdac86-18c1-4733-855f-242170dc0061",
+          "style": {},
+          "size": {
+            "width": {
+              "unit": "%",
+              "value": 100
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "variableName": "Is_the_applicant_name_on_the_lease_radio_group",
+          "label": "Is the applicant name on the lease?",
+          "showLabel": true,
+          "placeholder": "",
+          "type": "Radio button",
+          "direction": "column",
+          "wrap": "nowrap",
+          "justifyContent": "flex-start",
+          "alignContent": "stretch",
+          "gap": 8,
+          "options": [
+            {
+              "id": "8fb51642-841e-47c8-9558-a5df8b130732",
+              "label": "Yes",
+              "value": "Yes"
+            },
+            {
+              "id": "c9f64642-c5b5-47e6-9a7a-d7ff8ce6e39d",
+              "label": "No",
+              "value": "No"
+            }
+          ],
+          "containerId": "27aae8f8-204a-4ffd-9786-30f57a14e6c7"
+        },
+        {
+          "id": "0dc3baf7-abc0-460e-acc5-0059141b340d",
+          "toolId": "b6e2a46b-e390-462d-84b2-595368217184",
+          "categoryId": "a5fdac86-18c1-4733-855f-242170dc0061",
+          "style": {},
+          "size": {
+            "width": {
+              "unit": "%",
+              "value": 100
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Container",
+          "direction": "column",
+          "gap": 16,
+          "padding": 0,
+          "containerId": "27aae8f8-204a-4ffd-9786-30f57a14e6c7",
+          "visibility": {
+            "mode": "show",
+            "inputId": "7450c115-c6fb-4c5c-b781-da8e2d5e9dd5",
+            "value": "Yes"
+          }
+        },
+        {
+          "id": "d5c47705-24e4-49f1-9d89-223c65fbe334",
+          "toolId": "b6e2a46b-e390-462d-84b2-595368217184",
+          "categoryId": "a5fdac86-18c1-4733-855f-242170dc0061",
+          "style": {},
+          "size": {
+            "width": {
+              "unit": "%",
+              "value": 100
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "variableName": "Did_the_reference_provided_the_prop_owners_contact_radio_group",
+          "label": "Did the reference provided the prop owner’s contact",
+          "showLabel": true,
+          "placeholder": "",
+          "type": "Radio button",
+          "direction": "column",
+          "wrap": "nowrap",
+          "justifyContent": "flex-start",
+          "alignContent": "stretch",
+          "gap": 8,
+          "options": [
+            {
+              "id": "efa1683e-cd67-47da-aa5b-aa6efd540269",
+              "label": "Yes",
+              "value": "Yes"
+            },
+            {
+              "id": "f0664970-fcfd-4423-9740-e4ddb1ef96eb",
+              "label": "No",
+              "value": "No"
+            }
+          ],
+          "containerId": "0dc3baf7-abc0-460e-acc5-0059141b340d"
+        },
+        {
+          "id": "3bc03bc7-0886-4f1c-bec6-c423deb0d75a",
+          "toolId": "b6e2a46b-e390-462d-84b2-595368217184",
+          "categoryId": "a5fdac86-18c1-4733-855f-242170dc0061",
+          "style": {},
+          "size": {
+            "width": {
+              "unit": "%",
+              "value": 100
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Container",
+          "direction": "column",
+          "gap": 16,
+          "padding": 0,
+          "containerId": "27aae8f8-204a-4ffd-9786-30f57a14e6c7",
+          "visibility": {
+            "mode": "show",
+            "inputId": "d5c47705-24e4-49f1-9d89-223c65fbe334",
+            "value": "Yes"
+          }
+        },
+        {
+          "id": "5074581a-1570-4467-9cfe-2d7d9589b8ef",
+          "toolId": "b6e2a46b-e390-462d-84b2-595368217184",
+          "categoryId": "a5fdac86-18c1-4733-855f-242170dc0061",
+          "style": {},
+          "size": {
+            "width": {
+              "unit": "%",
+              "value": 100
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "variableName": "owner_name_input",
+          "label": "Owner Name",
+          "showLabel": true,
+          "placeholder": "Enter text",
+          "type": "Text input",
+          "textCase": "pascal",
+          "copyButton": {
+            "enabled": true,
+            "text": "Copy",
+            "confirmCopy": true,
+            "confirmationMessage": "Copied to clipboard."
+          },
+          "containerId": "3bc03bc7-0886-4f1c-bec6-c423deb0d75a"
+        },
+        {
+          "id": "9cfba5e0-c875-46f6-8a83-291b8d083de6",
+          "toolId": "b6e2a46b-e390-462d-84b2-595368217184",
+          "categoryId": "a5fdac86-18c1-4733-855f-242170dc0061",
+          "style": {},
+          "size": {
+            "width": {
+              "unit": "%",
+              "value": 100
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "variableName": "owner_phone_input",
+          "label": "Owner Phone",
+          "showLabel": true,
+          "placeholder": "(123) 456-7890",
+          "type": "Phone input",
+          "copyButton": {
+            "enabled": true,
+            "text": "Copy",
+            "confirmCopy": true,
+            "confirmationMessage": "Copied to clipboard."
+          },
+          "format": "(###) ###-####",
+          "maxDigits": 10,
+          "validation": {
+            "kind": "phone",
+            "message": "Enter a valid 10-digit phone number."
+          },
+          "containerId": "3bc03bc7-0886-4f1c-bec6-c423deb0d75a"
+        },
+        {
+          "id": "Yes_Did_the_reference_provided_the_prop_owners_contact_radio_group_gen_text",
+          "toolId": "b6e2a46b-e390-462d-84b2-595368217184",
+          "categoryId": "a5fdac86-18c1-4733-855f-242170dc0061",
+          "style": {},
+          "size": {
+            "width": {
+              "unit": "%",
+              "value": 100
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Output text",
+          "generatedText": {
+            "default": "Incoming call from the reference ${name_input} using the phone ${owner_phone_2_input} who identified themselves as the leaseholder and confirmed that the applicant's name is on the lease. The reference provided the owner’s contact information: ${owner_name_2_input} and ${owner_phone_2_input}."
+          },
+          "conditions": [],
+          "initiallyHidden": true,
+          "containerId": "3bc03bc7-0886-4f1c-bec6-c423deb0d75a"
+        },
+        {
+          "id": "4ec8c761-a523-4fdb-9a06-2cd5982bef6f",
+          "toolId": "b6e2a46b-e390-462d-84b2-595368217184",
+          "categoryId": "a5fdac86-18c1-4733-855f-242170dc0061",
+          "style": {},
+          "size": {
+            "width": {
+              "unit": "%",
+              "value": 100
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Container",
+          "direction": "row",
+          "gap": 8,
+          "padding": 0,
+          "containerId": "3bc03bc7-0886-4f1c-bec6-c423deb0d75a",
+          "justifyContent": "flex-start"
+        },
+        {
+          "id": "8dac002b-cdee-44cc-a80f-83cf6de648ef",
+          "toolId": "b6e2a46b-e390-462d-84b2-595368217184",
+          "categoryId": "a5fdac86-18c1-4733-855f-242170dc0061",
+          "style": {
+            "color": "#ffffff",
+            "backgroundColor": "#22c55e"
+          },
+          "size": {
+            "width": {
+              "unit": "px",
+              "value": 130
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Generate button",
+          "text": "Generate",
+          "link": [
+            "Yes_Did_the_reference_provided_the_prop_owners_contact_radio_group_gen_text"
+          ],
+          "containerId": "4ec8c761-a523-4fdb-9a06-2cd5982bef6f"
+        },
+        {
+          "id": "9a04783d-7e99-4449-ace4-2de185775307",
+          "toolId": "b6e2a46b-e390-462d-84b2-595368217184",
+          "categoryId": "a5fdac86-18c1-4733-855f-242170dc0061",
+          "style": {
+            "color": "#ffffff",
+            "backgroundColor": "#3b82f6"
+          },
+          "size": {
+            "width": {
+              "unit": "px",
+              "value": 130
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Copy button",
+          "text": "Copy",
+          "link": "Yes_Did_the_reference_provided_the_prop_owners_contact_radio_group_gen_text",
+          "visibility": "when-target-visible",
+          "confirmCopy": true,
+          "confirmationMessage": "Copied to clipboard.",
+          "containerId": "4ec8c761-a523-4fdb-9a06-2cd5982bef6f"
+        },
+        {
+          "id": "95e51eab-2282-461f-bab4-cee04c35674b",
+          "toolId": "b6e2a46b-e390-462d-84b2-595368217184",
+          "categoryId": "a5fdac86-18c1-4733-855f-242170dc0061",
+          "style": {},
+          "size": {
+            "width": {
+              "unit": "%",
+              "value": 100
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Container",
+          "direction": "column",
+          "gap": 16,
+          "padding": 0,
+          "visibility": {
+            "mode": "show",
+            "inputId": "d5c47705-24e4-49f1-9d89-223c65fbe334",
+            "value": "No"
+          },
+          "containerId": "27aae8f8-204a-4ffd-9786-30f57a14e6c7"
+        },
+        {
+          "id": "2e84b7be-5ae7-487a-9e8c-37aa247bf40e",
+          "toolId": "b6e2a46b-e390-462d-84b2-595368217184",
+          "categoryId": "a5fdac86-18c1-4733-855f-242170dc0061",
+          "style": {},
+          "size": {
+            "width": {
+              "unit": "%",
+              "value": 100
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Divider",
+          "orientation": "horizontal",
+          "containerId": "95e51eab-2282-461f-bab4-cee04c35674b"
+        },
+        {
+          "id": "f334836c-bf66-452f-85bc-32130cbc812a",
+          "toolId": "b6e2a46b-e390-462d-84b2-595368217184",
+          "categoryId": "a5fdac86-18c1-4733-855f-242170dc0061",
+          "style": {},
+          "size": {
+            "width": {
+              "unit": "%",
+              "value": 100
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "variableName": "No_Did_the_reference_provided_the_prop_owners_contact_radio_group_radio_group",
+          "label": "",
+          "showLabel": false,
+          "placeholder": "",
+          "type": "Radio button",
+          "direction": "column",
+          "wrap": "nowrap",
+          "justifyContent": "flex-start",
+          "alignContent": "stretch",
+          "gap": 8,
+          "options": [
+            {
+              "id": "1095cde5-d13b-4d43-b10c-a6d19abb2882",
+              "label": "Would Callback",
+              "value": "Would Callback"
+            },
+            {
+              "id": "9befc566-5078-4585-9e58-a91374b83bce",
+              "label": "Refused Contact",
+              "value": "Refused Contact"
+            },
+            {
+              "id": "82756c5c-9ec5-40c7-8bca-42177c4eb1f2",
+              "label": "No Owner’s Contact Info",
+              "value": "No Owner’s Contact Info"
+            },
+            {
+              "id": "7f682170-4d42-4c10-9851-ad5c60f535be",
+              "label": "Would Confirm First",
+              "value": "Would Confirm First"
+            }
+          ],
+          "containerId": "95e51eab-2282-461f-bab4-cee04c35674b"
+        },
+        {
+          "id": "No_Did_the_reference_provided_the_prop_owners_contact_radio_group_gen_text",
+          "toolId": "b6e2a46b-e390-462d-84b2-595368217184",
+          "categoryId": "a5fdac86-18c1-4733-855f-242170dc0061",
+          "style": {},
+          "size": {
+            "width": {
+              "unit": "%",
+              "value": 100
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Output text",
+          "generatedText": {
+            "default": ""
+          },
+          "conditions": [
+            {
+              "id": "7ef7b528-0d55-4cb6-9b2f-ee3b07f1d80e",
+              "inputId": "f334836c-bf66-452f-85bc-32130cbc812a",
+              "operator": "equals",
+              "value": "Would Callback",
+              "text": "Incoming call from the reference ${name_input} using the phone ${owner_phone_2_input} who identified themselves as the leaseholder and confirmed that the applicant's name is on the lease. The reference would callback with the owner’s contact information."
+            },
+            {
+              "id": "d5549dd6-f1dc-47a6-9973-c68f2c5677d0",
+              "inputId": "f334836c-bf66-452f-85bc-32130cbc812a",
+              "operator": "equals",
+              "value": "Refused Contact",
+              "text": "Incoming call from the reference ${name_input} using the phone ${owner_phone_2_input} who identified themselves as the leaseholder and confirmed that the applicant's name is on the lease but refused direct contact with the owner.\n\nUnable to verify - the listed reference is a leaseholder and does not authorize a direct contact with the owner."
+            },
+            {
+              "id": "38e955b2-4ea0-4627-a2b3-32be5e134df9",
+              "inputId": "f334836c-bf66-452f-85bc-32130cbc812a",
+              "operator": "equals",
+              "value": "No Owner’s Contact Info",
+              "text": "Incoming call from the reference ${name_input} using the phone ${owner_phone_2_input} who identified themselves as the leaseholder and confirmed that the applicant's name is on the lease but does not have contact information for the owner.\n\nUnable to verify - the listed reference is a leaseholder and does not have a contact information for the owner."
+            },
+            {
+              "id": "85f22007-ec7f-458f-be9e-1e9dd1e67ca8",
+              "inputId": "f334836c-bf66-452f-85bc-32130cbc812a",
+              "operator": "equals",
+              "value": "Would Confirm First",
+              "text": "Incoming call from the reference ${name_input} using the phone ${owner_phone_2_input} who identified themselves as the leaseholder and confirmed that the applicant's name is on the lease and would seek permission with the owner first before disclosing any contact information."
+            }
+          ],
+          "initiallyHidden": true,
+          "containerId": "95e51eab-2282-461f-bab4-cee04c35674b"
+        },
+        {
+          "id": "f3629bbe-c2cf-48fe-aaf9-92e233a63786",
+          "toolId": "b6e2a46b-e390-462d-84b2-595368217184",
+          "categoryId": "a5fdac86-18c1-4733-855f-242170dc0061",
+          "style": {},
+          "size": {
+            "width": {
+              "unit": "%",
+              "value": 100
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Container",
+          "direction": "row",
+          "gap": 8,
+          "padding": 0,
+          "justifyContent": "flex-start",
+          "containerId": "95e51eab-2282-461f-bab4-cee04c35674b"
+        },
+        {
+          "id": "f6e0ad8f-3e74-4d89-b5c9-3ef6f24b579c",
+          "toolId": "b6e2a46b-e390-462d-84b2-595368217184",
+          "categoryId": "a5fdac86-18c1-4733-855f-242170dc0061",
+          "style": {
+            "color": "#ffffff",
+            "backgroundColor": "#22c55e"
+          },
+          "size": {
+            "width": {
+              "unit": "px",
+              "value": 130
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Generate button",
+          "text": "Generate",
+          "link": [
+            "No_Did_the_reference_provided_the_prop_owners_contact_radio_group_gen_text"
+          ],
+          "containerId": "f3629bbe-c2cf-48fe-aaf9-92e233a63786"
+        },
+        {
+          "id": "6482ea22-caaa-4191-9857-823b32be2098",
+          "toolId": "b6e2a46b-e390-462d-84b2-595368217184",
+          "categoryId": "a5fdac86-18c1-4733-855f-242170dc0061",
+          "style": {
+            "color": "#ffffff",
+            "backgroundColor": "#3b82f6"
+          },
+          "size": {
+            "width": {
+              "unit": "px",
+              "value": 130
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Copy button",
+          "text": "Copy",
+          "link": "No_Did_the_reference_provided_the_prop_owners_contact_radio_group_gen_text",
+          "visibility": "when-target-visible",
+          "confirmCopy": true,
+          "confirmationMessage": "Copied to clipboard.",
+          "containerId": "f3629bbe-c2cf-48fe-aaf9-92e233a63786"
+        },
+        {
+          "id": "8058e664-d061-4843-95ca-85b0ab6c68ee",
+          "toolId": "b6e2a46b-e390-462d-84b2-595368217184",
+          "categoryId": "a5fdac86-18c1-4733-855f-242170dc0061",
+          "style": {},
+          "size": {
+            "width": {
+              "unit": "%",
+              "value": 100
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Container",
+          "direction": "column",
+          "gap": 16,
+          "padding": 0,
+          "containerId": "27aae8f8-204a-4ffd-9786-30f57a14e6c7",
+          "visibility": {
+            "mode": "show",
+            "inputId": "7450c115-c6fb-4c5c-b781-da8e2d5e9dd5",
+            "value": "No"
+          }
+        },
+        {
+          "id": "d21701c5-4c9e-447c-92b3-11272e0b4549",
+          "toolId": "b6e2a46b-e390-462d-84b2-595368217184",
+          "categoryId": "a5fdac86-18c1-4733-855f-242170dc0061",
+          "style": {},
+          "size": {
+            "width": {
+              "unit": "%",
+              "value": 100
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "variableName": "Is_the_owner_aware_of_the_applicants_tenancy_radio_group",
+          "label": "Is the owner aware of the applicant’s tenancy?",
+          "showLabel": true,
+          "placeholder": "",
+          "type": "Radio button",
+          "direction": "column",
+          "wrap": "nowrap",
+          "justifyContent": "flex-start",
+          "alignContent": "stretch",
+          "gap": 8,
+          "options": [
+            {
+              "id": "0f87f4ee-8ea9-4857-b0e8-835cd0e8d3d5",
+              "label": "Yes",
+              "value": "Yes"
+            },
+            {
+              "id": "5c3e108a-557f-4e3a-a78d-af2f8619eb7d",
+              "label": "No",
+              "value": "No"
+            }
+          ],
+          "containerId": "8058e664-d061-4843-95ca-85b0ab6c68ee"
+        },
+        {
+          "id": "fefeac32-4477-4a21-b6dd-8dd88b9ad373",
+          "toolId": "b6e2a46b-e390-462d-84b2-595368217184",
+          "categoryId": "a5fdac86-18c1-4733-855f-242170dc0061",
+          "style": {},
+          "size": {
+            "width": {
+              "unit": "%",
+              "value": 100
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Container",
+          "direction": "column",
+          "gap": 16,
+          "padding": 0,
+          "containerId": "8058e664-d061-4843-95ca-85b0ab6c68ee",
+          "visibility": {
+            "mode": "show",
+            "inputId": "d21701c5-4c9e-447c-92b3-11272e0b4549",
+            "value": "No"
+          }
+        },
+        {
+          "id": "No_Is_the_owner_aware_of_the_applicants_tenancy_radio_group_gen_text",
+          "toolId": "b6e2a46b-e390-462d-84b2-595368217184",
+          "categoryId": "a5fdac86-18c1-4733-855f-242170dc0061",
+          "style": {},
+          "size": {
+            "width": {
+              "unit": "%",
+              "value": 100
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Output text",
+          "generatedText": {
+            "default": "Incoming call from the reference ${name_input} using the phone ${owner_phone_2_input} who identified themselves as the leaseholder. The reference confirmed that the applicant's name is not on the lease and the owner is unaware of the applicant’s tenancy.\n\nUnable to verify: the owner is not aware of the applicant’s tenancy."
+          },
+          "conditions": [],
+          "initiallyHidden": true,
+          "containerId": "fefeac32-4477-4a21-b6dd-8dd88b9ad373"
+        },
+        {
+          "id": "c1b4b2f6-2632-4570-b30c-4dde344f41c8",
+          "toolId": "b6e2a46b-e390-462d-84b2-595368217184",
+          "categoryId": "a5fdac86-18c1-4733-855f-242170dc0061",
+          "style": {},
+          "size": {
+            "width": {
+              "unit": "%",
+              "value": 100
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Container",
+          "direction": "row",
+          "gap": 8,
+          "padding": 0,
+          "containerId": "fefeac32-4477-4a21-b6dd-8dd88b9ad373",
+          "justifyContent": "flex-start"
+        },
+        {
+          "id": "2b2e7cf9-7872-4096-b023-2f92bd87fcde",
+          "toolId": "b6e2a46b-e390-462d-84b2-595368217184",
+          "categoryId": "a5fdac86-18c1-4733-855f-242170dc0061",
+          "style": {
+            "color": "#ffffff",
+            "backgroundColor": "#22c55e"
+          },
+          "size": {
+            "width": {
+              "unit": "px",
+              "value": 130
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Generate button",
+          "text": "Generate",
+          "link": [
+            "No_Is_the_owner_aware_of_the_applicants_tenancy_radio_group_gen_text"
+          ],
+          "containerId": "c1b4b2f6-2632-4570-b30c-4dde344f41c8"
+        },
+        {
+          "id": "a5e6f54e-6f82-473c-9031-631e2228ae4c",
+          "toolId": "b6e2a46b-e390-462d-84b2-595368217184",
+          "categoryId": "a5fdac86-18c1-4733-855f-242170dc0061",
+          "style": {
+            "color": "#ffffff",
+            "backgroundColor": "#3b82f6"
+          },
+          "size": {
+            "width": {
+              "unit": "px",
+              "value": 130
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Copy button",
+          "text": "Copy",
+          "link": "No_Is_the_owner_aware_of_the_applicants_tenancy_radio_group_gen_text",
+          "visibility": "when-target-visible",
+          "confirmCopy": true,
+          "confirmationMessage": "Copied to clipboard.",
+          "containerId": "c1b4b2f6-2632-4570-b30c-4dde344f41c8"
+        },
+        {
+          "id": "d2473709-a88f-4ccc-afd0-068b5f3059a8",
+          "toolId": "b6e2a46b-e390-462d-84b2-595368217184",
+          "categoryId": "a5fdac86-18c1-4733-855f-242170dc0061",
+          "style": {},
+          "size": {
+            "width": {
+              "unit": "%",
+              "value": 100
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Container",
+          "direction": "column",
+          "gap": 16,
+          "padding": 0,
+          "containerId": "8058e664-d061-4843-95ca-85b0ab6c68ee",
+          "visibility": {
+            "mode": "show",
+            "inputId": "d21701c5-4c9e-447c-92b3-11272e0b4549",
+            "value": "Yes"
+          }
+        },
+        {
+          "id": "55b11816-11e9-4072-8718-27b01caf8ff1",
+          "toolId": "b6e2a46b-e390-462d-84b2-595368217184",
+          "categoryId": "a5fdac86-18c1-4733-855f-242170dc0061",
+          "style": {},
+          "size": {
+            "width": {
+              "unit": "%",
+              "value": 100
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "variableName": "Did_the_reference_allowed_direct_contact_with_the_owner_radio_group",
+          "label": "Did the reference allowed direct contact  with the owner?",
+          "showLabel": true,
+          "placeholder": "",
+          "type": "Radio button",
+          "direction": "column",
+          "wrap": "nowrap",
+          "justifyContent": "flex-start",
+          "alignContent": "stretch",
+          "gap": 8,
+          "options": [
+            {
+              "id": "aa8b9f89-ede6-4420-aada-0aa6258e696b",
+              "label": "Yes",
+              "value": "Yes"
+            },
+            {
+              "id": "bb09494f-4293-4732-ab97-b954800eac8c",
+              "label": "No",
+              "value": "No"
+            }
+          ],
+          "containerId": "d2473709-a88f-4ccc-afd0-068b5f3059a8"
+        },
+        {
+          "id": "6b403468-09ee-4203-a399-571c5adcc9b3",
+          "toolId": "b6e2a46b-e390-462d-84b2-595368217184",
+          "categoryId": "a5fdac86-18c1-4733-855f-242170dc0061",
+          "style": {},
+          "size": {
+            "width": {
+              "unit": "%",
+              "value": 100
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Container",
+          "direction": "column",
+          "gap": 16,
+          "padding": 0,
+          "containerId": "d2473709-a88f-4ccc-afd0-068b5f3059a8",
+          "visibility": {
+            "mode": "show",
+            "inputId": "55b11816-11e9-4072-8718-27b01caf8ff1",
+            "value": "No"
+          }
+        },
+        {
+          "id": "No_Did_the_reference_allowed_direct_contact_with_the_owner_gen_text",
+          "toolId": "b6e2a46b-e390-462d-84b2-595368217184",
+          "categoryId": "a5fdac86-18c1-4733-855f-242170dc0061",
+          "style": {},
+          "size": {
+            "width": {
+              "unit": "%",
+              "value": 100
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Output text",
+          "generatedText": {
+            "default": "Incoming call from the reference ${name_input} using the phone ${owner_phone_2_input} who identified themselves as the leaseholder and confirmed that the applicant's name is not on the lease. However, direct contact with the property owner is not permitted.\n\n\nUnable to verify: the listed reference is a leaseholder and does not authorize a direct contact with the property owner."
+          },
+          "conditions": [],
+          "initiallyHidden": true,
+          "containerId": "6b403468-09ee-4203-a399-571c5adcc9b3"
+        },
+        {
+          "id": "4312269b-4323-4bda-bd38-20bdc1711f56",
+          "toolId": "b6e2a46b-e390-462d-84b2-595368217184",
+          "categoryId": "a5fdac86-18c1-4733-855f-242170dc0061",
+          "style": {},
+          "size": {
+            "width": {
+              "unit": "%",
+              "value": 100
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Container",
+          "direction": "row",
+          "gap": 8,
+          "padding": 0,
+          "containerId": "6b403468-09ee-4203-a399-571c5adcc9b3",
+          "justifyContent": "flex-start"
+        },
+        {
+          "id": "ece2bd01-36fa-4f37-8e68-732e531ddf0c",
+          "toolId": "b6e2a46b-e390-462d-84b2-595368217184",
+          "categoryId": "a5fdac86-18c1-4733-855f-242170dc0061",
+          "style": {
+            "color": "#ffffff",
+            "backgroundColor": "#22c55e"
+          },
+          "size": {
+            "width": {
+              "unit": "px",
+              "value": 130
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Generate button",
+          "text": "Generate",
+          "link": [
+            "No_Did_the_reference_allowed_direct_contact_with_the_owner_gen_text"
+          ],
+          "containerId": "4312269b-4323-4bda-bd38-20bdc1711f56"
+        },
+        {
+          "id": "525471cc-ba9e-4843-8bf5-c8fcd1109377",
+          "toolId": "b6e2a46b-e390-462d-84b2-595368217184",
+          "categoryId": "a5fdac86-18c1-4733-855f-242170dc0061",
+          "style": {
+            "color": "#ffffff",
+            "backgroundColor": "#3b82f6"
+          },
+          "size": {
+            "width": {
+              "unit": "px",
+              "value": 130
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Copy button",
+          "text": "Copy",
+          "link": "No_Did_the_reference_allowed_direct_contact_with_the_owner_gen_text",
+          "visibility": "when-target-visible",
+          "confirmCopy": true,
+          "confirmationMessage": "Copied to clipboard.",
+          "containerId": "4312269b-4323-4bda-bd38-20bdc1711f56"
+        },
+        {
+          "id": "a434a418-c97e-4db4-a876-a6fea942efde",
+          "toolId": "b6e2a46b-e390-462d-84b2-595368217184",
+          "categoryId": "a5fdac86-18c1-4733-855f-242170dc0061",
+          "style": {},
+          "size": {
+            "width": {
+              "unit": "%",
+              "value": 100
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Container",
+          "direction": "column",
+          "gap": 16,
+          "padding": 0,
+          "containerId": "d2473709-a88f-4ccc-afd0-068b5f3059a8",
+          "visibility": {
+            "mode": "show",
+            "inputId": "55b11816-11e9-4072-8718-27b01caf8ff1",
+            "value": "Yes"
+          }
+        },
+        {
+          "id": "53bfda65-0220-4dce-87b7-916e055eb600",
+          "toolId": "b6e2a46b-e390-462d-84b2-595368217184",
+          "categoryId": "a5fdac86-18c1-4733-855f-242170dc0061",
+          "style": {},
+          "size": {
+            "width": {
+              "unit": "%",
+              "value": 100
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "variableName": "Did_the_reference_provided_the_prop_owners_contact_2_radio_group",
+          "label": "Did the reference provided the prop owner’s contact",
+          "showLabel": true,
+          "placeholder": "",
+          "type": "Radio button",
+          "direction": "column",
+          "wrap": "nowrap",
+          "justifyContent": "flex-start",
+          "alignContent": "stretch",
+          "gap": 8,
+          "options": [
+            {
+              "id": "312cfecb-9721-4c03-a695-21e21dbe8c33",
+              "label": "Yes",
+              "value": "Yes"
+            },
+            {
+              "id": "2298b345-4262-4f21-a8ed-76e225df4c52",
+              "label": "No",
+              "value": "No"
+            }
+          ],
+          "containerId": "a434a418-c97e-4db4-a876-a6fea942efde"
+        },
+        {
+          "id": "db05bf79-ce84-4fb0-bf6a-88298df2bb40",
+          "toolId": "b6e2a46b-e390-462d-84b2-595368217184",
+          "categoryId": "a5fdac86-18c1-4733-855f-242170dc0061",
+          "style": {},
+          "size": {
+            "width": {
+              "unit": "%",
+              "value": 100
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Container",
+          "direction": "column",
+          "gap": 16,
+          "padding": 0,
+          "containerId": "a434a418-c97e-4db4-a876-a6fea942efde",
+          "visibility": {
+            "mode": "show",
+            "inputId": "53bfda65-0220-4dce-87b7-916e055eb600",
+            "value": "Yes"
+          }
+        },
+        {
+          "id": "4fe2a4e5-33a9-4a57-b3f8-35efc78d128f",
+          "toolId": "b6e2a46b-e390-462d-84b2-595368217184",
+          "categoryId": "a5fdac86-18c1-4733-855f-242170dc0061",
+          "style": {},
+          "size": {
+            "width": {
+              "unit": "%",
+              "value": 100
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "variableName": "owner_name_2_input",
+          "label": "Owner Name",
+          "showLabel": true,
+          "placeholder": "Enter text",
+          "type": "Text input",
+          "textCase": "pascal",
+          "copyButton": {
+            "enabled": true,
+            "text": "Copy",
+            "confirmCopy": true,
+            "confirmationMessage": "Copied to clipboard."
+          },
+          "containerId": "db05bf79-ce84-4fb0-bf6a-88298df2bb40"
+        },
+        {
+          "id": "9befd68b-3b40-4d5f-9dd5-b52b6689c163",
+          "toolId": "b6e2a46b-e390-462d-84b2-595368217184",
+          "categoryId": "a5fdac86-18c1-4733-855f-242170dc0061",
+          "style": {},
+          "size": {
+            "width": {
+              "unit": "%",
+              "value": 100
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "variableName": "owner_phone_2_input",
+          "label": "Owner Phone",
+          "showLabel": true,
+          "placeholder": "(123) 456-7890",
+          "type": "Phone input",
+          "copyButton": {
+            "enabled": true,
+            "text": "Copy",
+            "confirmCopy": true,
+            "confirmationMessage": "Copied to clipboard."
+          },
+          "format": "(###) ###-####",
+          "maxDigits": 10,
+          "validation": {
+            "kind": "phone",
+            "message": "Enter a valid 10-digit phone number."
+          },
+          "containerId": "db05bf79-ce84-4fb0-bf6a-88298df2bb40"
+        },
+        {
+          "id": "Did_the_reference_provided_the_prop_owners_contact_2_gen_text",
+          "toolId": "b6e2a46b-e390-462d-84b2-595368217184",
+          "categoryId": "a5fdac86-18c1-4733-855f-242170dc0061",
+          "style": {},
+          "size": {
+            "width": {
+              "unit": "%",
+              "value": 100
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Output text",
+          "generatedText": {
+            "default": "Incoming call from the reference ${name_input} using the phone ${phone_input} who identified themselves as the leaseholder and confirmed that the applicant's name is not on the lease. The reference provided the owner’s contact information: ${owner_name_2_input} and ${owner_phone_2_input}."
+          },
+          "conditions": [],
+          "initiallyHidden": true,
+          "containerId": "db05bf79-ce84-4fb0-bf6a-88298df2bb40"
+        },
+        {
+          "id": "d556cedd-7324-4805-8567-8b343911fdce",
+          "toolId": "b6e2a46b-e390-462d-84b2-595368217184",
+          "categoryId": "a5fdac86-18c1-4733-855f-242170dc0061",
+          "style": {},
+          "size": {
+            "width": {
+              "unit": "%",
+              "value": 100
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Container",
+          "direction": "row",
+          "gap": 8,
+          "padding": 0,
+          "containerId": "db05bf79-ce84-4fb0-bf6a-88298df2bb40",
+          "justifyContent": "flex-start"
+        },
+        {
+          "id": "c61170df-0c06-4eee-b9cd-0c0c2e1a2867",
+          "toolId": "b6e2a46b-e390-462d-84b2-595368217184",
+          "categoryId": "a5fdac86-18c1-4733-855f-242170dc0061",
+          "style": {
+            "color": "#ffffff",
+            "backgroundColor": "#22c55e"
+          },
+          "size": {
+            "width": {
+              "unit": "px",
+              "value": 130
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Generate button",
+          "text": "Generate",
+          "link": [
+            "Did_the_reference_provided_the_prop_owners_contact_2_gen_text"
+          ],
+          "containerId": "d556cedd-7324-4805-8567-8b343911fdce"
+        },
+        {
+          "id": "86bb9853-0d9b-4367-94c6-fe6684da1db2",
+          "toolId": "b6e2a46b-e390-462d-84b2-595368217184",
+          "categoryId": "a5fdac86-18c1-4733-855f-242170dc0061",
+          "style": {
+            "color": "#ffffff",
+            "backgroundColor": "#3b82f6"
+          },
+          "size": {
+            "width": {
+              "unit": "px",
+              "value": 130
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Copy button",
+          "text": "Copy",
+          "link": "Did_the_reference_provided_the_prop_owners_contact_2_gen_text",
+          "visibility": "when-target-visible",
+          "confirmCopy": true,
+          "confirmationMessage": "Copied to clipboard.",
+          "containerId": "d556cedd-7324-4805-8567-8b343911fdce"
+        },
+        {
+          "id": "63744c8e-6641-4ca4-b6d9-07397b67430e",
+          "toolId": "b6e2a46b-e390-462d-84b2-595368217184",
+          "categoryId": "a5fdac86-18c1-4733-855f-242170dc0061",
+          "style": {},
+          "size": {
+            "width": {
+              "unit": "%",
+              "value": 100
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Container",
+          "direction": "column",
+          "gap": 16,
+          "padding": 0,
+          "containerId": "a434a418-c97e-4db4-a876-a6fea942efde",
+          "visibility": {
+            "mode": "show",
+            "inputId": "53bfda65-0220-4dce-87b7-916e055eb600",
+            "value": "No"
+          }
+        },
+        {
+          "id": "a15ef324-a7cb-466d-9202-673a28eea609",
+          "toolId": "b6e2a46b-e390-462d-84b2-595368217184",
+          "categoryId": "a5fdac86-18c1-4733-855f-242170dc0061",
+          "style": {},
+          "size": {
+            "width": {
+              "unit": "%",
+              "value": 100
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Divider",
+          "orientation": "horizontal",
+          "containerId": "63744c8e-6641-4ca4-b6d9-07397b67430e"
+        },
+        {
+          "id": "2f6fc48c-0c56-401d-91b5-f2f9d83491b7",
+          "toolId": "b6e2a46b-e390-462d-84b2-595368217184",
+          "categoryId": "a5fdac86-18c1-4733-855f-242170dc0061",
+          "style": {},
+          "size": {
+            "width": {
+              "unit": "%",
+              "value": 100
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "variableName": "No_Did_the_reference_provided_the_prop_owners_contact_2_radio_group",
+          "label": "",
+          "showLabel": false,
+          "placeholder": "",
+          "type": "Radio button",
+          "direction": "column",
+          "wrap": "nowrap",
+          "justifyContent": "flex-start",
+          "alignContent": "stretch",
+          "gap": 8,
+          "options": [
+            {
+              "id": "52b7dbfb-9510-4353-9d99-95d2b35504ad",
+              "label": "Would Callback",
+              "value": "Would Callback"
+            },
+            {
+              "id": "ba901b3d-c6ec-4742-b724-b8093995de5a",
+              "label": "Refused Contact",
+              "value": "Refused Contact"
+            },
+            {
+              "id": "4c5a4961-f529-42de-a3d7-b2a6125dacfc",
+              "label": "No Owner’s Contact Info",
+              "value": "No Owner’s Contact Info"
+            },
+            {
+              "id": "eb7b0aee-705b-4e29-b033-c8160d150e05",
+              "label": "Would Confirm First",
+              "value": "Would Confirm First"
+            }
+          ],
+          "containerId": "63744c8e-6641-4ca4-b6d9-07397b67430e"
+        },
+        {
+          "id": "No_Did_the_reference_provided_the_prop_owners_contact_2_radio_group_gen_text",
+          "toolId": "b6e2a46b-e390-462d-84b2-595368217184",
+          "categoryId": "a5fdac86-18c1-4733-855f-242170dc0061",
+          "style": {},
+          "size": {
+            "width": {
+              "unit": "%",
+              "value": 100
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Output text",
+          "generatedText": {
+            "default": ""
+          },
+          "conditions": [
+            {
+              "id": "7c7d0dd1-d792-4fa3-9db1-fd5e39c9ca95",
+              "inputId": "2f6fc48c-0c56-401d-91b5-f2f9d83491b7",
+              "operator": "equals",
+              "value": "Would Callback",
+              "text": "Incoming call from the reference ${name_input} using the phone ${phone_input} who identified themselves as the leaseholder and confirmed that the applicant's name is not on the lease. The reference would callback with the owner’s contact information."
+            },
+            {
+              "id": "b564d5fc-f49d-48a8-a39a-19938d955a73",
+              "inputId": "2f6fc48c-0c56-401d-91b5-f2f9d83491b7",
+              "operator": "equals",
+              "value": "Refused Contact",
+              "text": "Incoming call from the reference ${name_input} using the phone ${phone_input} who identified themselves as the leaseholder and confirmed that the applicant's name is not on the lease but refused direct contact with the owner.\n\nUnable to verify - the listed reference is a leaseholder and does not authorize a direct contact with the owner."
+            },
+            {
+              "id": "c6c4d181-24bf-4187-aa71-2a532b62d96f",
+              "inputId": "2f6fc48c-0c56-401d-91b5-f2f9d83491b7",
+              "operator": "equals",
+              "value": "No Owner’s Contact Info",
+              "text": "Incoming call from the reference ${name_input} using the phone ${phone_input} who identified themselves as the leaseholder and confirmed that the applicant's name is not on the lease but does not have contact information for the owner.\n\nUnable to verify - the listed reference is a leaseholder and does not have a contact information for the owner."
+            },
+            {
+              "id": "3a225257-3249-4a57-968f-eb2dd233f0c8",
+              "inputId": "2f6fc48c-0c56-401d-91b5-f2f9d83491b7",
+              "operator": "equals",
+              "value": "Would Confirm First",
+              "text": "Incoming call from the reference ${name_input} using the phone ${phone_input} who identified themselves as the leaseholder and confirmed that the applicant's name is not on the lease. The reference mentioned that they would seek permission with the owner first before disclosing any contact information."
+            }
+          ],
+          "initiallyHidden": true,
+          "containerId": "63744c8e-6641-4ca4-b6d9-07397b67430e"
+        },
+        {
+          "id": "1b9ac05d-ec13-48e2-b519-1686365e8e03",
+          "toolId": "b6e2a46b-e390-462d-84b2-595368217184",
+          "categoryId": "a5fdac86-18c1-4733-855f-242170dc0061",
+          "style": {},
+          "size": {
+            "width": {
+              "unit": "%",
+              "value": 100
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Container",
+          "direction": "row",
+          "gap": 8,
+          "padding": 0,
+          "containerId": "63744c8e-6641-4ca4-b6d9-07397b67430e",
+          "justifyContent": "flex-start"
+        },
+        {
+          "id": "d23fffb3-777f-4f56-8b61-007d815cdbfe",
+          "toolId": "b6e2a46b-e390-462d-84b2-595368217184",
+          "categoryId": "a5fdac86-18c1-4733-855f-242170dc0061",
+          "style": {
+            "color": "#ffffff",
+            "backgroundColor": "#22c55e"
+          },
+          "size": {
+            "width": {
+              "unit": "px",
+              "value": 130
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Generate button",
+          "text": "Generate",
+          "link": [
+            "No_Did_the_reference_provided_the_prop_owners_contact_2_radio_group_gen_text"
+          ],
+          "containerId": "1b9ac05d-ec13-48e2-b519-1686365e8e03"
+        },
+        {
+          "id": "26be243d-08cc-420d-adee-e3e153d74b0f",
+          "toolId": "b6e2a46b-e390-462d-84b2-595368217184",
+          "categoryId": "a5fdac86-18c1-4733-855f-242170dc0061",
+          "style": {
+            "color": "#ffffff",
+            "backgroundColor": "#3b82f6"
+          },
+          "size": {
+            "width": {
+              "unit": "px",
+              "value": 130
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Copy button",
+          "text": "Copy",
+          "link": "No_Did_the_reference_provided_the_prop_owners_contact_2_radio_group_gen_text",
+          "visibility": "when-target-visible",
+          "confirmCopy": true,
+          "confirmationMessage": "Copied to clipboard.",
+          "containerId": "1b9ac05d-ec13-48e2-b519-1686365e8e03"
         }
       ]
     },
@@ -929,8 +3609,8 @@
               "value": 100
             },
             "height": {
-              "unit": "px",
-              "value": 4210
+              "unit": "auto",
+              "value": 80
             }
           },
           "type": "Container",
@@ -949,8 +3629,8 @@
               "value": 38
             },
             "height": {
-              "unit": "px",
-              "value": 539
+              "unit": "auto",
+              "value": 80
             }
           },
           "type": "Container",
@@ -970,8 +3650,8 @@
               "value": 100
             },
             "height": {
-              "unit": "px",
-              "value": 56
+              "unit": "auto",
+              "value": 80
             }
           },
           "variableName": "Name",
@@ -999,8 +3679,8 @@
               "value": 100
             },
             "height": {
-              "unit": "px",
-              "value": 56
+              "unit": "auto",
+              "value": 80
             }
           },
           "variableName": "phone_input",
@@ -1045,8 +3725,8 @@
           "options": [
             {
               "id": "336f0f3d-7deb-48ff-b958-caefbf4e5f74",
-              "label": "60-Day Lease Overlap",
-              "value": "60-Day Lease Overlap"
+              "label": "(Rental) 60-Day Lease Overlap",
+              "value": "(Rental) 60-Day Lease Overlap"
             },
             {
               "id": "2006fb59-7768-4e34-b675-4ff908fffabb",
@@ -1082,6 +3762,11 @@
               "id": "888d54d1-295d-4ea4-9dee-bc8239835108",
               "label": "Would Not Rent Again (FPI Only)",
               "value": "Would Not Rent Again (FPI Only)"
+            },
+            {
+              "id": "3bacecc8-1323-488f-83a4-e094ac563dc9",
+              "label": "(Employment) 60-Day Lease Overlap",
+              "value": "(Employment) 60-Day Lease Overlap"
             }
           ],
           "containerId": "d501f3ab-a070-4831-9697-1c4bb8c6fae0"
@@ -1094,11 +3779,11 @@
           "size": {
             "width": {
               "unit": "%",
-              "value": 55
+              "value": 60
             },
             "height": {
-              "unit": "px",
-              "value": 4000
+              "unit": "auto",
+              "value": 80
             }
           },
           "type": "Container",
@@ -1130,18 +3815,14 @@
           "visibility": {
             "mode": "show",
             "inputId": "e02805a2-e219-457f-b883-d133b248ad12",
-            "value": "60-Day Lease Overlap"
+            "value": "(Rental) 60-Day Lease Overlap"
           }
         },
         {
-          "id": "f457c648-72f0-4370-b5b9-31d1b40b4950",
+          "id": "f9be7ec3-5003-47b9-afa3-5fb6b813913d",
           "toolId": "b605e602-0772-4005-8455-68f9a78e90a4",
           "categoryId": "09be0fc0-a229-41dd-b0ee-29f43359adf3",
-          "style": {
-            "color": "#334155",
-            "fontSize": 16,
-            "fontWeight": 400
-          },
+          "style": {},
           "size": {
             "width": {
               "unit": "%",
@@ -1152,9 +3833,57 @@
               "value": 0
             }
           },
-          "type": "Text",
-          "text": "60-Day Lease Overlap",
+          "type": "Container",
+          "direction": "row",
+          "gap": 16,
+          "padding": 0,
           "containerId": "0ca36ea2-ced0-496b-abfb-962b5b169fe6"
+        },
+        {
+          "id": "f457c648-72f0-4370-b5b9-31d1b40b4950",
+          "toolId": "b605e602-0772-4005-8455-68f9a78e90a4",
+          "categoryId": "09be0fc0-a229-41dd-b0ee-29f43359adf3",
+          "style": {
+            "color": "#334155",
+            "fontSize": 16,
+            "fontWeight": 600
+          },
+          "size": {
+            "width": {
+              "unit": "auto",
+              "value": 240
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Text",
+          "text": "(Rental) 60-Day Lease Overlap",
+          "containerId": "f9be7ec3-5003-47b9-afa3-5fb6b813913d"
+        },
+        {
+          "id": "d4f6f916-91d2-4409-a602-feb2123ecac3",
+          "toolId": "b605e602-0772-4005-8455-68f9a78e90a4",
+          "categoryId": "09be0fc0-a229-41dd-b0ee-29f43359adf3",
+          "style": {
+            "color": "#ffffff",
+            "backgroundColor": "#ef4444"
+          },
+          "size": {
+            "width": {
+              "unit": "auto",
+              "value": 240
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Reset button",
+          "text": "Reset",
+          "behavior": "clear-all-inputs-and-hide-outputs",
+          "containerId": "f9be7ec3-5003-47b9-afa3-5fb6b813913d"
         },
         {
           "id": "64c639f5-4021-4588-9ea2-ffc0755b4b80",
@@ -1298,7 +4027,7 @@
               "inputId": "1f59036d-59d9-4bf5-97fb-f5ebf9b7170b",
               "operator": "less-than",
               "value": "",
-              "text": "No negative ref, pls chck",
+              "text": "No negative reference, please check again.",
               "comparisonInputId": "e651f55f-1bad-4531-b611-b92683cfb480",
               "offset": 60
             }
@@ -1378,29 +4107,6 @@
           "containerId": "fc64dc62-4def-4ae8-9dfe-f63a1161a3a8"
         },
         {
-          "id": "d4f6f916-91d2-4409-a602-feb2123ecac3",
-          "toolId": "b605e602-0772-4005-8455-68f9a78e90a4",
-          "categoryId": "09be0fc0-a229-41dd-b0ee-29f43359adf3",
-          "style": {
-            "color": "#ffffff",
-            "backgroundColor": "#ef4444"
-          },
-          "size": {
-            "width": {
-              "unit": "px",
-              "value": 130
-            },
-            "height": {
-              "unit": "auto",
-              "value": 0
-            }
-          },
-          "type": "Reset button",
-          "text": "Reset",
-          "behavior": "clear-all-inputs-and-hide-outputs",
-          "containerId": "fc64dc62-4def-4ae8-9dfe-f63a1161a3a8"
-        },
-        {
           "id": "3312fb5d-d5a9-40e2-a1b0-1e639f951143",
           "toolId": "b605e602-0772-4005-8455-68f9a78e90a4",
           "categoryId": "09be0fc0-a229-41dd-b0ee-29f43359adf3",
@@ -1419,22 +4125,18 @@
           "direction": "column",
           "gap": 16,
           "padding": 0,
-          "containerId": "065f970f-6a7f-4253-b615-14606387315c",
           "visibility": {
             "mode": "show",
             "inputId": "e02805a2-e219-457f-b883-d133b248ad12",
             "value": " Account Balance"
-          }
+          },
+          "containerId": "065f970f-6a7f-4253-b615-14606387315c"
         },
         {
-          "id": "086d6697-03d4-4b54-95f2-4d9fc76b614d",
+          "id": "e7fe78df-68d2-40ee-8982-a5dddebdcf6d",
           "toolId": "b605e602-0772-4005-8455-68f9a78e90a4",
           "categoryId": "09be0fc0-a229-41dd-b0ee-29f43359adf3",
-          "style": {
-            "color": "#334155",
-            "fontSize": 18,
-            "fontWeight": 600
-          },
+          "style": {},
           "size": {
             "width": {
               "unit": "%",
@@ -1445,9 +4147,57 @@
               "value": 0
             }
           },
+          "type": "Container",
+          "direction": "row",
+          "gap": 16,
+          "padding": 0,
+          "containerId": "3312fb5d-d5a9-40e2-a1b0-1e639f951143"
+        },
+        {
+          "id": "086d6697-03d4-4b54-95f2-4d9fc76b614d",
+          "toolId": "b605e602-0772-4005-8455-68f9a78e90a4",
+          "categoryId": "09be0fc0-a229-41dd-b0ee-29f43359adf3",
+          "style": {
+            "color": "#334155",
+            "fontSize": 16,
+            "fontWeight": 600
+          },
+          "size": {
+            "width": {
+              "unit": "auto",
+              "value": 240
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
           "type": "Text",
           "text": "Account Balance",
-          "containerId": "3312fb5d-d5a9-40e2-a1b0-1e639f951143"
+          "containerId": "e7fe78df-68d2-40ee-8982-a5dddebdcf6d"
+        },
+        {
+          "id": "f2e5a698-dadb-438f-807e-a2bcfb3e8236",
+          "toolId": "b605e602-0772-4005-8455-68f9a78e90a4",
+          "categoryId": "09be0fc0-a229-41dd-b0ee-29f43359adf3",
+          "style": {
+            "color": "#ffffff",
+            "backgroundColor": "#ef4444"
+          },
+          "size": {
+            "width": {
+              "unit": "auto",
+              "value": 0
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Reset button",
+          "text": "Reset",
+          "behavior": "clear-all-inputs-and-hide-outputs",
+          "containerId": "e7fe78df-68d2-40ee-8982-a5dddebdcf6d"
         },
         {
           "id": "acct_bal_gen_txt",
@@ -1495,6 +4245,31 @@
           "justifyContent": "flex-start"
         },
         {
+          "id": "9cd7e7a4-d991-465a-94be-aae550b88f6f",
+          "toolId": "b605e602-0772-4005-8455-68f9a78e90a4",
+          "categoryId": "09be0fc0-a229-41dd-b0ee-29f43359adf3",
+          "style": {
+            "color": "#ffffff",
+            "backgroundColor": "#22c55e"
+          },
+          "size": {
+            "width": {
+              "unit": "px",
+              "value": 130
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Generate button",
+          "text": "Generate",
+          "link": [
+            "acct_bal_gen_txt"
+          ],
+          "containerId": "411c97bf-f6be-44ee-9349-57fdf0690e8a"
+        },
+        {
           "id": "505a8938-4129-4dce-866b-4834bd11ddcc",
           "toolId": "b605e602-0772-4005-8455-68f9a78e90a4",
           "categoryId": "09be0fc0-a229-41dd-b0ee-29f43359adf3",
@@ -1504,8 +4279,8 @@
           },
           "size": {
             "width": {
-              "unit": "auto",
-              "value": 0
+              "unit": "px",
+              "value": 130
             },
             "height": {
               "unit": "auto",
@@ -1518,29 +4293,6 @@
           "visibility": "when-target-visible",
           "confirmCopy": true,
           "confirmationMessage": "Copied to clipboard.",
-          "containerId": "411c97bf-f6be-44ee-9349-57fdf0690e8a"
-        },
-        {
-          "id": "f2e5a698-dadb-438f-807e-a2bcfb3e8236",
-          "toolId": "b605e602-0772-4005-8455-68f9a78e90a4",
-          "categoryId": "09be0fc0-a229-41dd-b0ee-29f43359adf3",
-          "style": {
-            "color": "#ffffff",
-            "backgroundColor": "#ef4444"
-          },
-          "size": {
-            "width": {
-              "unit": "auto",
-              "value": 0
-            },
-            "height": {
-              "unit": "auto",
-              "value": 0
-            }
-          },
-          "type": "Reset button",
-          "text": "Reset",
-          "behavior": "clear-all-inputs-and-hide-outputs",
           "containerId": "411c97bf-f6be-44ee-9349-57fdf0690e8a"
         },
         {
@@ -1568,6 +4320,73 @@
             "inputId": "e02805a2-e219-457f-b883-d133b248ad12",
             "value": " Late Payments"
           }
+        },
+        {
+          "id": "b70fb5d0-6417-400c-bb15-9306dff691f7",
+          "toolId": "b605e602-0772-4005-8455-68f9a78e90a4",
+          "categoryId": "09be0fc0-a229-41dd-b0ee-29f43359adf3",
+          "style": {},
+          "size": {
+            "width": {
+              "unit": "%",
+              "value": 100
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Container",
+          "direction": "row",
+          "gap": 16,
+          "padding": 0,
+          "containerId": "8e870fcc-0d2f-43cf-b8ce-8af98b07dc9c"
+        },
+        {
+          "id": "7b010b99-445c-4a49-a54e-17d8c7ec1e65",
+          "toolId": "b605e602-0772-4005-8455-68f9a78e90a4",
+          "categoryId": "09be0fc0-a229-41dd-b0ee-29f43359adf3",
+          "style": {
+            "color": "#334155",
+            "fontSize": 16,
+            "fontWeight": 600
+          },
+          "size": {
+            "width": {
+              "unit": "auto",
+              "value": 240
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Text",
+          "text": "Late Payments",
+          "containerId": "b70fb5d0-6417-400c-bb15-9306dff691f7"
+        },
+        {
+          "id": "66b9e7ae-3088-4931-bb77-a8a2526ee6e0",
+          "toolId": "b605e602-0772-4005-8455-68f9a78e90a4",
+          "categoryId": "09be0fc0-a229-41dd-b0ee-29f43359adf3",
+          "style": {
+            "color": "#ffffff",
+            "backgroundColor": "#ef4444"
+          },
+          "size": {
+            "width": {
+              "unit": "auto",
+              "value": 240
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Reset button",
+          "text": "Reset",
+          "behavior": "clear-all-inputs-and-hide-outputs",
+          "containerId": "b70fb5d0-6417-400c-bb15-9306dff691f7"
         },
         {
           "id": "924050ea-3d7b-4fea-b717-b150a3b23dd8",
@@ -1624,7 +4443,7 @@
               "inputId": "924050ea-3d7b-4fea-b717-b150a3b23dd8",
               "operator": "less-than",
               "value": "3",
-              "text": "not a negative ref"
+              "text": "No negative reference, please check again."
             }
           ],
           "initiallyHidden": true,
@@ -1704,29 +4523,6 @@
           "containerId": "c397db78-e1e9-4515-93fd-ba45a23ef935"
         },
         {
-          "id": "66b9e7ae-3088-4931-bb77-a8a2526ee6e0",
-          "toolId": "b605e602-0772-4005-8455-68f9a78e90a4",
-          "categoryId": "09be0fc0-a229-41dd-b0ee-29f43359adf3",
-          "style": {
-            "color": "#ffffff",
-            "backgroundColor": "#ef4444"
-          },
-          "size": {
-            "width": {
-              "unit": "px",
-              "value": 130
-            },
-            "height": {
-              "unit": "auto",
-              "value": 0
-            }
-          },
-          "type": "Reset button",
-          "text": "Reset",
-          "behavior": "clear-all-inputs-and-hide-outputs",
-          "containerId": "c397db78-e1e9-4515-93fd-ba45a23ef935"
-        },
-        {
           "id": "9fea0f37-7d96-4ff3-af44-8104fd453ffd",
           "toolId": "b605e602-0772-4005-8455-68f9a78e90a4",
           "categoryId": "09be0fc0-a229-41dd-b0ee-29f43359adf3",
@@ -1751,6 +4547,73 @@
             "inputId": "e02805a2-e219-457f-b883-d133b248ad12",
             "value": " Bounced Checks / NSF Checks"
           }
+        },
+        {
+          "id": "94f08b18-6264-4112-8e6e-87032d7ce6a3",
+          "toolId": "b605e602-0772-4005-8455-68f9a78e90a4",
+          "categoryId": "09be0fc0-a229-41dd-b0ee-29f43359adf3",
+          "style": {},
+          "size": {
+            "width": {
+              "unit": "%",
+              "value": 100
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Container",
+          "direction": "row",
+          "gap": 16,
+          "padding": 0,
+          "containerId": "9fea0f37-7d96-4ff3-af44-8104fd453ffd"
+        },
+        {
+          "id": "3e63f0c0-c6f2-4b61-b437-da64dedfe89e",
+          "toolId": "b605e602-0772-4005-8455-68f9a78e90a4",
+          "categoryId": "09be0fc0-a229-41dd-b0ee-29f43359adf3",
+          "style": {
+            "color": "#334155",
+            "fontSize": 16,
+            "fontWeight": 600
+          },
+          "size": {
+            "width": {
+              "unit": "auto",
+              "value": 240
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Text",
+          "text": "Bounced/NSF Checks",
+          "containerId": "94f08b18-6264-4112-8e6e-87032d7ce6a3"
+        },
+        {
+          "id": "9e165894-ef12-4b07-807e-5bade129f92d",
+          "toolId": "b605e602-0772-4005-8455-68f9a78e90a4",
+          "categoryId": "09be0fc0-a229-41dd-b0ee-29f43359adf3",
+          "style": {
+            "color": "#ffffff",
+            "backgroundColor": "#ef4444"
+          },
+          "size": {
+            "width": {
+              "unit": "auto",
+              "value": 0
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Reset button",
+          "text": "Reset",
+          "behavior": "clear-all-inputs-and-hide-outputs",
+          "containerId": "94f08b18-6264-4112-8e6e-87032d7ce6a3"
         },
         {
           "id": "87d8bdf8-3d2a-4d37-9aaa-e25976ae2254",
@@ -1807,7 +4670,7 @@
               "inputId": "87d8bdf8-3d2a-4d37-9aaa-e25976ae2254",
               "operator": "less-than",
               "value": "3",
-              "text": "Not negative ref"
+              "text": "No negative reference, please check again."
             }
           ],
           "initiallyHidden": true,
@@ -1845,8 +4708,8 @@
           },
           "size": {
             "width": {
-              "unit": "auto",
-              "value": 0
+              "unit": "px",
+              "value": 130
             },
             "height": {
               "unit": "auto",
@@ -1870,8 +4733,8 @@
           },
           "size": {
             "width": {
-              "unit": "auto",
-              "value": 0
+              "unit": "px",
+              "value": 130
             },
             "height": {
               "unit": "auto",
@@ -1884,29 +4747,6 @@
           "visibility": "when-target-visible",
           "confirmCopy": true,
           "confirmationMessage": "Copied to clipboard.",
-          "containerId": "7a4e6246-bcff-4903-bee0-3da71829bc3c"
-        },
-        {
-          "id": "9e165894-ef12-4b07-807e-5bade129f92d",
-          "toolId": "b605e602-0772-4005-8455-68f9a78e90a4",
-          "categoryId": "09be0fc0-a229-41dd-b0ee-29f43359adf3",
-          "style": {
-            "color": "#ffffff",
-            "backgroundColor": "#ef4444"
-          },
-          "size": {
-            "width": {
-              "unit": "auto",
-              "value": 0
-            },
-            "height": {
-              "unit": "auto",
-              "value": 0
-            }
-          },
-          "type": "Reset button",
-          "text": "Reset",
-          "behavior": "clear-all-inputs-and-hide-outputs",
           "containerId": "7a4e6246-bcff-4903-bee0-3da71829bc3c"
         },
         {
@@ -1936,14 +4776,10 @@
           }
         },
         {
-          "id": "346ccfa3-dc40-4fed-a39c-b53d52a22b0e",
+          "id": "67f5bb11-d767-44fe-86de-4720f41ae3e5",
           "toolId": "b605e602-0772-4005-8455-68f9a78e90a4",
           "categoryId": "09be0fc0-a229-41dd-b0ee-29f43359adf3",
-          "style": {
-            "color": "#334155",
-            "fontSize": 18,
-            "fontWeight": 600
-          },
+          "style": {},
           "size": {
             "width": {
               "unit": "%",
@@ -1954,9 +4790,57 @@
               "value": 0
             }
           },
+          "type": "Container",
+          "direction": "row",
+          "gap": 16,
+          "padding": 0,
+          "containerId": "85f67c33-6937-4bb3-a8b6-10813a270bdd"
+        },
+        {
+          "id": "346ccfa3-dc40-4fed-a39c-b53d52a22b0e",
+          "toolId": "b605e602-0772-4005-8455-68f9a78e90a4",
+          "categoryId": "09be0fc0-a229-41dd-b0ee-29f43359adf3",
+          "style": {
+            "color": "#334155",
+            "fontSize": 16,
+            "fontWeight": 600
+          },
+          "size": {
+            "width": {
+              "unit": "auto",
+              "value": 240
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
           "type": "Text",
           "text": "Documented Damages",
-          "containerId": "85f67c33-6937-4bb3-a8b6-10813a270bdd"
+          "containerId": "67f5bb11-d767-44fe-86de-4720f41ae3e5"
+        },
+        {
+          "id": "fdc66e53-2022-4222-832b-5cfbab52118d",
+          "toolId": "b605e602-0772-4005-8455-68f9a78e90a4",
+          "categoryId": "09be0fc0-a229-41dd-b0ee-29f43359adf3",
+          "style": {
+            "color": "#ffffff",
+            "backgroundColor": "#ef4444"
+          },
+          "size": {
+            "width": {
+              "unit": "auto",
+              "value": 0
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Reset button",
+          "text": "Reset",
+          "behavior": "clear-all-inputs-and-hide-outputs",
+          "containerId": "67f5bb11-d767-44fe-86de-4720f41ae3e5"
         },
         {
           "id": "Documented_Damages_gen_txt",
@@ -2013,8 +4897,8 @@
           },
           "size": {
             "width": {
-              "unit": "auto",
-              "value": 0
+              "unit": "px",
+              "value": 130
             },
             "height": {
               "unit": "auto",
@@ -2038,8 +4922,8 @@
           },
           "size": {
             "width": {
-              "unit": "auto",
-              "value": 0
+              "unit": "px",
+              "value": 130
             },
             "height": {
               "unit": "auto",
@@ -2052,29 +4936,6 @@
           "visibility": "when-target-visible",
           "confirmCopy": true,
           "confirmationMessage": "Copied to clipboard.",
-          "containerId": "6b6b40e5-1bc6-4a72-8971-c2152e739d3f"
-        },
-        {
-          "id": "fdc66e53-2022-4222-832b-5cfbab52118d",
-          "toolId": "b605e602-0772-4005-8455-68f9a78e90a4",
-          "categoryId": "09be0fc0-a229-41dd-b0ee-29f43359adf3",
-          "style": {
-            "color": "#ffffff",
-            "backgroundColor": "#ef4444"
-          },
-          "size": {
-            "width": {
-              "unit": "auto",
-              "value": 0
-            },
-            "height": {
-              "unit": "auto",
-              "value": 0
-            }
-          },
-          "type": "Reset button",
-          "text": "Reset",
-          "behavior": "clear-all-inputs-and-hide-outputs",
           "containerId": "6b6b40e5-1bc6-4a72-8971-c2152e739d3f"
         },
         {
@@ -2102,6 +4963,985 @@
             "inputId": "e02805a2-e219-457f-b883-d133b248ad12",
             "value": "Pest Infestation"
           }
+        },
+        {
+          "id": "ab0711d8-de64-4fd7-a48c-5a8f12dca53b",
+          "toolId": "b605e602-0772-4005-8455-68f9a78e90a4",
+          "categoryId": "09be0fc0-a229-41dd-b0ee-29f43359adf3",
+          "style": {},
+          "size": {
+            "width": {
+              "unit": "%",
+              "value": 100
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Container",
+          "direction": "row",
+          "gap": 16,
+          "padding": 0,
+          "containerId": "6c17e8bc-e61c-4fcb-af89-46f0f2be0db1"
+        },
+        {
+          "id": "674f79fb-9a6d-48e9-b57f-0990944c2e76",
+          "toolId": "b605e602-0772-4005-8455-68f9a78e90a4",
+          "categoryId": "09be0fc0-a229-41dd-b0ee-29f43359adf3",
+          "style": {
+            "color": "#334155",
+            "fontSize": 16,
+            "fontWeight": 600
+          },
+          "size": {
+            "width": {
+              "unit": "auto",
+              "value": 240
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Text",
+          "text": "Pest Infestation",
+          "containerId": "ab0711d8-de64-4fd7-a48c-5a8f12dca53b"
+        },
+        {
+          "id": "6de7ba04-a33f-4416-887c-29f73c732b20",
+          "toolId": "b605e602-0772-4005-8455-68f9a78e90a4",
+          "categoryId": "09be0fc0-a229-41dd-b0ee-29f43359adf3",
+          "style": {
+            "color": "#ffffff",
+            "backgroundColor": "#ef4444"
+          },
+          "size": {
+            "width": {
+              "unit": "auto",
+              "value": 0
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Reset button",
+          "text": "Reset",
+          "behavior": "clear-all-inputs-and-hide-outputs",
+          "containerId": "ab0711d8-de64-4fd7-a48c-5a8f12dca53b"
+        },
+        {
+          "id": "c677fc1e-5fe0-4834-8fc2-54f0eed59a36",
+          "toolId": "b605e602-0772-4005-8455-68f9a78e90a4",
+          "categoryId": "09be0fc0-a229-41dd-b0ee-29f43359adf3",
+          "style": {},
+          "size": {
+            "width": {
+              "unit": "%",
+              "value": 100
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "variableName": "pest_infestation_radio_group",
+          "label": "",
+          "showLabel": false,
+          "placeholder": "",
+          "type": "Radio button",
+          "direction": "column",
+          "wrap": "nowrap",
+          "justifyContent": "flex-start",
+          "alignContent": "stretch",
+          "gap": 8,
+          "options": [
+            {
+              "id": "9fd92f93-d095-4fae-a86a-5fbdb98e8046",
+              "label": "Active",
+              "value": "Active"
+            },
+            {
+              "id": "bc22f7fc-b8ca-430e-aa8f-707e63e6c1b0",
+              "label": "Eradicated within the past 3 months ",
+              "value": "Eradicated within the past 3 months "
+            },
+            {
+              "id": "c4923de9-d0fd-4445-af63-dfda95ba2efb",
+              "label": "Eradicated more than 3 months ",
+              "value": "Eradicated more than 3 months "
+            }
+          ],
+          "containerId": "6c17e8bc-e61c-4fcb-af89-46f0f2be0db1"
+        },
+        {
+          "id": "b5914bcc-20f1-4170-ac9e-ee99cd0af468",
+          "toolId": "b605e602-0772-4005-8455-68f9a78e90a4",
+          "categoryId": "09be0fc0-a229-41dd-b0ee-29f43359adf3",
+          "style": {},
+          "size": {
+            "width": {
+              "unit": "%",
+              "value": 100
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "variableName": "type_of_infestation_input",
+          "label": "Type of Infestation",
+          "showLabel": true,
+          "placeholder": "Enter text",
+          "type": "Text input",
+          "textCase": "pascal",
+          "copyButton": {
+            "enabled": false,
+            "text": "Copy",
+            "confirmCopy": true,
+            "confirmationMessage": "Copied to clipboard."
+          },
+          "containerId": "6c17e8bc-e61c-4fcb-af89-46f0f2be0db1"
+        },
+        {
+          "id": "pest_gen_text",
+          "toolId": "b605e602-0772-4005-8455-68f9a78e90a4",
+          "categoryId": "09be0fc0-a229-41dd-b0ee-29f43359adf3",
+          "style": {},
+          "size": {
+            "width": {
+              "unit": "%",
+              "value": 100
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Output text",
+          "generatedText": {
+            "default": ""
+          },
+          "conditions": [
+            {
+              "id": "7fdd5e63-9fe1-4993-8f92-6b875137c7e6",
+              "inputId": "c677fc1e-5fe0-4834-8fc2-54f0eed59a36",
+              "operator": "equals",
+              "value": "Active",
+              "text": "Verified correct with a negative reference because the property reported an active pest infestation of ${type_of_infestation_input} within the past 3 months. If this is incorrect, the applicant needs to provide a letter from the current housing provider (dated and signed on company letterhead) stating the correct information. If the housing provider does not have letterhead or is an independent owner, please have the letter notarized."
+            },
+            {
+              "id": "51581e78-6d76-4dca-9242-f814e6cb24ff",
+              "inputId": "c677fc1e-5fe0-4834-8fc2-54f0eed59a36",
+              "operator": "equals",
+              "value": "Eradicated within the past 3 months ",
+              "text": "Verified correct with a negative reference because the property reported a pest infestation of ${type_of_infestation_input} within the past 3 months. If this is incorrect, the applicant needs to provide a letter from the current housing provider (dated and signed on company letterhead) stating the correct information. If the housing provider does not have letterhead or is an independent owner, please have the letter notarized."
+            },
+            {
+              "id": "c981116d-56e2-40d5-8b77-fc2ff94723bd",
+              "inputId": "c677fc1e-5fe0-4834-8fc2-54f0eed59a36",
+              "operator": "equals",
+              "value": "Eradicated more than 3 months ",
+              "text": "not a negative reference"
+            }
+          ],
+          "initiallyHidden": true,
+          "containerId": "6c17e8bc-e61c-4fcb-af89-46f0f2be0db1"
+        },
+        {
+          "id": "47d0b6d6-a66f-4485-b57f-72d0cc8001bf",
+          "toolId": "b605e602-0772-4005-8455-68f9a78e90a4",
+          "categoryId": "09be0fc0-a229-41dd-b0ee-29f43359adf3",
+          "style": {},
+          "size": {
+            "width": {
+              "unit": "%",
+              "value": 100
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Container",
+          "direction": "row",
+          "gap": 8,
+          "padding": 0,
+          "containerId": "6c17e8bc-e61c-4fcb-af89-46f0f2be0db1",
+          "justifyContent": "flex-start"
+        },
+        {
+          "id": "04c76fd0-566f-40ad-9d27-d2d8e0c5a38d",
+          "toolId": "b605e602-0772-4005-8455-68f9a78e90a4",
+          "categoryId": "09be0fc0-a229-41dd-b0ee-29f43359adf3",
+          "style": {
+            "color": "#ffffff",
+            "backgroundColor": "#22c55e"
+          },
+          "size": {
+            "width": {
+              "unit": "px",
+              "value": 130
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Generate button",
+          "text": "Generate",
+          "link": [
+            "pest_gen_text"
+          ],
+          "containerId": "47d0b6d6-a66f-4485-b57f-72d0cc8001bf"
+        },
+        {
+          "id": "0e2e6fe4-88d5-4605-9774-5a869ecd94fe",
+          "toolId": "b605e602-0772-4005-8455-68f9a78e90a4",
+          "categoryId": "09be0fc0-a229-41dd-b0ee-29f43359adf3",
+          "style": {
+            "color": "#ffffff",
+            "backgroundColor": "#3b82f6"
+          },
+          "size": {
+            "width": {
+              "unit": "px",
+              "value": 130
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Copy button",
+          "text": "Copy",
+          "link": "pest_gen_text",
+          "visibility": "when-target-visible",
+          "confirmCopy": true,
+          "confirmationMessage": "Copied to clipboard.",
+          "containerId": "47d0b6d6-a66f-4485-b57f-72d0cc8001bf"
+        },
+        {
+          "id": "85f67c33-6937-4bb3-a8b6-10813a270bdd_1",
+          "toolId": "b605e602-0772-4005-8455-68f9a78e90a4",
+          "categoryId": "09be0fc0-a229-41dd-b0ee-29f43359adf3",
+          "style": {},
+          "size": {
+            "width": {
+              "unit": "%",
+              "value": 100
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Container",
+          "direction": "column",
+          "gap": 16,
+          "padding": 0,
+          "visibility": {
+            "mode": "show",
+            "inputId": "e02805a2-e219-457f-b883-d133b248ad12",
+            "value": "Documented Complaints"
+          },
+          "containerId": "065f970f-6a7f-4253-b615-14606387315c"
+        },
+        {
+          "id": "67f5bb11-d767-44fe-86de-4720f41ae3e5_1",
+          "toolId": "b605e602-0772-4005-8455-68f9a78e90a4",
+          "categoryId": "09be0fc0-a229-41dd-b0ee-29f43359adf3",
+          "style": {},
+          "size": {
+            "width": {
+              "unit": "%",
+              "value": 100
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Container",
+          "direction": "row",
+          "gap": 16,
+          "padding": 0,
+          "containerId": "85f67c33-6937-4bb3-a8b6-10813a270bdd_1"
+        },
+        {
+          "id": "346ccfa3-dc40-4fed-a39c-b53d52a22b0e_1",
+          "toolId": "b605e602-0772-4005-8455-68f9a78e90a4",
+          "categoryId": "09be0fc0-a229-41dd-b0ee-29f43359adf3",
+          "style": {
+            "color": "#334155",
+            "fontSize": 16,
+            "fontWeight": 600
+          },
+          "size": {
+            "width": {
+              "unit": "auto",
+              "value": 240
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Text",
+          "text": "Documented Complaints",
+          "containerId": "67f5bb11-d767-44fe-86de-4720f41ae3e5_1"
+        },
+        {
+          "id": "fdc66e53-2022-4222-832b-5cfbab52118d_1",
+          "toolId": "b605e602-0772-4005-8455-68f9a78e90a4",
+          "categoryId": "09be0fc0-a229-41dd-b0ee-29f43359adf3",
+          "style": {
+            "color": "#ffffff",
+            "backgroundColor": "#ef4444"
+          },
+          "size": {
+            "width": {
+              "unit": "auto",
+              "value": 0
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Reset button",
+          "text": "Reset",
+          "behavior": "clear-all-inputs-and-hide-outputs",
+          "containerId": "67f5bb11-d767-44fe-86de-4720f41ae3e5_1"
+        },
+        {
+          "id": "Documented_Complaints_gen_txt",
+          "toolId": "b605e602-0772-4005-8455-68f9a78e90a4",
+          "categoryId": "09be0fc0-a229-41dd-b0ee-29f43359adf3",
+          "style": {},
+          "size": {
+            "width": {
+              "unit": "%",
+              "value": 100
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Output text",
+          "generatedText": {
+            "default": "Verified correct with a negative reference because there were documented complaints."
+          },
+          "conditions": [],
+          "initiallyHidden": true,
+          "containerId": "85f67c33-6937-4bb3-a8b6-10813a270bdd_1"
+        },
+        {
+          "id": "6b6b40e5-1bc6-4a72-8971-c2152e739d3f_1",
+          "toolId": "b605e602-0772-4005-8455-68f9a78e90a4",
+          "categoryId": "09be0fc0-a229-41dd-b0ee-29f43359adf3",
+          "style": {},
+          "size": {
+            "width": {
+              "unit": "%",
+              "value": 100
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Container",
+          "direction": "row",
+          "gap": 8,
+          "padding": 0,
+          "containerId": "85f67c33-6937-4bb3-a8b6-10813a270bdd_1",
+          "justifyContent": "flex-start"
+        },
+        {
+          "id": "f55666e7-77f1-4a9b-90e0-8b3fa5ad5af0_1",
+          "toolId": "b605e602-0772-4005-8455-68f9a78e90a4",
+          "categoryId": "09be0fc0-a229-41dd-b0ee-29f43359adf3",
+          "style": {
+            "color": "#ffffff",
+            "backgroundColor": "#22c55e"
+          },
+          "size": {
+            "width": {
+              "unit": "px",
+              "value": 130
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Generate button",
+          "text": "Generate",
+          "link": [
+            "Documented_Complaints_gen_txt"
+          ],
+          "containerId": "6b6b40e5-1bc6-4a72-8971-c2152e739d3f_1"
+        },
+        {
+          "id": "11823dbe-29c3-489a-8ed0-9320be0032ca_1",
+          "toolId": "b605e602-0772-4005-8455-68f9a78e90a4",
+          "categoryId": "09be0fc0-a229-41dd-b0ee-29f43359adf3",
+          "style": {
+            "color": "#ffffff",
+            "backgroundColor": "#3b82f6"
+          },
+          "size": {
+            "width": {
+              "unit": "px",
+              "value": 130
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Copy button",
+          "text": "Copy",
+          "link": "Documented_Complaints_gen_txt",
+          "visibility": "when-target-visible",
+          "confirmCopy": true,
+          "confirmationMessage": "Copied to clipboard.",
+          "containerId": "6b6b40e5-1bc6-4a72-8971-c2152e739d3f_1"
+        },
+        {
+          "id": "85f67c33-6937-4bb3-a8b6-10813a270bdd_1_1",
+          "toolId": "b605e602-0772-4005-8455-68f9a78e90a4",
+          "categoryId": "09be0fc0-a229-41dd-b0ee-29f43359adf3",
+          "style": {},
+          "size": {
+            "width": {
+              "unit": "%",
+              "value": 100
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Container",
+          "direction": "column",
+          "gap": 16,
+          "padding": 0,
+          "visibility": {
+            "mode": "show",
+            "inputId": "e02805a2-e219-457f-b883-d133b248ad12",
+            "value": "Would Not Rent Again (FPI Only)"
+          },
+          "containerId": "065f970f-6a7f-4253-b615-14606387315c"
+        },
+        {
+          "id": "67f5bb11-d767-44fe-86de-4720f41ae3e5_1_1",
+          "toolId": "b605e602-0772-4005-8455-68f9a78e90a4",
+          "categoryId": "09be0fc0-a229-41dd-b0ee-29f43359adf3",
+          "style": {},
+          "size": {
+            "width": {
+              "unit": "%",
+              "value": 100
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Container",
+          "direction": "row",
+          "gap": 16,
+          "padding": 0,
+          "containerId": "85f67c33-6937-4bb3-a8b6-10813a270bdd_1_1"
+        },
+        {
+          "id": "346ccfa3-dc40-4fed-a39c-b53d52a22b0e_1_1",
+          "toolId": "b605e602-0772-4005-8455-68f9a78e90a4",
+          "categoryId": "09be0fc0-a229-41dd-b0ee-29f43359adf3",
+          "style": {
+            "color": "#334155",
+            "fontSize": 16,
+            "fontWeight": 600
+          },
+          "size": {
+            "width": {
+              "unit": "auto",
+              "value": 240
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Text",
+          "text": "Would Not Rent Again",
+          "containerId": "67f5bb11-d767-44fe-86de-4720f41ae3e5_1_1"
+        },
+        {
+          "id": "fdc66e53-2022-4222-832b-5cfbab52118d_1_1",
+          "toolId": "b605e602-0772-4005-8455-68f9a78e90a4",
+          "categoryId": "09be0fc0-a229-41dd-b0ee-29f43359adf3",
+          "style": {
+            "color": "#ffffff",
+            "backgroundColor": "#ef4444"
+          },
+          "size": {
+            "width": {
+              "unit": "auto",
+              "value": 0
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Reset button",
+          "text": "Reset",
+          "behavior": "clear-all-inputs-and-hide-outputs",
+          "containerId": "67f5bb11-d767-44fe-86de-4720f41ae3e5_1_1"
+        },
+        {
+          "id": "42990d72-e808-4b7a-b1a0-7d3cb7e5ae47",
+          "toolId": "b605e602-0772-4005-8455-68f9a78e90a4",
+          "categoryId": "09be0fc0-a229-41dd-b0ee-29f43359adf3",
+          "style": {},
+          "size": {
+            "width": {
+              "unit": "%",
+              "value": 100
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "variableName": "Reason_not_rent_again_text_input",
+          "label": "Reason why prop would not rent again",
+          "showLabel": true,
+          "placeholder": "Enter text",
+          "type": "Text input",
+          "textCase": "pascal",
+          "copyButton": {
+            "enabled": false,
+            "text": "Copy",
+            "confirmCopy": true,
+            "confirmationMessage": "Copied to clipboard."
+          },
+          "containerId": "85f67c33-6937-4bb3-a8b6-10813a270bdd_1_1"
+        },
+        {
+          "id": "would_not_rent_again_gen_txt",
+          "toolId": "b605e602-0772-4005-8455-68f9a78e90a4",
+          "categoryId": "09be0fc0-a229-41dd-b0ee-29f43359adf3",
+          "style": {},
+          "size": {
+            "width": {
+              "unit": "%",
+              "value": 100
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Output text",
+          "generatedText": {
+            "default": "Verified correct with a negative reference because the property would not rent to the applicant again due to ${Reason_not_rent_again_text_input}"
+          },
+          "conditions": [],
+          "initiallyHidden": true,
+          "containerId": "85f67c33-6937-4bb3-a8b6-10813a270bdd_1_1"
+        },
+        {
+          "id": "6b6b40e5-1bc6-4a72-8971-c2152e739d3f_1_1",
+          "toolId": "b605e602-0772-4005-8455-68f9a78e90a4",
+          "categoryId": "09be0fc0-a229-41dd-b0ee-29f43359adf3",
+          "style": {},
+          "size": {
+            "width": {
+              "unit": "%",
+              "value": 100
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Container",
+          "direction": "row",
+          "gap": 8,
+          "padding": 0,
+          "containerId": "85f67c33-6937-4bb3-a8b6-10813a270bdd_1_1",
+          "justifyContent": "flex-start"
+        },
+        {
+          "id": "f55666e7-77f1-4a9b-90e0-8b3fa5ad5af0_1_1",
+          "toolId": "b605e602-0772-4005-8455-68f9a78e90a4",
+          "categoryId": "09be0fc0-a229-41dd-b0ee-29f43359adf3",
+          "style": {
+            "color": "#ffffff",
+            "backgroundColor": "#22c55e"
+          },
+          "size": {
+            "width": {
+              "unit": "px",
+              "value": 130
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Generate button",
+          "text": "Generate",
+          "link": [
+            "would_not_rent_again_gen_txt"
+          ],
+          "containerId": "6b6b40e5-1bc6-4a72-8971-c2152e739d3f_1_1"
+        },
+        {
+          "id": "11823dbe-29c3-489a-8ed0-9320be0032ca_1_1",
+          "toolId": "b605e602-0772-4005-8455-68f9a78e90a4",
+          "categoryId": "09be0fc0-a229-41dd-b0ee-29f43359adf3",
+          "style": {
+            "color": "#ffffff",
+            "backgroundColor": "#3b82f6"
+          },
+          "size": {
+            "width": {
+              "unit": "px",
+              "value": 130
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Copy button",
+          "text": "Copy",
+          "link": "would_not_rent_again_gen_txt",
+          "visibility": "when-target-visible",
+          "confirmCopy": true,
+          "confirmationMessage": "Copied to clipboard.",
+          "containerId": "6b6b40e5-1bc6-4a72-8971-c2152e739d3f_1_1"
+        },
+        {
+          "id": "0ca36ea2-ced0-496b-abfb-962b5b169fe6_1",
+          "toolId": "b605e602-0772-4005-8455-68f9a78e90a4",
+          "categoryId": "09be0fc0-a229-41dd-b0ee-29f43359adf3",
+          "style": {},
+          "size": {
+            "width": {
+              "unit": "%",
+              "value": 100
+            },
+            "height": {
+              "unit": "auto",
+              "value": 80
+            }
+          },
+          "type": "Container",
+          "direction": "column",
+          "gap": 8,
+          "padding": 0,
+          "visibility": {
+            "mode": "show",
+            "inputId": "e02805a2-e219-457f-b883-d133b248ad12",
+            "value": "(Employment) 60-Day Lease Overlap"
+          },
+          "containerId": "065f970f-6a7f-4253-b615-14606387315c"
+        },
+        {
+          "id": "f9be7ec3-5003-47b9-afa3-5fb6b813913d_1",
+          "toolId": "b605e602-0772-4005-8455-68f9a78e90a4",
+          "categoryId": "09be0fc0-a229-41dd-b0ee-29f43359adf3",
+          "style": {},
+          "size": {
+            "width": {
+              "unit": "%",
+              "value": 100
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Container",
+          "direction": "row",
+          "gap": 16,
+          "padding": 0,
+          "containerId": "0ca36ea2-ced0-496b-abfb-962b5b169fe6_1"
+        },
+        {
+          "id": "f457c648-72f0-4370-b5b9-31d1b40b4950_1",
+          "toolId": "b605e602-0772-4005-8455-68f9a78e90a4",
+          "categoryId": "09be0fc0-a229-41dd-b0ee-29f43359adf3",
+          "style": {
+            "color": "#334155",
+            "fontSize": 16,
+            "fontWeight": 600
+          },
+          "size": {
+            "width": {
+              "unit": "auto",
+              "value": 240
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Text",
+          "text": "(Employment) 60-Day Lease Overlap",
+          "containerId": "f9be7ec3-5003-47b9-afa3-5fb6b813913d_1"
+        },
+        {
+          "id": "d4f6f916-91d2-4409-a602-feb2123ecac3_1",
+          "toolId": "b605e602-0772-4005-8455-68f9a78e90a4",
+          "categoryId": "09be0fc0-a229-41dd-b0ee-29f43359adf3",
+          "style": {
+            "color": "#ffffff",
+            "backgroundColor": "#ef4444"
+          },
+          "size": {
+            "width": {
+              "unit": "auto",
+              "value": 240
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Reset button",
+          "text": "Reset",
+          "behavior": "clear-all-inputs-and-hide-outputs",
+          "containerId": "f9be7ec3-5003-47b9-afa3-5fb6b813913d_1"
+        },
+        {
+          "id": "64c639f5-4021-4588-9ea2-ffc0755b4b80_1",
+          "toolId": "b605e602-0772-4005-8455-68f9a78e90a4",
+          "categoryId": "09be0fc0-a229-41dd-b0ee-29f43359adf3",
+          "style": {},
+          "size": {
+            "width": {
+              "unit": "%",
+              "value": 100
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Container",
+          "direction": "column",
+          "gap": 16,
+          "padding": 0,
+          "containerId": "0ca36ea2-ced0-496b-abfb-962b5b169fe6_1"
+        },
+        {
+          "id": "1f59036d-59d9-4bf5-97fb-f5ebf9b7170b_1",
+          "toolId": "b605e602-0772-4005-8455-68f9a78e90a4",
+          "categoryId": "09be0fc0-a229-41dd-b0ee-29f43359adf3",
+          "style": {},
+          "size": {
+            "width": {
+              "unit": "%",
+              "value": 85
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "variableName": "Lease_End_Date_1",
+          "label": "Lease End Date",
+          "showLabel": true,
+          "placeholder": "",
+          "type": "Date input",
+          "todayButton": {
+            "enabled": false,
+            "text": "Today"
+          },
+          "min": {
+            "mode": "none",
+            "value": ""
+          },
+          "max": {
+            "mode": "none",
+            "value": ""
+          },
+          "containerId": "64c639f5-4021-4588-9ea2-ffc0755b4b80_1"
+        },
+        {
+          "id": "e651f55f-1bad-4531-b611-b92683cfb480_1",
+          "toolId": "b605e602-0772-4005-8455-68f9a78e90a4",
+          "categoryId": "09be0fc0-a229-41dd-b0ee-29f43359adf3",
+          "style": {},
+          "size": {
+            "width": {
+              "unit": "%",
+              "value": 100
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "variableName": "Application_Start_Date_Date_Today_1",
+          "label": "Application’s Start Date/ Date Today",
+          "showLabel": true,
+          "placeholder": "",
+          "type": "Date input",
+          "todayButton": {
+            "enabled": true,
+            "text": "Today"
+          },
+          "min": {
+            "mode": "none",
+            "value": ""
+          },
+          "max": {
+            "mode": "none",
+            "value": ""
+          },
+          "containerId": "64c639f5-4021-4588-9ea2-ffc0755b4b80_1"
+        },
+        {
+          "id": "6a3374c0-0cab-4b27-a1de-de7022a6c9f7_1",
+          "toolId": "b605e602-0772-4005-8455-68f9a78e90a4",
+          "categoryId": "09be0fc0-a229-41dd-b0ee-29f43359adf3",
+          "style": {},
+          "size": {
+            "width": {
+              "unit": "%",
+              "value": 100
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Divider",
+          "orientation": "horizontal",
+          "containerId": "0ca36ea2-ced0-496b-abfb-962b5b169fe6_1"
+        },
+        {
+          "id": "60_day_gen_txt_1",
+          "toolId": "b605e602-0772-4005-8455-68f9a78e90a4",
+          "categoryId": "09be0fc0-a229-41dd-b0ee-29f43359adf3",
+          "style": {},
+          "size": {
+            "width": {
+              "unit": "%",
+              "value": 100
+            },
+            "height": {
+              "unit": "auto",
+              "value": 80
+            }
+          },
+          "type": "Output text",
+          "generatedText": {
+            "default": ""
+          },
+          "conditions": [
+            {
+              "id": "95b67901-a55d-41df-b079-d1b7108e51d2_1",
+              "inputId": "1f59036d-59d9-4bf5-97fb-f5ebf9b7170b_1",
+              "operator": "greater-than",
+              "value": "",
+              "text": "Verified correct but negative per returned webform/fax. Employment is scheduled to start on ${Application_Start_Date_Date_Today_1} which is more than 60 days from the lease start date of this application on ${Lease_End_Date_1}",
+              "comparisonInputId": "e651f55f-1bad-4531-b611-b92683cfb480_1",
+              "offset": 60
+            },
+            {
+              "id": "d9d6b347-2708-4062-8d52-0c569dce3443_1",
+              "inputId": "1f59036d-59d9-4bf5-97fb-f5ebf9b7170b_1",
+              "operator": "less-than",
+              "value": "",
+              "text": "No negative reference, please check again.",
+              "comparisonInputId": "e651f55f-1bad-4531-b611-b92683cfb480_1",
+              "offset": 60
+            }
+          ],
+          "initiallyHidden": true,
+          "containerId": "0ca36ea2-ced0-496b-abfb-962b5b169fe6_1"
+        },
+        {
+          "id": "fc64dc62-4def-4ae8-9dfe-f63a1161a3a8_1",
+          "toolId": "b605e602-0772-4005-8455-68f9a78e90a4",
+          "categoryId": "09be0fc0-a229-41dd-b0ee-29f43359adf3",
+          "style": {},
+          "size": {
+            "width": {
+              "unit": "%",
+              "value": 100
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Container",
+          "direction": "row",
+          "gap": 8,
+          "padding": 0,
+          "containerId": "0ca36ea2-ced0-496b-abfb-962b5b169fe6_1",
+          "justifyContent": "flex-start"
+        },
+        {
+          "id": "299c7542-adaf-4dea-ad39-90edefdeabc0_1",
+          "toolId": "b605e602-0772-4005-8455-68f9a78e90a4",
+          "categoryId": "09be0fc0-a229-41dd-b0ee-29f43359adf3",
+          "style": {
+            "color": "#ffffff",
+            "backgroundColor": "#22c55e"
+          },
+          "size": {
+            "width": {
+              "unit": "px",
+              "value": 130
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Generate button",
+          "text": "Generate",
+          "link": "60_day_gen_txt_1",
+          "containerId": "fc64dc62-4def-4ae8-9dfe-f63a1161a3a8_1"
+        },
+        {
+          "id": "69cf8b6b-ba1b-418f-9bd3-72be6bf52d5f_1",
+          "toolId": "b605e602-0772-4005-8455-68f9a78e90a4",
+          "categoryId": "09be0fc0-a229-41dd-b0ee-29f43359adf3",
+          "style": {
+            "color": "#ffffff",
+            "backgroundColor": "#3b82f6"
+          },
+          "size": {
+            "width": {
+              "unit": "px",
+              "value": 130
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Copy button",
+          "text": "Copy",
+          "link": "60_day_gen_txt_1",
+          "visibility": "when-target-visible",
+          "confirmCopy": true,
+          "confirmationMessage": "Copied to clipboard.",
+          "containerId": "fc64dc62-4def-4ae8-9dfe-f63a1161a3a8_1"
         }
       ],
       "isGlobal": false

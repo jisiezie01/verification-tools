@@ -1,37 +1,41 @@
 {
-  "name": "verification-tools",
-  "private": true,
-  "version": "0.0.0",
-  "type": "module",
-  "scripts": {
-    "dev": "vite",
-    "build": "tsc -b && vite build",
-    "lint": "oxlint",
-    "test": "node --test tests/create-tool.test.mjs tests/manage-tools.test.mjs tests/tool-renderer.test.mjs tests/tools.test.mjs tests/catalog.test.mjs tests/catalog-server.test.mjs tests/container-visibility.test.mjs tests/multiple-outputs.test.mjs",
-    "test:tools-browser": "node tests/tools.browser.mjs",
-    "test:manage-browser": "node tests/manage-tools.browser.mjs",
-    "test:browser": "node tests/create-tool.browser.mjs",
-    "preview": "vite preview",
-    "test:published-browser": "node tests/catalog-published.browser.mjs",
-    "test:visibility-browser": "node tests/container-visibility.browser.mjs",
-    "test:outputs-browser": "node tests/multiple-outputs.browser.mjs"
-  },
-  "dependencies": {
-    "@tailwindcss/vite": "^4.3.3",
-    "react": "^19.2.8",
-    "react-dnd": "^16.0.1",
-    "react-dnd-html5-backend": "^16.0.1",
-    "react-dom": "^19.2.8",
-    "react-router-dom": "^7.18.4",
-    "tailwindcss": "^4.3.3"
-  },
-  "devDependencies": {
-    "@types/node": "^24.13.3",
-    "@types/react": "^19.2.18",
-    "@types/react-dom": "^19.2.7",
-    "@vitejs/plugin-react": "^6.1.1",
-    "oxlint": "^1.81.0",
-    "typescript": "~6.0.2",
-    "vite": "^8.3.0"
-  }
+	"name": "verification-tools",
+	"private": true,
+	"version": "0.0.0",
+	"type": "module",
+	"homepage": "https://jisiezie01.github.io/verification-tools",
+	"scripts": {
+		"dev": "vite",
+		"build": "tsc -b && vite build && node scripts/build-pages.mjs",
+		"lint": "oxlint",
+		"test": "node --test tests/create-tool.test.mjs tests/manage-tools.test.mjs tests/tool-renderer.test.mjs tests/tools.test.mjs tests/catalog.test.mjs tests/catalog-server.test.mjs tests/container-visibility.test.mjs tests/multiple-outputs.test.mjs",
+		"test:tools-browser": "node tests/tools.browser.mjs",
+		"test:manage-browser": "node tests/manage-tools.browser.mjs",
+		"test:browser": "node tests/create-tool.browser.mjs",
+		"preview": "vite preview",
+		"test:published-browser": "node tests/catalog-published.browser.mjs",
+		"test:visibility-browser": "node tests/container-visibility.browser.mjs",
+		"test:outputs-browser": "node tests/multiple-outputs.browser.mjs",
+		"predeploy": "npm run build",
+		"deploy": "gh-pages -d dist"
+	},
+	"dependencies": {
+		"@tailwindcss/vite": "^4.3.3",
+		"react": "^19.2.8",
+		"react-dnd": "^16.0.1",
+		"react-dnd-html5-backend": "^16.0.1",
+		"react-dom": "^19.2.8",
+		"react-router-dom": "^7.18.4",
+		"tailwindcss": "^4.3.3"
+	},
+	"devDependencies": {
+		"@types/node": "^24.13.3",
+		"@types/react": "^19.2.18",
+		"@types/react-dom": "^19.2.7",
+		"@vitejs/plugin-react": "^6.1.1",
+		"gh-pages": "^6.3.0",
+		"oxlint": "^1.81.0",
+		"typescript": "~6.0.2",
+		"vite": "^8.3.0"
+	}
 }
