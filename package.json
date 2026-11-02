@@ -16,6 +16,7 @@
 		"test:published-browser": "node tests/catalog-published.browser.mjs",
 		"test:visibility-browser": "node tests/container-visibility.browser.mjs",
 		"test:outputs-browser": "node tests/multiple-outputs.browser.mjs",
+		"test:analytics-browser": "node tests/analytics.browser.mjs",
 		"predeploy": "npm run build",
 		"deploy": "gh-pages -d dist"
 	},

@@ -1,6 +1,7 @@
 import type { ElementType, ToolType } from "../../types"
+import type { ToolAnalyticsContext } from "../../analytics"
 
-export type ToolRendererProps = { className?: string; tool: ToolType }
+export type ToolRendererProps = { className?: string; tool: ToolType; analytics?: ToolAnalyticsContext }
 export type RuntimeInputType = Extract<ElementType, { variableName: string }>
 export type RuntimeValuesType = Record<string, string>
 export type ToolRuntimeStateType = {

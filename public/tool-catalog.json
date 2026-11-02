@@ -809,7 +809,7 @@
           },
           "type": "Output text",
           "generatedText": {
-            "default": "We received a request from the property staff ${name_input} using the phone number ${owner_phone_2_input} requesting to discontinue the verification."
+            "default": "We received a request from the property staff ${name_input} using the phone number ${phone_input} requesting to discontinue the verification."
           },
           "conditions": [],
           "initiallyHidden": true,
@@ -1518,7 +1518,7 @@
           },
           "type": "Output text",
           "generatedText": {
-            "default": "Employer phone number ${owner_phone_2_input} is a ${line_check_radio_group} as verified by: https://www.phonevalidator.com/results.aspx."
+            "default": "Employer phone number ${phone_input} is a ${line_check_radio_group} as verified by: https://www.phonevalidator.com/results.aspx."
           },
           "conditions": [],
           "initiallyHidden": true,
@@ -1786,14 +1786,14 @@
               "inputId": "c88fa2e9-ce4c-4f4f-b312-c935e3537e4f",
               "operator": "equals",
               "value": "Either Wet or Electronically Signed",
-              "text": "Incoming call from the reference ${name_input} using the phone ${owner_phone_2_input} requesting a release of information from the applicant sent to ${ROI_email_input} – either wet or electronically signed. "
+              "text": "Incoming call from the reference ${name_input} using the phone ${phone_input} requesting a release of information from the applicant sent to ${ROI_email_input} – either wet or electronically signed. "
             },
             {
               "id": "cf44d25a-d694-4742-9565-1d78ed06b487",
               "inputId": "c88fa2e9-ce4c-4f4f-b312-c935e3537e4f",
               "operator": "equals",
               "value": "Wet Signed",
-              "text": "Incoming call from the reference ${name_input} using the phone ${owner_phone_2_input} requiring a release of information with a wet signature from the applicant sent to ${ROI_email_input}."
+              "text": "Incoming call from the reference ${name_input} using the phone ${phone_input} requiring a release of information with a wet signature from the applicant sent to ${ROI_email_input}."
             }
           ],
           "initiallyHidden": true,
@@ -2061,14 +2061,14 @@
               "inputId": "fa864f9d-f9ee-49ba-9c8a-b7de2650ded6",
               "operator": "equals",
               "value": "PDF Version",
-              "text": "Incoming call from the reference ${name_input} using the phone ${owner_phone_2_input} requesting to send the verification form in PDF version to ${Sending_or_Resending_Form_email_input}."
+              "text": "Incoming call from the reference ${name_input} using the phone ${phone_input} requesting to send the verification form in PDF version to ${Sending_or_Resending_Form_email_input}."
             },
             {
               "id": "f37ff09b-38cf-4191-8c17-1cc808e13b10",
               "inputId": "fa864f9d-f9ee-49ba-9c8a-b7de2650ded6",
               "operator": "equals",
               "value": "Web Form",
-              "text": "Incoming call from the reference ${name_input} using the phone ${owner_phone_2_input} requesting to send the webform to ${Sending_or_Resending_Form_email_input}"
+              "text": "Incoming call from the reference ${name_input} using the phone ${phone_input} requesting to send the webform to ${Sending_or_Resending_Form_email_input}"
             }
           ],
           "initiallyHidden": true,
@@ -2450,7 +2450,7 @@
           },
           "type": "Output text",
           "generatedText": {
-            "default": "Incoming call from the reference ${name_input} using the phone ${owner_phone_2_input} who identified themselves as the leaseholder and confirmed that the applicant's name is on the lease. The reference provided the owner’s contact information: ${owner_name_2_input} and ${owner_phone_2_input}."
+            "default": "Incoming call from the reference ${name_input} using the phone ${phone_input} who identified themselves as the leaseholder and confirmed that the applicant's name is on the lease. The reference provided the owner’s contact information: ${owner_name_2_input} and ${owner_phone_2_input}."
           },
           "conditions": [],
           "initiallyHidden": true,
@@ -2648,28 +2648,28 @@
               "inputId": "f334836c-bf66-452f-85bc-32130cbc812a",
               "operator": "equals",
               "value": "Would Callback",
-              "text": "Incoming call from the reference ${name_input} using the phone ${owner_phone_2_input} who identified themselves as the leaseholder and confirmed that the applicant's name is on the lease. The reference would callback with the owner’s contact information."
+              "text": "Incoming call from the reference ${name_input} using the phone ${phone_input} who identified themselves as the leaseholder and confirmed that the applicant's name is on the lease. The reference would callback with the owner’s contact information."
             },
             {
               "id": "d5549dd6-f1dc-47a6-9973-c68f2c5677d0",
               "inputId": "f334836c-bf66-452f-85bc-32130cbc812a",
               "operator": "equals",
               "value": "Refused Contact",
-              "text": "Incoming call from the reference ${name_input} using the phone ${owner_phone_2_input} who identified themselves as the leaseholder and confirmed that the applicant's name is on the lease but refused direct contact with the owner.\n\nUnable to verify - the listed reference is a leaseholder and does not authorize a direct contact with the owner."
+              "text": "Incoming call from the reference ${name_input} using the phone ${phone_input} who identified themselves as the leaseholder and confirmed that the applicant's name is on the lease but refused direct contact with the owner.\n\nUnable to verify - the listed reference is a leaseholder and does not authorize a direct contact with the owner."
             },
             {
               "id": "38e955b2-4ea0-4627-a2b3-32be5e134df9",
               "inputId": "f334836c-bf66-452f-85bc-32130cbc812a",
               "operator": "equals",
               "value": "No Owner’s Contact Info",
-              "text": "Incoming call from the reference ${name_input} using the phone ${owner_phone_2_input} who identified themselves as the leaseholder and confirmed that the applicant's name is on the lease but does not have contact information for the owner.\n\nUnable to verify - the listed reference is a leaseholder and does not have a contact information for the owner."
+              "text": "Incoming call from the reference ${name_input} using the phone ${phone_input} who identified themselves as the leaseholder and confirmed that the applicant's name is on the lease but does not have contact information for the owner.\n\nUnable to verify - the listed reference is a leaseholder and does not have a contact information for the owner."
             },
             {
               "id": "85f22007-ec7f-458f-be9e-1e9dd1e67ca8",
               "inputId": "f334836c-bf66-452f-85bc-32130cbc812a",
               "operator": "equals",
               "value": "Would Confirm First",
-              "text": "Incoming call from the reference ${name_input} using the phone ${owner_phone_2_input} who identified themselves as the leaseholder and confirmed that the applicant's name is on the lease and would seek permission with the owner first before disclosing any contact information."
+              "text": "Incoming call from the reference ${name_input} using the phone ${phone_input} who identified themselves as the leaseholder and confirmed that the applicant's name is on the lease and would seek permission with the owner first before disclosing any contact information."
             }
           ],
           "initiallyHidden": true,
@@ -3043,7 +3043,7 @@
           },
           "type": "Output text",
           "generatedText": {
-            "default": "Incoming call from the reference ${name_input} using the phone ${owner_phone_2_input} who identified themselves as the leaseholder and confirmed that the applicant's name is not on the lease. However, direct contact with the property owner is not permitted.\n\n\nUnable to verify: the listed reference is a leaseholder and does not authorize a direct contact with the property owner."
+            "default": "Incoming call from the reference ${name_input} using the phone ${phone_input} who identified themselves as the leaseholder and confirmed that the applicant's name is not on the lease. However, direct contact with the property owner is not permitted.\n\n\nUnable to verify: the listed reference is a leaseholder and does not authorize a direct contact with the property owner."
           },
           "conditions": [],
           "initiallyHidden": true,

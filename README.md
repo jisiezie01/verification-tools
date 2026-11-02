@@ -15,13 +15,15 @@ The development server provides a same-origin file API at `/__catalog`. Writes a
 
 ## Publish to GitHub Pages
 
-Run `npm install`, then `npm run deploy`. The `predeploy` script builds the app automatically, and `gh-pages` publishes the contents of `dist/`, including `tool-catalog.json`, to the `gh-pages` branch of `origin`. Your Git credentials must have write access to the repository.
+Every push to `master` automatically publishes the app through [`.github/workflows/deploy-pages.yml`](.github/workflows/deploy-pages.yml). The workflow uses Node.js 24, installs the locked dependencies with `npm ci`, runs lint and tests, builds the app, and deploys `dist/` (including `tool-catalog.json`) to GitHub Pages. Failed checks stop deployment.
 
-In [repository Settings → Pages](https://github.com/jisiezie01/verification-tools/settings/pages), select **Deploy from a branch**, choose **gh-pages** and **/ (root)**, then click **Save**. After GitHub finishes deployment, open https://jisiezie01.github.io/verification-tools/.
+In [repository Settings → Pages](https://github.com/jisiezie01/verification-tools/settings/pages), the **Build and deployment → Source** must be **GitHub Actions**. The `github-pages` environment must allow deployments from `master`. The workflow uses GitHub's built-in token; no deployment secret is needed. See [GitHub's custom workflow documentation](https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages).
 
-Vite automatically uses `/verification-tools/` for production builds and `/` for local development. The static landing page is at `/verification-tools/` and the React workspace at `/verification-tools/tools/`. The build emits real HTML entry files for the workspace, every catalog tool URL, and authoring screens, so direct links and refreshes work on GitHub Pages without server rewrites. Legacy `#/tools` links redirect to the new URLs. Rebuild and redeploy after adding tools. To publish later updates, run `npm run deploy` again.
+Commit your changes and push to `master`, then follow **Deploy to GitHub Pages** in the repository's [Actions tab](https://github.com/jisiezie01/verification-tools/actions). Once the workflow is on GitHub, you can also choose **Run workflow** on `master` to redeploy manually. The existing `npm run deploy` script writes to the legacy `gh-pages` branch and is not used by this workflow.
 
-The published app includes a temporary demo of Manage tools and the visual editor. Visitors can create categories and tools, edit existing tools, arrange boards, and use their results. Save applies validated changes only to the current page's in-memory catalog, with no server writes or browser storage. Navigation within the app keeps the demo changes; refreshing, closing the tab, or leaving the app restores the published catalog on the next load. A notice and save messages explain this behavior. Every fresh page load fetches the deployed JSON. To publish an update, save locally, rebuild, and redeploy. Already-open pages show the new catalog after refresh. There is no production write endpoint and no live cross-device editing.
+Vite automatically uses `/verification-tools/` for production builds and `/` for local development. The static landing page is at https://jisiezie01.github.io/verification-tools/ and the React workspace at `/verification-tools/tools/`. The build emits real HTML entry files for the workspace, every catalog tool URL, and authoring screens, so direct links and refreshes work on GitHub Pages without server rewrites. Legacy `#/tools` links redirect to the new URLs. After adding tools, commit the updated catalog and push to `master` to publish it.
+
+The published app includes a temporary demo of Manage tools and the visual editor. Visitors can create categories and tools, edit existing tools, arrange boards, and use their results. Save applies validated changes only to the current page's in-memory catalog, with no server writes or browser storage. Navigation within the app keeps the demo changes; refreshing, closing the tab, or leaving the app restores the published catalog on the next load. A notice and save messages explain this behavior. Every fresh page load fetches the deployed JSON. To publish an update, save locally, commit, and push to `master`. Already-open pages show the new catalog after refresh. There is no production write endpoint and no live cross-device editing.
 
 ## Verification
 
@@ -29,6 +31,41 @@ The published app includes a temporary demo of Manage tools and the visual edito
 - `npm run build`: TypeScript and production build.
 - `npm run lint`: lint checks.
 - Browser suites: `npm run test:browser`, `npm run test:manage-browser`, and `npm run test:tools-browser`. Run sequentially against a local dev server on port 5173 and an isolated Chromium profile with debugging port 9223. These temporarily seed `public/tool-catalog.json` and restore it afterward; do not edit the catalog concurrently.
+
+## GA4 tool usage
+
+The Google tags in `index.html` and `tools/index.html` initialize property `G-E0HDVB3SYT`. `src/analytics.ts` reuses that tag for custom events in production builds. Workspace tools and individual tool pages report these events:
+
+| Event | When it fires |
+| --- | --- |
+| `tool_use` | First changed input, successful Generate, or successful Copy in a use cycle. Further typing and actions do not repeat this event until Reset or the tool is reopened. |
+| `tool_generate` | Once per successful Generate action, including buttons that generate multiple outputs. Invalid inputs or broken links do not count. |
+| `tool_copy` | After a successful clipboard write, including input copy buttons. Failed copies do not count. |
+| `tool_reset` | Each Reset action. The next interaction starts a new use cycle. |
+
+Each event includes `tool_id`, `tool_name`, `tool_category_id`, `tool_category`, and `tool_source` (`workspace` or `tool_page`). These identify the tool and its category; they never include entered values, generated notes, copied text, or templates. Metadata strings are limited to 100 characters. IDs remain stable when tools are renamed. `tool_use` counts starts of use cycles, not completed tasks or unique visitors.
+
+Loading a board, editing tool definitions, and using Manage tools previews do not send these custom events. `npm run dev` also disables custom usage events; the existing HTML Google tags still control their own automatic events. Custom events run in production builds, including `npm run preview`. The tools continue working if analytics is unavailable.
+
+### View which tools are used
+
+1. Commit the updated code and push to `master`; wait for the GitHub Pages workflow to finish.
+2. In GA4, select the property for `G-E0HDVB3SYT`, then open **Admin → Data display → Custom definitions → Create custom dimensions**. Create the following dimensions with **Scope = Event**. Enter the parameter names exactly:
+
+   | Dimension name | Event parameter |
+   | --- | --- |
+   | Tool name | `tool_name` |
+   | Tool category | `tool_category` |
+   | Tool ID | `tool_id` |
+   | Tool category ID | `tool_category_id` |
+   | Tool source | `tool_source` |
+
+3. Open **Explore → Free form**. Import **Tool name**, **Tool category**, and **Event name** as dimensions, plus **Event count** and **Total users** as metrics. Put Tool name in Rows, the metrics in Values, and filter **Event name exactly matches `tool_use`**. Sort Event count descending to see the most-used tools. Use Tool ID to group across name changes, or filter `tool_generate` / `tool_copy` to compare completed actions.
+4. New custom dimensions can take 24–48 hours to become available in reports. To verify immediately, use a tool on the deployed site and check **Reports → Realtime** for `tool_use`, `tool_generate`, and `tool_copy`. For parameter inspection, connect the deployed URL through [Google Tag Assistant](https://tagassistant.google.com/) and open **Admin → Data display → DebugView**.
+
+These custom definitions must be created in GA4; deploying the code does not create them. See Google's [custom event setup](https://developers.google.com/analytics/devguides/collection/ga4/events), [event-scoped dimension instructions](https://support.google.com/analytics/answer/14239696), and [DebugView guide](https://support.google.com/analytics/answer/7201382).
+
+For automated verification, run `npm run build`, start an isolated Chromium browser with debugging port 9223, then run `npm run test:analytics-browser`. The suite serves the production build on port 4176 with an in-memory fixture, blocks Google Analytics network requests, and checks the real `gtag` queue without changing the catalog or sending test data to GA4.
 
 ## Landing page and search
 

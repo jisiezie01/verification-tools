@@ -1,4 +1,5 @@
-import { useContext, useState } from "react"
+import { useContext, useRef, useState } from "react"
+import { trackToolEvent } from "../../../../analytics"
 import { CategoryRuntimeContext } from "../../../ContainerCategoryRuntime/data"
 import { getSharedScope } from "../../../../data/toolVariables/functions"
 import { createRuntimeState, formatPhone, generateRuntimeState, getCopyValue, inputError, normalizeInput, resetRuntimeState, resolveRadioOutputs } from "../../functions"
@@ -6,15 +7,20 @@ import type { RuntimeInputType } from "../../types"
 import ContainerRenderedElements from "../ContainerRenderedElements"
 import type { ContainerToolRuntimeProps } from "./types"
 
-const ContainerToolRuntime = ({ tool, className = "" }: ContainerToolRuntimeProps) => {
+const ContainerToolRuntime = ({ tool, analytics, className = "" }: ContainerToolRuntimeProps) => {
     const category = useContext(CategoryRuntimeContext)
     const shared = getSharedScope(tool, category?.tools ?? [], category?.values ?? {})
     const [localState, setState] = useState(() => createRuntimeState(tool, shared))
+    const used = useRef(false)
+    const trackUse = () => {
+        if (!used.current) used.current = trackToolEvent("tool_use", tool, analytics)
+    }
     const state = resolveRadioOutputs(tool, tool.isGlobal && category ? { ...localState, values: category.values[tool.id] ?? {} } : localState, shared)
     const onInput = (element: RuntimeInputType, raw: string) => {
         const value = element.type === "Phone input" ? formatPhone(raw) : raw
         if (tool.isGlobal) category?.setInput(tool.id, element.id, value)
         setState(current => ({ ...current, values: { ...current.values, [element.id]: value }, errors: { ...current.errors, [element.id]: inputError(element, value) }, message: "" }))
+        if (value !== (state.values[element.id] ?? "")) trackUse()
     }
     const onBlur = (element: RuntimeInputType) => {
         const value = normalizeInput(element, state.values[element.id] ?? "")
@@ -25,14 +31,25 @@ const ContainerToolRuntime = ({ tool, className = "" }: ContainerToolRuntimeProp
         const next = generateRuntimeState(tool, state, outputId, shared)
         if (tool.isGlobal) Object.entries(next.values).forEach(([inputId, value]) => category?.setInput(tool.id, inputId, value))
         setState(next)
+        if (!next.message) {
+            trackUse()
+            trackToolEvent("tool_generate", tool, analytics)
+        }
     }
-    const onReset = () => { if (tool.isGlobal) category?.resetInputs(tool.id); setState(resetRuntimeState()) }
+    const onReset = () => {
+        if (tool.isGlobal) category?.resetInputs(tool.id)
+        setState(resetRuntimeState())
+        trackToolEvent("tool_reset", tool, analytics)
+        used.current = false
+    }
     const onCopy = async (targetId: string, confirmCopy: boolean, message: string) => {
         try {
             const value = getCopyValue(targetId, tool, state)
             if (!navigator.clipboard?.writeText) throw new Error("Clipboard access is unavailable in this browser.")
             await navigator.clipboard.writeText(value)
             setState(current => ({ ...current, message: "" }))
+            trackUse()
+            trackToolEvent("tool_copy", tool, analytics)
             if (confirmCopy) window.alert(message || "Copied to clipboard.")
         } catch (error) { setState(current => ({ ...current, message: error instanceof Error ? error.message : "The content could not be copied. Please try again." })) }
     }
