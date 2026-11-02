@@ -1,5 +1,7 @@
 import type { CSSProperties } from "react"
 import { generatedTextIds } from "../../data/toolLinks/functions"
+import { calculateNumbers, calculationDefinitionError, conditionInputIds } from "../../data/toolCalculations/functions"
+import { analyzeExpression, calculateExpression } from "../../data/toolCalculations/expression"
 import type { SharedRuntimeScopeType } from "../../data/toolVariables/types"
 import type { DateLimitType, ElementType, TextConditionType, ToolType } from "../../types"
 import type { RuntimeInputType, RuntimeValuesType, ToolRuntimeStateType } from "./types"
@@ -9,7 +11,29 @@ export const localDate = () => {
     const today = new Date()
     return `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, "0")}-${String(today.getDate()).padStart(2, "0")}`
 }
+export const parseDateInput = (value: string) => {
+    const match = value.match(/^(\d{2})\/(\d{2})\/(\d{4})$/)
+    const iso = match ? `${match[3]}-${match[1]}-${match[2]}` : value
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(iso)) return undefined
+    const date = new Date(`${iso}T12:00:00Z`)
+    return Number.isNaN(date.getTime()) || date.toISOString().slice(0, 10) !== iso ? undefined : iso
+}
+export const formatDateInput = (value: string) => {
+    const match = value.match(/^(\d{4})-(\d{2})-(\d{2})$/)
+    return match ? `${match[2]}/${match[3]}/${match[1]}` : value
+}
 export const dateBoundary = (limit: DateLimitType) => limit.mode === "today" ? localDate() : limit.mode === "fixed" ? limit.value : undefined
+const addDateOffset = (timestamp: number, offset: number, unit: NonNullable<TextConditionType["offsetUnit"]>) => {
+    const date = new Date(timestamp)
+    if (unit === "days") return timestamp + offset * 86400000
+    const day = date.getUTCDate()
+    date.setUTCDate(1)
+    if (unit === "months") date.setUTCMonth(date.getUTCMonth() + offset)
+    else date.setUTCFullYear(date.getUTCFullYear() + offset)
+    const lastDay = new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth() + 1, 0)).getUTCDate()
+    date.setUTCDate(Math.min(day, lastDay))
+    return date.getTime()
+}
 export const formatPhone = (value: string) => {
     const digits = value.replace(/\D/g, "").slice(0, 10)
     if (!digits) return ""
@@ -24,6 +48,7 @@ export const toPascalCase = (value: string) => value.replace(/[\p{L}\p{N}]+/gu, 
 })
 export const normalizeInput = (element: RuntimeInputType, value: string) => {
     if (element.type === "Phone input") return formatPhone(value)
+    if (element.type === "Date input") return parseDateInput(value) ?? value
     if ((element.type === "Text input" || element.type === "Name input") && element.textCase === "pascal") return toPascalCase(value)
     return value
 }
@@ -41,71 +66,141 @@ export const inputError = (element: RuntimeInputType, value: string) => {
         if (element.step > 0 && Math.abs(steps - Math.round(steps)) > 0.0000001) return `Use increments of ${element.step}.`
     }
     if (element.type === "Date input") {
-        const date = new Date(`${value}T12:00:00Z`)
-        if (!/^\d{4}-\d{2}-\d{2}$/.test(value) || Number.isNaN(date.getTime()) || date.toISOString().slice(0, 10) !== value) return "Enter a valid date."
+        const date = parseDateInput(value)
+        if (!date) return "Enter a valid date in MM/DD/YYYY format."
         const min = dateBoundary(element.min)
         const max = dateBoundary(element.max)
-        if (min && value < min) return `Choose ${min} or a later date.`
-        if (max && value > max) return `Choose ${max} or an earlier date.`
+        if (min && date < min) return `Choose ${formatDateInput(min)} or a later date.`
+        if (max && date > max) return `Choose ${formatDateInput(max)} or an earlier date.`
     }
     if (element.type === "Radio button" && !element.options.some(option => option.value === value)) return "Choose one of the available options."
     return ""
 }
+export const evaluateCalculation = (calculation: NonNullable<TextConditionType["calculation"]>, tool: ToolType, values: RuntimeValuesType) => {
+    const definitionError = calculationDefinitionError(calculation, tool.elements)
+    if (definitionError) return { value: undefined, error: definitionError }
+    const numbers: Array<number> = []
+    for (const id of calculation.inputIds) {
+        const input = tool.elements.find(element => element.id === id)
+        if (input?.type !== "Number input") return { value: undefined, error: "A calculation number input is unavailable." }
+        const raw = values[id] ?? ""
+        if (!raw.trim()) return { value: undefined, error: `Please enter ${input.label || input.variableName}.` }
+        const error = inputError(input, raw)
+        if (error) return { value: undefined, error: `${input.label || input.variableName}: ${error}` }
+        numbers.push(Number(raw))
+    }
+    return calculateNumbers(calculation.operation, numbers)
+}
 export const matchesCondition = (condition: TextConditionType, tool: ToolType, values: RuntimeValuesType) => {
+    const calculation = condition.calculation ? evaluateCalculation(condition.calculation, tool, values) : undefined
+    if (calculation?.error) return false
     const input = tool.elements.find(element => element.id === condition.inputId)
+    const inputType = calculation ? "Number input" : input?.type
     const raw = values[condition.inputId] ?? ""
-    if (!input || !isRuntimeInput(input) || !raw || inputError(input, raw)) return false
-    let actual: string | number = raw
+    if (!calculation && (!input || !isRuntimeInput(input) || !raw || inputError(input, raw))) return false
+    let actual: string | number = calculation?.value ?? raw
     let comparison = condition.value
-    const offset = condition.offset ?? 0
+    let offset = condition.offset ?? 0
+    if (condition.offsetInputId !== undefined) {
+        const offsetInput = tool.elements.find(element => element.id === condition.offsetInputId)
+        const rawOffset = values[condition.offsetInputId] ?? ""
+        if (offsetInput?.type !== "Number input" || !rawOffset.trim() || inputError(offsetInput, rawOffset)) return false
+        offset = Number(rawOffset)
+    }
     if (!Number.isFinite(offset)) return false
     if (condition.comparisonInputId !== undefined) {
         const other = tool.elements.find(element => element.id === condition.comparisonInputId)
         comparison = values[condition.comparisonInputId] ?? ""
-        if (!other || !isRuntimeInput(other) || other.type !== input.type || !comparison.trim() || inputError(other, comparison)) return false
+        if (!other || !isRuntimeInput(other) || other.type !== inputType || !comparison.trim() || inputError(other, comparison)) return false
     }
     let expected: string | number = comparison
-    if (input.type === "Number input") {
-        actual = Number(raw); expected = Number(comparison) + offset
+    if (inputType === "Number input") {
+        actual = calculation?.value ?? Number(raw); expected = Number(comparison) + offset
         if (!comparison.trim() || !Number.isFinite(actual) || !Number.isFinite(expected)) return false
-    } else if (input.type === "Date input") {
+    } else if (inputType === "Date input") {
         const date = comparison === "today" ? localDate() : comparison
         const timestamp = Date.parse(`${date}T00:00:00Z`)
         if (!Number.isInteger(offset) || !Number.isFinite(timestamp) || new Date(timestamp).toISOString().slice(0, 10) !== date) return false
         actual = Date.parse(`${raw}T00:00:00Z`)
-        expected = timestamp + offset * 86400000
+        if (!Number.isInteger(offset) || !["days", "months", "years"].includes(condition.offsetUnit ?? "days")) return false
+        expected = addDateOffset(timestamp, offset, condition.offsetUnit ?? "days")
     }
-    else if (input.type !== "Radio button") return false
-    if (input.type === "Radio button" && !["equals", "not-equals"].includes(condition.operator)) return false
+    else if (inputType !== "Radio button") return false
+    if (inputType === "Radio button" && !["equals", "not-equals"].includes(condition.operator)) return false
+    // Absorb arithmetic round-off (e.g. 0.1 + 0.2), while keeping integer comparisons exact.
+    const equal = actual === expected || (!!condition.calculation && typeof actual === "number" && typeof expected === "number"
+        && !(Number.isInteger(actual) && Number.isInteger(expected))
+        && Math.abs(actual - expected) <= Number.EPSILON * Math.max(Math.abs(actual), Math.abs(expected)) * condition.calculation.inputIds.length)
     switch (condition.operator) {
-        case "equals": return actual === expected
-        case "not-equals": return actual !== expected
-        case "greater-than": return actual > expected
-        case "less-than": return actual < expected
-        case "at-least": return actual >= expected
-        case "at-most": return actual <= expected
+        case "equals": return equal
+        case "not-equals": return !equal
+        case "greater-than": return !equal && actual > expected
+        case "less-than": return !equal && actual < expected
+        case "at-least": return equal || actual > expected
+        case "at-most": return equal || actual < expected
     }
 }
+export const outputCalculationError = (tool: ToolType, outputId: string, values: RuntimeValuesType): string => {
+    const output = tool.elements.find(element => element.id === outputId)
+    if (output?.type !== "Output text") return ""
+    let template = output.generatedText.default
+    for (const [index, rule] of output.conditions.entries()) {
+        if (rule.calculation) {
+            const result = evaluateCalculation(rule.calculation, tool, values)
+            if (result.error) return `Rule ${index + 1}: ${result.error}`
+        }
+        if (rule.offsetInputId !== undefined) {
+            const offsetInput = tool.elements.find(element => element.id === rule.offsetInputId)
+            const rawOffset = values[rule.offsetInputId] ?? ""
+            if (offsetInput?.type !== "Number input") return `Rule ${index + 1}: choose a number input for the date offset.`
+            if (rawOffset.trim() && Number.isFinite(Number(rawOffset)) && !Number.isInteger(Number(rawOffset))) return `Rule ${index + 1}: date offset must be a whole number of ${rule.offsetUnit ?? "days"}.`
+        }
+        // Later calculations are irrelevant once a preceding rule matches.
+        if (matchesCondition(rule, tool, values)) { template = rule.text; break }
+        if (conditionInputIds(rule).some(id => !(values[id] ?? "").trim())) break
+    }
+    const variables = new Map(tool.elements.filter(isRuntimeInput).map(element => [element.variableName, values[element.id] ?? ""]))
+    const numberVariables = new Set(tool.elements.filter(element => element.type === "Number input").map(element => element.variableName))
+    for (const match of template.matchAll(/\$\{([^}]+)\}/g)) {
+        const expression = match[1]
+        if (expression === "calc.result" || !/[()+\-*/\d]/.test(expression)) continue
+        const result = calculateExpression(expression, variables, numberVariables)
+        if (result.error) return `Generated text formula: ${result.error}`
+    }
+    return ""
+}
 // Keep ISO dates in runtime state for native inputs and comparisons; format only text output.
-const formatInputText = (element: RuntimeInputType, value: string) => element.type === "Date input" ? value.replace(/^(\d{4})-(\d{2})-(\d{2})$/, "$2/$3/$1") : value
-export const resolveTemplate = (template: string, tool: ToolType, values: RuntimeValuesType) => {
-    const variables = new Map(tool.elements.filter(isRuntimeInput).map(element => [element.variableName, formatInputText(element, values[element.id] ?? "")]))
+const formatInputText = (element: RuntimeInputType, value: string) => element.type === "Date input" ? formatDateInput(value) : value
+export const resolveTemplate = (template: string, tool: ToolType, values: RuntimeValuesType, calculationResult?: number) => {
+    const inputs = tool.elements.filter(isRuntimeInput)
+    const variables = new Map(inputs.map(element => [element.variableName, values[element.id] ?? ""]))
+    const numberVariables = new Set(inputs.filter(element => element.type === "Number input").map(element => element.variableName))
     // A single replacement pass keeps user input literal, including ${...} text.
-    return template.replace(/\$\{([^}]+)\}/g, (_match, name: string) => variables.get(name) ?? "")
+    return template.replace(/\$\{([^}]+)\}/g, (_match, name: string) => {
+        if (name === "calc.result") return calculationResult === undefined ? "" : String(calculationResult)
+        if (!/[()+\-*/\d]/.test(name)) {
+            const input = inputs.find(element => element.variableName === name)
+            return input ? formatInputText(input, variables.get(name) ?? "") : ""
+        }
+        const result = calculateExpression(name, variables, numberVariables)
+        return result.formatted ?? (result.value === undefined ? "" : String(result.value))
+    })
 }
 export const generateOutput = (outputId: string, tool: ToolType, values: RuntimeValuesType, shared?: SharedRuntimeScopeType) => {
     const output = tool.elements.find(element => element.id === outputId && element.type === "Output text")
     if (!output || output.type !== "Output text") return ""
     const scope = { ...tool, elements: [...tool.elements, ...(shared?.inputs ?? [])] }
     const normalized = getRuntimeValues(scope, { ...values, ...shared?.values })
+    if (outputCalculationError(scope, outputId, normalized)) return ""
     const condition = output.conditions.find(rule => matchesCondition(rule, scope, normalized))
-    return resolveTemplate(condition?.text ?? output.generatedText.default, scope, normalized)
+    const calculationResult = condition?.calculation ? evaluateCalculation(condition.calculation, scope, normalized).value : undefined
+    return resolveTemplate(condition?.text ?? output.generatedText.default, scope, normalized, calculationResult)
 }
 export const sharedOutputError = (tool: ToolType, outputId: string, shared?: SharedRuntimeScopeType) => {
     const output = tool.elements.find(element => element.id === outputId && element.type === "Output text")
     if (output?.type !== "Output text") return ""
     const names = new Set([output.generatedText.default, ...output.conditions.map(rule => rule.text)].flatMap(text => [...text.matchAll(/\$\{(global\.[^}]+)\}/g)].map(match => match[1])))
-    const ids = new Set(output.conditions.flatMap(rule => [rule.inputId, rule.comparisonInputId ?? ""]).filter(id => id.startsWith("global:")))
+    const ids = new Set(output.conditions.flatMap(conditionInputIds).filter(id => id.startsWith("global:")))
     const inputs = shared?.inputs ?? []
     if ([...names].some(name => !inputs.some(input => input.variableName === name)) || [...ids].some(id => !inputs.some(input => input.id === id))) return "A shared variable is unavailable. Add its Global tool to this category's board, or update the generated text's variables."
     if ([...names].some(name => inputs.filter(input => input.variableName === name).length > 1)) return "Multiple Global tools publish the same variable name. Give their inputs unique variable names."
@@ -115,9 +210,12 @@ export const sharedOutputError = (tool: ToolType, outputId: string, shared?: Sha
     }
     return ""
 }
+export const getDefaultInputValues = (tool: ToolType): RuntimeValuesType => Object.fromEntries(tool.elements.flatMap(element =>
+    element.type === "Number input" && element.defaultValue !== undefined ? [[element.id, String(element.defaultValue)]] : []))
 export const createRuntimeState = (tool: ToolType, shared?: SharedRuntimeScopeType): ToolRuntimeStateType => {
     const visible = tool.elements.filter(element => element.type === "Output text" && !element.initiallyHidden)
-    return { values: {}, errors: {}, outputs: Object.fromEntries(visible.map(element => [element.id, generateOutput(element.id, tool, {}, shared)])), visibleOutputIds: visible.map(element => element.id), message: "" }
+    const values = getDefaultInputValues(tool)
+    return { values, errors: {}, outputs: Object.fromEntries(visible.map(element => [element.id, generateOutput(element.id, tool, values, shared)])), visibleOutputIds: visible.map(element => element.id), message: "" }
 }
 export const requiredOutputInputs = (tool: ToolType, targets: Array<string>, values: RuntimeValuesType): Array<RuntimeInputType> => {
     const required = new Set<string>()
@@ -127,15 +225,17 @@ export const requiredOutputInputs = (tool: ToolType, targets: Array<string>, val
         let template = output.generatedText.default
         let resolved = true
         for (const rule of output.conditions) {
-            required.add(rule.inputId)
-            if (rule.comparisonInputId) required.add(rule.comparisonInputId)
+            const ids = conditionInputIds(rule)
+            ids.forEach(id => required.add(id))
             // Ask for the first unanswered condition before choosing a branch.
-            if (!(values[rule.inputId] ?? "").trim()) { resolved = false; break }
-            if (rule.comparisonInputId && !(values[rule.comparisonInputId] ?? "").trim()) { resolved = false; break }
+            if (ids.some(id => !(values[id] ?? "").trim()) || (rule.calculation && evaluateCalculation(rule.calculation, tool, values).error)) { resolved = false; break }
             if (matchesCondition(rule, tool, values)) { template = rule.text; break }
         }
         if (resolved) {
-            const names = new Set([...template.matchAll(/\$\{([^}]+)\}/g)].map(match => match[1]))
+            const names = new Set([...template.matchAll(/\$\{([^}]+)\}/g)].flatMap(match => {
+                if (match[1] === "calc.result") return []
+                return /[()+\-*/\d]/.test(match[1]) ? analyzeExpression(match[1]).variableNames : [match[1]]
+            }))
             tool.elements.filter(isRuntimeInput).forEach(input => { if (names.has(input.variableName)) required.add(input.id) })
         }
     }
@@ -162,13 +262,22 @@ export const generateRuntimeState = (tool: ToolType, state: ToolRuntimeStateType
         })
         return { ...state, values, errors, message: [...new Set(messages)].join("\n") }
     }
+    const calculationError = targets.map(id => outputCalculationError(scope, id, scopeValues)).find(Boolean)
+    if (calculationError) return { ...state, values, errors, message: calculationError }
     return { ...state, values, errors, message: "", outputs: { ...state.outputs, ...Object.fromEntries(targets.map(id => [id, generateOutput(id, tool, values, shared)])) }, visibleOutputIds: [...new Set([...state.visibleOutputIds, ...targets])] }
 }
-export const resolveRadioOutputs = (tool: ToolType, state: ToolRuntimeStateType, shared?: SharedRuntimeScopeType): ToolRuntimeStateType => ({
-    ...state,
-    outputs: { ...state.outputs, ...Object.fromEntries(tool.elements.filter(element => element.type === "Output text" && element.visibility && canShowElement(element, state, tool)).map(element => [element.id, generateOutput(element.id, tool, state.values, shared)])) },
-})
-export const resetRuntimeState = (): ToolRuntimeStateType => ({ values: {}, outputs: {}, visibleOutputIds: [], errors: {}, message: "" })
+export const resolveRadioOutputs = (tool: ToolType, state: ToolRuntimeStateType, shared?: SharedRuntimeScopeType): ToolRuntimeStateType => {
+    const visible = tool.elements.filter(element => element.type === "Output text" && element.visibility && canShowElement(element, state, tool))
+    const scope = { ...tool, elements: [...tool.elements, ...(shared?.inputs ?? [])] }
+    const values = getRuntimeValues(scope, { ...state.values, ...shared?.values })
+    const calculationError = visible.map(element => outputCalculationError(scope, element.id, values)).find(Boolean)
+    return {
+        ...state,
+        message: calculationError || state.message,
+        outputs: { ...state.outputs, ...Object.fromEntries(visible.map(element => [element.id, generateOutput(element.id, tool, state.values, shared)])) },
+    }
+}
+export const resetRuntimeState = (tool?: ToolType): ToolRuntimeStateType => ({ values: tool ? getDefaultInputValues(tool) : {}, outputs: {}, visibleOutputIds: [], errors: {}, message: "" })
 export const canShowElement = (element: ElementType, state: ToolRuntimeStateType, tool: ToolType, visited = new Set<string>()): boolean => {
     if (visited.has(element.id)) return false
     const next = new Set([...visited, element.id])

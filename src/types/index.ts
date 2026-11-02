@@ -85,10 +85,17 @@ type TextConditionType = {
     id: string
     // Local element ID, or sharedInputId(sourceToolId, sourceInputId) for a Global input.
     inputId: string
+    // When present, compare the result of these ordered number inputs instead of inputId.
+    calculation?: {
+        operation: "sum" | "difference" | "product" | "quotient"
+        inputIds: Array<string>
+    }
     operator: "equals" | "not-equals" | "greater-than" | "less-than" | "at-least" | "at-most"
     value: string
     comparisonInputId?: string
     offset?: number
+    offsetInputId?: string
+    offsetUnit?: "days" | "months" | "years"
     text: string
 }
 type ElementOutputTextType = {
@@ -141,6 +148,7 @@ type ElementTextInputType = ElementInputSettingsType & {
 type ElementNameInputType = Omit<ElementTextInputType, "type"> & { type: "Name input" }
 type ElementNumberInputType = ElementInputSettingsType & {
     type: "Number input"
+    defaultValue?: number
     min?: number
     max?: number
     step: number

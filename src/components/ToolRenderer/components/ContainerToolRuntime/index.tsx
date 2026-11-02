@@ -38,7 +38,7 @@ const ContainerToolRuntime = ({ tool, analytics, className = "" }: ContainerTool
     }
     const onReset = () => {
         if (tool.isGlobal) category?.resetInputs(tool.id)
-        setState(resetRuntimeState())
+        setState(resetRuntimeState(tool))
         trackToolEvent("tool_reset", tool, analytics)
         used.current = false
     }

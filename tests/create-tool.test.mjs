@@ -156,6 +156,19 @@ test("serialization rejects impossible dates, nonfinite limits, and missing or c
     assert.equal(builder.canMoveElement(state.elements, orphan.id, "missing-container"), false)
 })
 
+test("number defaults must satisfy their finite range and step", () => {
+    const state = tool()
+    const number = add(state, "Number input")
+    number.min = 0
+    number.max = 10
+    number.defaultValue = 11
+    assert.ok(builder.validateTool(state).some(error => error.includes("default value must be no greater than 10")))
+    number.defaultValue = 1.5
+    assert.ok(builder.validateTool(state).some(error => error.includes("default value must use increments of 1")))
+    number.defaultValue = Infinity
+    assert.ok(builder.validateTool(state).some(error => error.includes("default value must be a finite number")))
+})
+
 test("comparison variables must match types and date offsets must be whole days", () => {
     const state = tool()
     const first = add(state, "Date input")

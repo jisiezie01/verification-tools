@@ -38,7 +38,7 @@ Every element has `id`, `toolId`, `categoryId`, `style`, and `size`. The saved a
 | Reset button | `behavior: "clear-all-inputs-and-hide-outputs"` clears every input, unchecks radio selections, and clears/hides all outputs, including nested elements. |
 | Copy button | `link` identifies an input or output. `visibility: "always"` shows it initially; `when-target-visible` follows the linked element's visibility. Copy the linked current value and, only after a successful clipboard write, show the configured alert when `confirmCopy` is true. |
 | Text input / legacy Name input | `textCase: "pascal"` capitalizes words while preserving whitespace and punctuation (e.g. `jane doe` to `Jane Doe`); `none` preserves the entered text. |
-| Number input | Omitted `min`/`max` mean unlimited. `step` defaults to 1 and can be configured. |
+| Number input | Omitted `min`/`max` mean unlimited. `defaultValue` is optional and prefills the input on load and Reset. `step` defaults to 1 and can be configured. |
 | Email input | `validation.kind: "email"` requests email validation, a red invalid border, and the configured red error message below the input. |
 | Phone input | `format: "(###) ###-####"`, `maxDigits: 10`, and `validation.kind: "phone"`. Keep at most 10 digits, format progressively, and validate a complete 10-digit number. The complete formatted string has 14 characters. Use a red invalid border and the configured red message below it. |
 | Date input | `todayButton` configures the paired Today action. `min`/`max` have mode `none`, `fixed` (ISO date in `value`), or `today` (evaluate the local current date at runtime). |
@@ -63,11 +63,27 @@ Each condition contains `id`, `inputId`, `operator`, `value`, and `text`. It com
 - Dates compare calendar days with the same operators. A condition value of `today` means the local date at generation time.
 - Radios compare option values with `equals` or `not-equals`.
 
+### Formulas in generated text
+
+Write arithmetic directly inside a generated-text placeholder. For example, `The total is ${((Hourly_Rate_input * Hours_per_Week_input) * 52) / 12}`. The app calculates it when generating the text and asks for the number inputs used by the formula. Formulas support number-input variable names, numeric constants, parentheses, unary signs, and `+`, `-`, `*`, `/`. Every formula variable must be a Number input; division by zero and nonfinite results block generation. Wrap the full formula in `Currency(...)` to format it as USD, or pass a three-letter ISO code such as `Currency(((Hourly_Rate_input * Hours_per_Week_input * 52) / 12), "JPY")`. Currency values display with two decimal places, including JPY.
+
+### Conditions using calculations
+
+Select a Generated text element, click **Add condition**, then set **Condition source** to **Calculation**. Choose **Sum**, **Difference**, **Product**, or **Quotient**, and select at least two number inputs. **Add number input** adds more operands; **Earlier**, **Later**, and **Remove** change the ordered list. The expression preview shows the exact calculation. Local inputs and number inputs from Global tools in the category are available.
+
+Choose a comparison (such as **At least**), then compare the result with a specific number or another number input. An optional Offset is added to the comparison value. In **Use this text when matched**, insert **`${calc.result}`** to include the calculated number in the generated text. For example, Sum of Income 1, Income 2, and Income 3 compared with At least 5000 can generate `Total: ${calc.result}` when the total reaches 5000.
+
+Difference and Quotient evaluate left to right: `20 - 5 - 2 = 13`, and `(20 / 5) / 2 = 2`. The same input can appear more than once. Blank values are required rather than treated as zero; zero itself is valid except as a divisor. Invalid values, unavailable inputs, division by zero, and nonfinite results prevent generation and preserve previous results. The first matching rule still wins; later calculations are skipped. Radio-controlled text evaluates these rules immediately and displays calculation errors without showing fallback text. Decimal comparisons account for floating-point round-off; integer comparisons remain exact.
+
+Calculation rules retain the existing comparison fields and add `calculation: { operation: "sum" | "difference" | "product" | "quotient", inputIds: string[] }`. In this mode `inputId` is empty and unused. Ordered operands use local element IDs or Global input IDs. Saved/exported catalogs preserve this configuration; duplicated containers remap internal operands, and deleting an operand requires selecting a replacement before saving.
+
 For the agreement example, use default text `I disagree`, a radio condition `equals` / `yes`, and condition text `I, ${name_input} agree`. Additional rules can be reordered, removed, or use the same variables in different text.
 
 Deleting an input clears affected condition references and flags unresolved template variables. Deleting a container deletes its descendants. Deleted copy/generate targets clear their links so the user can reconnect them.
 
 ## Verification
+
+`tests/calculations.test.mjs` covers arithmetic conditions, validation, shared inputs, save/reload, and container operations. After `npm run build`, `npm run test:calculations-browser` checks the production editor and workspace using an isolated Chromium profile on debugging port 9223. It serves an in-memory fixture on port 4176, blocks analytics requests, and does not modify the author's catalog.
 
 Run `npm run build`, `npm run lint`, and `npm test` (use `npm.cmd` on Windows if PowerShell blocks npm.ps1).
 
@@ -87,7 +103,7 @@ Select a generated text element, edit **Generated text ID**, and click **Apply I
 
 Clicking Generate requires nonblank values for variables in the selected output template and conditions evaluated before it. Unused conditional templates and unrelated empty inputs are not required. Whitespace-only text is empty; numeric zero is valid. Local inputs show inline messages (for example, Please enter Full name or Please select an option), with a summary below the tool. Missing Global inputs identify their source tool in the summary. If any linked output lacks required values, all linked outputs keep their previous results and visibility until validation succeeds.
 
-Number and date conditions can compare against another input of the same type using `comparisonInputId`. An optional `offset` adds to the comparison value; dates use whole calendar days (e.g. 60 means 60 days after the comparison date). Fixed values and `today` remain supported.
+Number and date conditions can compare against another input of the same type using `comparisonInputId`. An optional `offset` adds to the comparison value; date offsets use whole days, months, or years and can come from a Number input variable, including shared Global number inputs. Month/year offsets use calendar arithmetic and clamp to the last valid day of the destination month (for example, January 31 plus one month becomes February 28 or 29). Fixed values and `today` remain supported.
 
 Generated text supports **Show when selected**: choose a radio group in the same tool and an option. This replaces Hide until generated while enabled, displays text immediately using current inputs, and hides it on other selections or Reset. Conditional text rules still apply. Copy buttons configured to follow the output visibility hide with it.
 

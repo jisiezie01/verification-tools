@@ -41,7 +41,21 @@
     },
     {
       "id": "02d2b126-27c5-48e5-9e56-256080fe7397",
-      "name": "Calculator"
+      "name": "Calculator",
+      "archived": false,
+      "board": {
+        "direction": "row",
+        "wrap": "wrap",
+        "gap": 20,
+        "placements": [
+          {
+            "toolId": "f1f4e557-cdc4-40d8-9cfb-91b48926e523",
+            "width": 1023,
+            "height": 408
+          }
+        ],
+        "removedToolIds": []
+      }
     }
   ],
   "tools": [
@@ -5949,6 +5963,1230 @@
         }
       ],
       "isGlobal": false
+    },
+    {
+      "categoryId": "02d2b126-27c5-48e5-9e56-256080fe7397",
+      "id": "f1f4e557-cdc4-40d8-9cfb-91b48926e523",
+      "name": "Calculator",
+      "elements": [
+        {
+          "id": "9cd0073e-3afd-4f69-b28f-771e66dc323a",
+          "toolId": "f1f4e557-cdc4-40d8-9cfb-91b48926e523",
+          "categoryId": "02d2b126-27c5-48e5-9e56-256080fe7397",
+          "style": {},
+          "size": {
+            "width": {
+              "unit": "%",
+              "value": 100
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Container",
+          "direction": "row",
+          "gap": 16,
+          "padding": 0
+        },
+        {
+          "id": "a351a609-599c-463f-a8ab-3b3311721584",
+          "toolId": "f1f4e557-cdc4-40d8-9cfb-91b48926e523",
+          "categoryId": "02d2b126-27c5-48e5-9e56-256080fe7397",
+          "style": {},
+          "size": {
+            "width": {
+              "unit": "%",
+              "value": 23
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Container",
+          "direction": "column",
+          "gap": 16,
+          "padding": 0,
+          "containerId": "9cd0073e-3afd-4f69-b28f-771e66dc323a"
+        },
+        {
+          "id": "518baf2d-a8e3-4f32-a04a-752d7ef5ee34",
+          "toolId": "f1f4e557-cdc4-40d8-9cfb-91b48926e523",
+          "categoryId": "02d2b126-27c5-48e5-9e56-256080fe7397",
+          "style": {},
+          "size": {
+            "width": {
+              "unit": "%",
+              "value": 100
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "variableName": "navigation",
+          "label": "",
+          "showLabel": false,
+          "placeholder": "",
+          "type": "Radio button",
+          "direction": "column",
+          "wrap": "nowrap",
+          "justifyContent": "flex-start",
+          "alignContent": "stretch",
+          "gap": 8,
+          "options": [
+            {
+              "id": "262bd80f-e926-41ad-a390-6999151599ff",
+              "label": "Salary Calculator",
+              "value": "Salary Calculator"
+            },
+            {
+              "id": "661cfddc-cec4-482f-9c3e-92a864c37494",
+              "label": "RH Calculator",
+              "value": "RH Calculator"
+            },
+            {
+              "id": "ad204435-cfeb-4f01-8245-288a151d8b78",
+              "label": "60-day Lease Overlap Calculator",
+              "value": "60-day Lease Overlap Calculator"
+            },
+            {
+              "id": "04677e7c-9341-4bc9-bebc-1766948f9422",
+              "label": "Multiple RH",
+              "value": "Multiple RH"
+            }
+          ],
+          "containerId": "a351a609-599c-463f-a8ab-3b3311721584"
+        },
+        {
+          "id": "e1b1ac31-fba6-46e2-aead-91d3770c6ad9",
+          "toolId": "f1f4e557-cdc4-40d8-9cfb-91b48926e523",
+          "categoryId": "02d2b126-27c5-48e5-9e56-256080fe7397",
+          "style": {},
+          "size": {
+            "width": {
+              "unit": "%",
+              "value": 75
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Container",
+          "direction": "column",
+          "gap": 16,
+          "padding": 0,
+          "containerId": "9cd0073e-3afd-4f69-b28f-771e66dc323a"
+        },
+        {
+          "id": "4df13e70-fcc9-4b4f-aa16-1cda851fa7ce",
+          "toolId": "f1f4e557-cdc4-40d8-9cfb-91b48926e523",
+          "categoryId": "02d2b126-27c5-48e5-9e56-256080fe7397",
+          "style": {},
+          "size": {
+            "width": {
+              "unit": "%",
+              "value": 100
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Container",
+          "direction": "column",
+          "gap": 16,
+          "padding": 0,
+          "containerId": "e1b1ac31-fba6-46e2-aead-91d3770c6ad9",
+          "visibility": {
+            "mode": "show",
+            "inputId": "518baf2d-a8e3-4f32-a04a-752d7ef5ee34",
+            "value": "Salary Calculator"
+          }
+        },
+        {
+          "id": "bb0052ef-974f-4131-8ae3-2488dcf63f4a",
+          "toolId": "f1f4e557-cdc4-40d8-9cfb-91b48926e523",
+          "categoryId": "02d2b126-27c5-48e5-9e56-256080fe7397",
+          "style": {},
+          "size": {
+            "width": {
+              "unit": "%",
+              "value": 100
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Container",
+          "direction": "row",
+          "gap": 16,
+          "padding": 0,
+          "containerId": "4df13e70-fcc9-4b4f-aa16-1cda851fa7ce"
+        },
+        {
+          "id": "c935e93a-ecab-48ec-87f4-31fd390bee38",
+          "toolId": "f1f4e557-cdc4-40d8-9cfb-91b48926e523",
+          "categoryId": "02d2b126-27c5-48e5-9e56-256080fe7397",
+          "style": {
+            "color": "#334155",
+            "fontSize": 16,
+            "fontWeight": 600
+          },
+          "size": {
+            "width": {
+              "unit": "auto",
+              "value": 240
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Text",
+          "text": "Salary Calculator",
+          "containerId": "bb0052ef-974f-4131-8ae3-2488dcf63f4a"
+        },
+        {
+          "id": "1228c3c3-9c99-4b8c-bd26-9deba22861bf",
+          "toolId": "f1f4e557-cdc4-40d8-9cfb-91b48926e523",
+          "categoryId": "02d2b126-27c5-48e5-9e56-256080fe7397",
+          "style": {
+            "color": "#ffffff",
+            "backgroundColor": "#ef4444"
+          },
+          "size": {
+            "width": {
+              "unit": "auto",
+              "value": 0
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Reset button",
+          "text": "Reset",
+          "behavior": "clear-all-inputs-and-hide-outputs",
+          "containerId": "bb0052ef-974f-4131-8ae3-2488dcf63f4a"
+        },
+        {
+          "id": "3780624e-665a-4b5c-a48a-91f3aad1c86e",
+          "toolId": "f1f4e557-cdc4-40d8-9cfb-91b48926e523",
+          "categoryId": "02d2b126-27c5-48e5-9e56-256080fe7397",
+          "style": {},
+          "size": {
+            "width": {
+              "unit": "%",
+              "value": 100
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "variableName": "Hourly_Rate_input",
+          "label": "Hourly Rate",
+          "showLabel": true,
+          "placeholder": "Enter Hourly Rate",
+          "type": "Number input",
+          "step": 1,
+          "containerId": "4df13e70-fcc9-4b4f-aa16-1cda851fa7ce"
+        },
+        {
+          "id": "387c7f77-e7ee-4041-9ea5-f4788fda8363",
+          "toolId": "f1f4e557-cdc4-40d8-9cfb-91b48926e523",
+          "categoryId": "02d2b126-27c5-48e5-9e56-256080fe7397",
+          "style": {},
+          "size": {
+            "width": {
+              "unit": "%",
+              "value": 100
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "variableName": "Hours_per_Week_input",
+          "label": "Hours per Week",
+          "showLabel": true,
+          "placeholder": "Enter Hours per Week",
+          "type": "Number input",
+          "step": 1,
+          "containerId": "4df13e70-fcc9-4b4f-aa16-1cda851fa7ce"
+        },
+        {
+          "id": "bca9f958-b67f-4dc2-b192-503ae3d784be",
+          "toolId": "f1f4e557-cdc4-40d8-9cfb-91b48926e523",
+          "categoryId": "02d2b126-27c5-48e5-9e56-256080fe7397",
+          "style": {
+            "color": "#ffffff",
+            "backgroundColor": "#21b1c4"
+          },
+          "size": {
+            "width": {
+              "unit": "%",
+              "value": 100
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Generate button",
+          "text": "Calculate",
+          "link": [
+            "Monthly_salary_gen_text",
+            "Annual_Rate_gen_text",
+            "Weekly_gen_text",
+            "Bi_Weekly_gen_text",
+            "Semi_Monthly_salary_gen_text"
+          ],
+          "containerId": "4df13e70-fcc9-4b4f-aa16-1cda851fa7ce"
+        },
+        {
+          "id": "1e896406-3be6-4a29-a8a3-3fb6f81217f1",
+          "toolId": "f1f4e557-cdc4-40d8-9cfb-91b48926e523",
+          "categoryId": "02d2b126-27c5-48e5-9e56-256080fe7397",
+          "style": {},
+          "size": {
+            "width": {
+              "unit": "%",
+              "value": 100
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Container",
+          "direction": "row",
+          "gap": 16,
+          "padding": 0,
+          "containerId": "4df13e70-fcc9-4b4f-aa16-1cda851fa7ce"
+        },
+        {
+          "id": "8d9888ee-33cb-400b-bf3a-8b92d8f43684",
+          "toolId": "f1f4e557-cdc4-40d8-9cfb-91b48926e523",
+          "categoryId": "02d2b126-27c5-48e5-9e56-256080fe7397",
+          "style": {
+            "color": "#334155",
+            "fontSize": 14,
+            "fontWeight": 500
+          },
+          "size": {
+            "width": {
+              "unit": "px",
+              "value": 100
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Text",
+          "text": "Monthly",
+          "containerId": "1e896406-3be6-4a29-a8a3-3fb6f81217f1"
+        },
+        {
+          "id": "Monthly_salary_gen_text",
+          "toolId": "f1f4e557-cdc4-40d8-9cfb-91b48926e523",
+          "categoryId": "02d2b126-27c5-48e5-9e56-256080fe7397",
+          "style": {},
+          "size": {
+            "width": {
+              "unit": "px",
+              "value": 150
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Output text",
+          "generatedText": {
+            "default": "${Currency(((Hourly_Rate_input * Hours_per_Week_input) * 52) / 12)}"
+          },
+          "conditions": [],
+          "initiallyHidden": true,
+          "containerId": "1e896406-3be6-4a29-a8a3-3fb6f81217f1"
+        },
+        {
+          "id": "c75b0239-a82a-48db-9689-c73f9f6a06b0",
+          "toolId": "f1f4e557-cdc4-40d8-9cfb-91b48926e523",
+          "categoryId": "02d2b126-27c5-48e5-9e56-256080fe7397",
+          "style": {
+            "color": "#ffffff",
+            "backgroundColor": "#3b82f6"
+          },
+          "size": {
+            "width": {
+              "unit": "auto",
+              "value": 0
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Copy button",
+          "text": "Copy",
+          "link": "Monthly_salary_gen_text",
+          "visibility": "when-target-visible",
+          "confirmCopy": true,
+          "confirmationMessage": "Copied to clipboard.",
+          "containerId": "1e896406-3be6-4a29-a8a3-3fb6f81217f1"
+        },
+        {
+          "id": "a59b1f4b-52fe-4f63-9824-8ee0ff020e6f",
+          "toolId": "f1f4e557-cdc4-40d8-9cfb-91b48926e523",
+          "categoryId": "02d2b126-27c5-48e5-9e56-256080fe7397",
+          "style": {},
+          "size": {
+            "width": {
+              "unit": "%",
+              "value": 100
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Container",
+          "direction": "row",
+          "gap": 16,
+          "padding": 0,
+          "containerId": "4df13e70-fcc9-4b4f-aa16-1cda851fa7ce"
+        },
+        {
+          "id": "4327fe1d-81d9-4b95-8b53-1220fdac30ee",
+          "toolId": "f1f4e557-cdc4-40d8-9cfb-91b48926e523",
+          "categoryId": "02d2b126-27c5-48e5-9e56-256080fe7397",
+          "style": {
+            "color": "#334155",
+            "fontSize": 14,
+            "fontWeight": 500
+          },
+          "size": {
+            "width": {
+              "unit": "px",
+              "value": 100
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Text",
+          "text": "Annual Rate",
+          "containerId": "a59b1f4b-52fe-4f63-9824-8ee0ff020e6f"
+        },
+        {
+          "id": "Annual_Rate_gen_text",
+          "toolId": "f1f4e557-cdc4-40d8-9cfb-91b48926e523",
+          "categoryId": "02d2b126-27c5-48e5-9e56-256080fe7397",
+          "style": {},
+          "size": {
+            "width": {
+              "unit": "px",
+              "value": 150
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Output text",
+          "generatedText": {
+            "default": "${Currency((Hourly_Rate_input * Hours_per_Week_input) * 52)}"
+          },
+          "conditions": [],
+          "initiallyHidden": true,
+          "containerId": "a59b1f4b-52fe-4f63-9824-8ee0ff020e6f"
+        },
+        {
+          "id": "639df76f-2b32-4bce-98f3-94d4d4793329",
+          "toolId": "f1f4e557-cdc4-40d8-9cfb-91b48926e523",
+          "categoryId": "02d2b126-27c5-48e5-9e56-256080fe7397",
+          "style": {
+            "color": "#ffffff",
+            "backgroundColor": "#3b82f6"
+          },
+          "size": {
+            "width": {
+              "unit": "auto",
+              "value": 0
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Copy button",
+          "text": "Copy",
+          "link": "Annual_Rate_gen_text",
+          "visibility": "when-target-visible",
+          "confirmCopy": true,
+          "confirmationMessage": "Copied to clipboard.",
+          "containerId": "a59b1f4b-52fe-4f63-9824-8ee0ff020e6f"
+        },
+        {
+          "id": "6d73f355-f675-468e-a081-6434817854ea",
+          "toolId": "f1f4e557-cdc4-40d8-9cfb-91b48926e523",
+          "categoryId": "02d2b126-27c5-48e5-9e56-256080fe7397",
+          "style": {},
+          "size": {
+            "width": {
+              "unit": "%",
+              "value": 100
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Container",
+          "direction": "row",
+          "gap": 16,
+          "padding": 0,
+          "containerId": "4df13e70-fcc9-4b4f-aa16-1cda851fa7ce"
+        },
+        {
+          "id": "6893913d-5f28-4b27-9d6a-ed7b547de87e",
+          "toolId": "f1f4e557-cdc4-40d8-9cfb-91b48926e523",
+          "categoryId": "02d2b126-27c5-48e5-9e56-256080fe7397",
+          "style": {
+            "color": "#334155",
+            "fontSize": 14,
+            "fontWeight": 500
+          },
+          "size": {
+            "width": {
+              "unit": "px",
+              "value": 100
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Text",
+          "text": "Weekly",
+          "containerId": "6d73f355-f675-468e-a081-6434817854ea"
+        },
+        {
+          "id": "Weekly_gen_text",
+          "toolId": "f1f4e557-cdc4-40d8-9cfb-91b48926e523",
+          "categoryId": "02d2b126-27c5-48e5-9e56-256080fe7397",
+          "style": {},
+          "size": {
+            "width": {
+              "unit": "px",
+              "value": 150
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Output text",
+          "generatedText": {
+            "default": "${Currency(Hourly_Rate_input * Hours_per_Week_input)}"
+          },
+          "conditions": [],
+          "initiallyHidden": true,
+          "containerId": "6d73f355-f675-468e-a081-6434817854ea"
+        },
+        {
+          "id": "6e64ddbd-92b3-4635-b5a5-cfe6e7f17c0c",
+          "toolId": "f1f4e557-cdc4-40d8-9cfb-91b48926e523",
+          "categoryId": "02d2b126-27c5-48e5-9e56-256080fe7397",
+          "style": {
+            "color": "#ffffff",
+            "backgroundColor": "#3b82f6"
+          },
+          "size": {
+            "width": {
+              "unit": "auto",
+              "value": 0
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Copy button",
+          "text": "Copy",
+          "link": "Weekly_gen_text",
+          "visibility": "when-target-visible",
+          "confirmCopy": true,
+          "confirmationMessage": "Copied to clipboard.",
+          "containerId": "6d73f355-f675-468e-a081-6434817854ea"
+        },
+        {
+          "id": "6d73f355-f675-468e-a081-6434817854ea_1",
+          "toolId": "f1f4e557-cdc4-40d8-9cfb-91b48926e523",
+          "categoryId": "02d2b126-27c5-48e5-9e56-256080fe7397",
+          "style": {},
+          "size": {
+            "width": {
+              "unit": "%",
+              "value": 100
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Container",
+          "direction": "row",
+          "gap": 16,
+          "padding": 0,
+          "containerId": "4df13e70-fcc9-4b4f-aa16-1cda851fa7ce"
+        },
+        {
+          "id": "6893913d-5f28-4b27-9d6a-ed7b547de87e_1",
+          "toolId": "f1f4e557-cdc4-40d8-9cfb-91b48926e523",
+          "categoryId": "02d2b126-27c5-48e5-9e56-256080fe7397",
+          "style": {
+            "color": "#334155",
+            "fontSize": 14,
+            "fontWeight": 500
+          },
+          "size": {
+            "width": {
+              "unit": "px",
+              "value": 100
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Text",
+          "text": "Bi-Weekly",
+          "containerId": "6d73f355-f675-468e-a081-6434817854ea_1"
+        },
+        {
+          "id": "Bi_Weekly_gen_text",
+          "toolId": "f1f4e557-cdc4-40d8-9cfb-91b48926e523",
+          "categoryId": "02d2b126-27c5-48e5-9e56-256080fe7397",
+          "style": {},
+          "size": {
+            "width": {
+              "unit": "px",
+              "value": 150
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Output text",
+          "generatedText": {
+            "default": "${Currency((Hourly_Rate_input * Hours_per_Week_input)*2)}"
+          },
+          "conditions": [],
+          "initiallyHidden": true,
+          "containerId": "6d73f355-f675-468e-a081-6434817854ea_1"
+        },
+        {
+          "id": "6e64ddbd-92b3-4635-b5a5-cfe6e7f17c0c_1",
+          "toolId": "f1f4e557-cdc4-40d8-9cfb-91b48926e523",
+          "categoryId": "02d2b126-27c5-48e5-9e56-256080fe7397",
+          "style": {
+            "color": "#ffffff",
+            "backgroundColor": "#3b82f6"
+          },
+          "size": {
+            "width": {
+              "unit": "auto",
+              "value": 0
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Copy button",
+          "text": "Copy",
+          "link": "Bi_Weekly_gen_text",
+          "visibility": "when-target-visible",
+          "confirmCopy": true,
+          "confirmationMessage": "Copied to clipboard.",
+          "containerId": "6d73f355-f675-468e-a081-6434817854ea_1"
+        },
+        {
+          "id": "1e896406-3be6-4a29-a8a3-3fb6f81217f1_1",
+          "toolId": "f1f4e557-cdc4-40d8-9cfb-91b48926e523",
+          "categoryId": "02d2b126-27c5-48e5-9e56-256080fe7397",
+          "style": {},
+          "size": {
+            "width": {
+              "unit": "%",
+              "value": 100
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Container",
+          "direction": "row",
+          "gap": 16,
+          "padding": 0,
+          "containerId": "4df13e70-fcc9-4b4f-aa16-1cda851fa7ce"
+        },
+        {
+          "id": "8d9888ee-33cb-400b-bf3a-8b92d8f43684_1",
+          "toolId": "f1f4e557-cdc4-40d8-9cfb-91b48926e523",
+          "categoryId": "02d2b126-27c5-48e5-9e56-256080fe7397",
+          "style": {
+            "color": "#334155",
+            "fontSize": 14,
+            "fontWeight": 500
+          },
+          "size": {
+            "width": {
+              "unit": "px",
+              "value": 100
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Text",
+          "text": "Semi-Monthly",
+          "containerId": "1e896406-3be6-4a29-a8a3-3fb6f81217f1_1"
+        },
+        {
+          "id": "Semi_Monthly_salary_gen_text",
+          "toolId": "f1f4e557-cdc4-40d8-9cfb-91b48926e523",
+          "categoryId": "02d2b126-27c5-48e5-9e56-256080fe7397",
+          "style": {},
+          "size": {
+            "width": {
+              "unit": "px",
+              "value": 150
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Output text",
+          "generatedText": {
+            "default": "${Currency(((Hourly_Rate_input * Hours_per_Week_input) * 52) / 24)}"
+          },
+          "conditions": [],
+          "initiallyHidden": true,
+          "containerId": "1e896406-3be6-4a29-a8a3-3fb6f81217f1_1"
+        },
+        {
+          "id": "c75b0239-a82a-48db-9689-c73f9f6a06b0_1",
+          "toolId": "f1f4e557-cdc4-40d8-9cfb-91b48926e523",
+          "categoryId": "02d2b126-27c5-48e5-9e56-256080fe7397",
+          "style": {
+            "color": "#ffffff",
+            "backgroundColor": "#3b82f6"
+          },
+          "size": {
+            "width": {
+              "unit": "auto",
+              "value": 0
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Copy button",
+          "text": "Copy",
+          "link": "Semi_Monthly_salary_gen_text",
+          "visibility": "when-target-visible",
+          "confirmCopy": true,
+          "confirmationMessage": "Copied to clipboard.",
+          "containerId": "1e896406-3be6-4a29-a8a3-3fb6f81217f1_1"
+        },
+        {
+          "id": "26a9556d-a7b6-467b-a793-69c159b9f8d5",
+          "toolId": "f1f4e557-cdc4-40d8-9cfb-91b48926e523",
+          "categoryId": "02d2b126-27c5-48e5-9e56-256080fe7397",
+          "style": {},
+          "size": {
+            "width": {
+              "unit": "%",
+              "value": 100
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Container",
+          "direction": "column",
+          "gap": 16,
+          "padding": 0,
+          "containerId": "e1b1ac31-fba6-46e2-aead-91d3770c6ad9",
+          "visibility": {
+            "mode": "show",
+            "inputId": "518baf2d-a8e3-4f32-a04a-752d7ef5ee34",
+            "value": "RH Calculator"
+          }
+        },
+        {
+          "id": "4b3c91c5-2b12-4205-b591-3e5a3c52efa9",
+          "toolId": "f1f4e557-cdc4-40d8-9cfb-91b48926e523",
+          "categoryId": "02d2b126-27c5-48e5-9e56-256080fe7397",
+          "style": {},
+          "size": {
+            "width": {
+              "unit": "%",
+              "value": 100
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Container",
+          "direction": "row",
+          "gap": 16,
+          "padding": 0,
+          "containerId": "26a9556d-a7b6-467b-a793-69c159b9f8d5"
+        },
+        {
+          "id": "c16c111b-c693-4518-ad2b-bc2ec02f5257",
+          "toolId": "f1f4e557-cdc4-40d8-9cfb-91b48926e523",
+          "categoryId": "02d2b126-27c5-48e5-9e56-256080fe7397",
+          "style": {
+            "color": "#334155",
+            "fontSize": 16,
+            "fontWeight": 600
+          },
+          "size": {
+            "width": {
+              "unit": "auto",
+              "value": 240
+            },
+            "height": {
+              "unit": "auto",
+              "value": 80
+            }
+          },
+          "type": "Text",
+          "text": "RH Calculator",
+          "containerId": "4b3c91c5-2b12-4205-b591-3e5a3c52efa9"
+        },
+        {
+          "id": "1392bdb3-c3f8-4521-9988-186f6a788023",
+          "toolId": "f1f4e557-cdc4-40d8-9cfb-91b48926e523",
+          "categoryId": "02d2b126-27c5-48e5-9e56-256080fe7397",
+          "style": {
+            "color": "#ffffff",
+            "backgroundColor": "#ef4444"
+          },
+          "size": {
+            "width": {
+              "unit": "auto",
+              "value": 0
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Reset button",
+          "text": "Reset",
+          "behavior": "clear-all-inputs-and-hide-outputs",
+          "containerId": "4b3c91c5-2b12-4205-b591-3e5a3c52efa9"
+        },
+        {
+          "id": "918fa623-2ff1-428b-bd9b-5a6b665039d1",
+          "toolId": "f1f4e557-cdc4-40d8-9cfb-91b48926e523",
+          "categoryId": "02d2b126-27c5-48e5-9e56-256080fe7397",
+          "style": {},
+          "size": {
+            "width": {
+              "unit": "%",
+              "value": 100
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "variableName": "move_in_date_input",
+          "label": "Move in date",
+          "showLabel": true,
+          "placeholder": "",
+          "type": "Date input",
+          "todayButton": {
+            "enabled": false,
+            "text": "Today"
+          },
+          "min": {
+            "mode": "none",
+            "value": ""
+          },
+          "max": {
+            "mode": "today",
+            "value": ""
+          },
+          "containerId": "26a9556d-a7b6-467b-a793-69c159b9f8d5"
+        },
+        {
+          "id": "68707304-6919-4c21-a838-ffce56279e1b",
+          "toolId": "f1f4e557-cdc4-40d8-9cfb-91b48926e523",
+          "categoryId": "02d2b126-27c5-48e5-9e56-256080fe7397",
+          "style": {},
+          "size": {
+            "width": {
+              "unit": "%",
+              "value": 100
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "variableName": "move_out_date_input",
+          "label": "Move out date",
+          "showLabel": true,
+          "placeholder": "",
+          "type": "Date input",
+          "todayButton": {
+            "enabled": true,
+            "text": "Today"
+          },
+          "min": {
+            "mode": "none",
+            "value": ""
+          },
+          "max": {
+            "mode": "none",
+            "value": ""
+          },
+          "containerId": "26a9556d-a7b6-467b-a793-69c159b9f8d5"
+        },
+        {
+          "id": "fb6e5aaa-1438-4b11-b71c-33b7219c4c37",
+          "toolId": "f1f4e557-cdc4-40d8-9cfb-91b48926e523",
+          "categoryId": "02d2b126-27c5-48e5-9e56-256080fe7397",
+          "style": {},
+          "size": {
+            "width": {
+              "unit": "%",
+              "value": 100
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "variableName": "required_months_rh_input",
+          "label": "Required months of RH (12 months by default)",
+          "showLabel": true,
+          "placeholder": "12",
+          "type": "Number input",
+          "step": 1,
+          "containerId": "26a9556d-a7b6-467b-a793-69c159b9f8d5",
+          "defaultValue": 12
+        },
+        {
+          "id": "rh_calc_gen_text",
+          "toolId": "f1f4e557-cdc4-40d8-9cfb-91b48926e523",
+          "categoryId": "02d2b126-27c5-48e5-9e56-256080fe7397",
+          "style": {},
+          "size": {
+            "width": {
+              "unit": "%",
+              "value": 100
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Output text",
+          "generatedText": {
+            "default": ""
+          },
+          "conditions": [
+            {
+              "id": "895522f8-c68a-4130-a928-1933837c10d1",
+              "inputId": "918fa623-2ff1-428b-bd9b-5a6b665039d1",
+              "operator": "greater-than",
+              "value": "",
+              "text": "Move-in date cannot be later than move-out date.",
+              "comparisonInputId": "68707304-6919-4c21-a838-ffce56279e1b",
+              "offsetUnit": "days",
+              "offset": 1
+            },
+            {
+              "id": "a2ca298a-dee4-4368-bf16-597026fc54c5",
+              "inputId": "918fa623-2ff1-428b-bd9b-5a6b665039d1",
+              "operator": "at-least",
+              "value": "",
+              "text": "required number of month/s is met",
+              "comparisonInputId": "68707304-6919-4c21-a838-ffce56279e1b",
+              "offsetInputId": "fb6e5aaa-1438-4b11-b71c-33b7219c4c37",
+              "offsetUnit": "months"
+            }
+          ],
+          "initiallyHidden": true,
+          "containerId": "26a9556d-a7b6-467b-a793-69c159b9f8d5"
+        },
+        {
+          "id": "05b5f0d5-7dae-4816-b8df-289ae260e5a6",
+          "toolId": "f1f4e557-cdc4-40d8-9cfb-91b48926e523",
+          "categoryId": "02d2b126-27c5-48e5-9e56-256080fe7397",
+          "style": {},
+          "size": {
+            "width": {
+              "unit": "%",
+              "value": 100
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Container",
+          "direction": "column",
+          "gap": 16,
+          "padding": 0,
+          "containerId": "e1b1ac31-fba6-46e2-aead-91d3770c6ad9",
+          "visibility": {
+            "mode": "show",
+            "inputId": "518baf2d-a8e3-4f32-a04a-752d7ef5ee34",
+            "value": "60-day Lease Overlap Calculator"
+          }
+        },
+        {
+          "id": "1eac6c0c-fc08-47bf-85a9-475e60b660af",
+          "toolId": "f1f4e557-cdc4-40d8-9cfb-91b48926e523",
+          "categoryId": "02d2b126-27c5-48e5-9e56-256080fe7397",
+          "style": {},
+          "size": {
+            "width": {
+              "unit": "%",
+              "value": 100
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Container",
+          "direction": "row",
+          "gap": 16,
+          "padding": 0,
+          "containerId": "05b5f0d5-7dae-4816-b8df-289ae260e5a6"
+        },
+        {
+          "id": "7da3dac6-b39d-45c3-8d4f-c7270a4d5e60",
+          "toolId": "f1f4e557-cdc4-40d8-9cfb-91b48926e523",
+          "categoryId": "02d2b126-27c5-48e5-9e56-256080fe7397",
+          "style": {
+            "color": "#334155",
+            "fontSize": 16,
+            "fontWeight": 600
+          },
+          "size": {
+            "width": {
+              "unit": "auto",
+              "value": 240
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Text",
+          "text": "60-day Lease Overlap Calculator",
+          "containerId": "1eac6c0c-fc08-47bf-85a9-475e60b660af"
+        },
+        {
+          "id": "2c81e5d5-89fe-4a47-89fe-4714babbfe23",
+          "toolId": "f1f4e557-cdc4-40d8-9cfb-91b48926e523",
+          "categoryId": "02d2b126-27c5-48e5-9e56-256080fe7397",
+          "style": {
+            "color": "#ffffff",
+            "backgroundColor": "#ef4444"
+          },
+          "size": {
+            "width": {
+              "unit": "auto",
+              "value": 0
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Reset button",
+          "text": "Reset",
+          "behavior": "clear-all-inputs-and-hide-outputs",
+          "containerId": "1eac6c0c-fc08-47bf-85a9-475e60b660af"
+        },
+        {
+          "id": "23eff102-1fbc-4386-a185-a4325615d770",
+          "toolId": "f1f4e557-cdc4-40d8-9cfb-91b48926e523",
+          "categoryId": "02d2b126-27c5-48e5-9e56-256080fe7397",
+          "style": {},
+          "size": {
+            "width": {
+              "unit": "%",
+              "value": 100
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "variableName": "date_input",
+          "label": "Date input",
+          "showLabel": true,
+          "placeholder": "",
+          "type": "Date input",
+          "todayButton": {
+            "enabled": true,
+            "text": "Today"
+          },
+          "min": {
+            "mode": "none",
+            "value": ""
+          },
+          "max": {
+            "mode": "none",
+            "value": ""
+          },
+          "containerId": "05b5f0d5-7dae-4816-b8df-289ae260e5a6"
+        },
+        {
+          "id": "2ec67a9a-379e-43d2-939e-f6f65b14c86a",
+          "toolId": "f1f4e557-cdc4-40d8-9cfb-91b48926e523",
+          "categoryId": "02d2b126-27c5-48e5-9e56-256080fe7397",
+          "style": {},
+          "size": {
+            "width": {
+              "unit": "%",
+              "value": 100
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Container",
+          "direction": "column",
+          "gap": 16,
+          "padding": 0,
+          "containerId": "e1b1ac31-fba6-46e2-aead-91d3770c6ad9",
+          "visibility": {
+            "mode": "show",
+            "inputId": "518baf2d-a8e3-4f32-a04a-752d7ef5ee34",
+            "value": "Multiple RH"
+          }
+        },
+        {
+          "id": "ced79d60-4875-4375-8ba0-eec9a5691dc3",
+          "toolId": "f1f4e557-cdc4-40d8-9cfb-91b48926e523",
+          "categoryId": "02d2b126-27c5-48e5-9e56-256080fe7397",
+          "style": {},
+          "size": {
+            "width": {
+              "unit": "%",
+              "value": 100
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Container",
+          "direction": "row",
+          "gap": 16,
+          "padding": 0,
+          "containerId": "2ec67a9a-379e-43d2-939e-f6f65b14c86a"
+        },
+        {
+          "id": "7876df6a-3491-49d5-b833-a113318062c1",
+          "toolId": "f1f4e557-cdc4-40d8-9cfb-91b48926e523",
+          "categoryId": "02d2b126-27c5-48e5-9e56-256080fe7397",
+          "style": {
+            "color": "#334155",
+            "fontSize": 16,
+            "fontWeight": 600
+          },
+          "size": {
+            "width": {
+              "unit": "auto",
+              "value": 240
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Text",
+          "text": "Multiple RH",
+          "containerId": "ced79d60-4875-4375-8ba0-eec9a5691dc3"
+        },
+        {
+          "id": "b0470e1e-8d2d-4ec9-b619-3b594b62afb5",
+          "toolId": "f1f4e557-cdc4-40d8-9cfb-91b48926e523",
+          "categoryId": "02d2b126-27c5-48e5-9e56-256080fe7397",
+          "style": {
+            "color": "#ffffff",
+            "backgroundColor": "#ef4444"
+          },
+          "size": {
+            "width": {
+              "unit": "auto",
+              "value": 0
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Reset button",
+          "text": "Reset",
+          "behavior": "clear-all-inputs-and-hide-outputs",
+          "containerId": "ced79d60-4875-4375-8ba0-eec9a5691dc3"
+        },
+        {
+          "id": "20dd319c-46de-4906-bc02-39f05131fa65",
+          "toolId": "f1f4e557-cdc4-40d8-9cfb-91b48926e523",
+          "categoryId": "02d2b126-27c5-48e5-9e56-256080fe7397",
+          "style": {},
+          "size": {
+            "width": {
+              "unit": "%",
+              "value": 100
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "variableName": "multiple_rh_required_number_input",
+          "label": "Required months (12 months by default)",
+          "showLabel": true,
+          "placeholder": "Enter a number",
+          "type": "Number input",
+          "step": 1,
+          "containerId": "2ec67a9a-379e-43d2-939e-f6f65b14c86a",
+          "defaultValue": 12
+        }
+      ]
     }
   ]
 }

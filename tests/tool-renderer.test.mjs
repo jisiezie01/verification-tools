@@ -93,11 +93,25 @@ test("date output and copies use MM/DD/YYYY while conditions and stored values k
     assert.equal(generated.outputs[output.id], "Leap day: 02/29/2024 / 2024-02-29")
     assert.equal(runtime.getCopyValue(output.id, tool, generated), generated.outputs[output.id])
     assert.equal(runtime.getCopyValue("agreement-date", tool, generated), "02/29/2024")
+    assert.equal(runtime.formatDateInput("2024-02-29"), "02/29/2024")
+    assert.equal(runtime.normalizeInput(tool.elements.find(element => element.id === "agreement-date"), "02/29/2024"), "2024-02-29")
+    assert.equal(runtime.inputError(tool.elements.find(element => element.id === "agreement-date"), "02/29/2024"), "")
+    assert.match(runtime.inputError(tool.elements.find(element => element.id === "agreement-date"), "02/30/2024"), /MM\/DD\/YYYY/)
     assert.equal(generated.values["agreement-date"], "2024-02-29")
     assert.equal(state.values["agreement-date"], "2024-02-29")
     assert.equal(runtime.generateOutput(output.id, tool, { "agreement-date": "2026-01-05" }), "Date: 01/05/2026 / ")
     assert.equal(runtime.resolveTemplate("Date: ${reference_date}", tool, {}), "Date: ")
     assert.equal(runtime.getCopyValue("agreement-date", tool, runtime.resetRuntimeState()), "")
+})
+
+test("number input defaults load into runtime and are restored on Reset", () => {
+    const tool = makeCatalog().tools[0]
+    const number = tool.elements.find(input => input.type === "Number input")
+    number.defaultValue = 18
+    const state = runtime.createRuntimeState(tool)
+    assert.equal(state.values[number.id], "18")
+    assert.equal(runtime.resetRuntimeState(tool).values[number.id], "18")
+    assert.equal(runtime.resetRuntimeState().values[number.id], undefined)
 })
 
 test("templates treat inserted data as literal text and never evaluate expressions", () => {
@@ -149,6 +163,17 @@ test("comparison variables and offsets use matching types and calendar days", ()
     assert.equal(runtime.matchesCondition({ ...rule, comparisonInputId: undefined, value: "2024-04-30", offset: -60 }, tool, values), true)
     assert.equal(runtime.matchesCondition({ inputId: number.id, comparisonInputId: "other-number", value: "", operator: "equals", offset: 5 }, tool, { [number.id]: "65", "other-number": "60" }), true)
     const output = tool.elements.find(e => e.id === "agreement-output")
+    const variableOffsetRule = { ...rule, offset: undefined, offsetInputId: "other-number" }
+    const variableOffsetValues = { ...values, "other-number": "60", [date.id]: "2024-03-01" }
+    assert.equal(runtime.matchesCondition(variableOffsetRule, tool, variableOffsetValues), true)
+    const monthRule = { ...rule, comparisonInputId: undefined, value: "2024-01-31", offset: 1, offsetUnit: "months" }
+    assert.equal(runtime.matchesCondition(monthRule, tool, { ...values, [date.id]: "2024-02-29" }), true)
+    assert.equal(runtime.matchesCondition({ ...monthRule, offset: -1 }, tool, { ...values, [date.id]: "2023-12-31" }), true)
+    assert.equal(runtime.matchesCondition({ ...monthRule, value: "2024-02-29", offset: 1, offsetUnit: "years" }, tool, { ...values, [date.id]: "2025-02-28" }), true)
+    assert.equal(runtime.matchesCondition(variableOffsetRule, tool, { ...variableOffsetValues, "other-number": "60.5" }), false)
+    output.conditions = [{ ...variableOffsetRule, text: "Match" }]
+    assert.deepEqual(runtime.requiredOutputInputs(tool, [output.id], { [date.id]: "2024-03-01", "other-date": "2024-01-01" }).map(e => e.id).sort(), [date.id, "other-date", "other-number"].sort())
+    assert.match(runtime.outputCalculationError(tool, output.id, { ...variableOffsetValues, "other-number": "60.5" }), /whole number of days/)
     output.conditions = [{ ...rule, text: "Match" }]
     assert.deepEqual(runtime.requiredOutputInputs(tool, [output.id], { [date.id]: "2024-03-01" }).map(e => e.id).sort(), [date.id, "other-date"].sort())
 })

@@ -84,7 +84,7 @@ try {
     await clickText("Generate", consumerScope)
     assert.equal(await readConsumerOutput(), "Adult: Alex")
     await fill("Age", "12")
-    await fill("Reference date", "2000-01-01")
+    await fill("Reference date", "01/01/2000")
     await clickText("Generate", consumerScope)
     assert.equal(await readConsumerOutput(), "Dated: 01/01/2000")
     await clickText("Reset", consumerScope)

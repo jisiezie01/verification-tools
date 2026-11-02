@@ -1,5 +1,7 @@
 import type { CSSProperties } from "react"
 import { generatedTextIds } from "../../data/toolLinks/functions"
+import { calculationDefinitionError } from "../../data/toolCalculations/functions"
+import { analyzeExpression } from "../../data/toolCalculations/expression"
 import { readToolCatalog, updateToolCatalog } from "../../data/toolCatalog/functions"
 import { getGlobalInputs, globalVariableConflicts } from "../../data/toolVariables/functions"
 import type { DateLimitType, ElementBaseType, ElementType, InputCopyButtonType, ToolCategoryType, ToolType } from "../../types"
@@ -104,7 +106,7 @@ export const duplicateContainer = (elements: Array<ElementType>, id: string) => 
         if (element.type === "Radio button") element.options = element.options.map(option => ({ ...option, id: nextDuplicateName(option.id, usedIds) }))
         if (element.type === "Output text") {
             element.generatedText = Object.fromEntries(Object.entries(element.generatedText).map(([key, text]) => [key, remapText(text)])) as typeof element.generatedText
-            element.conditions = element.conditions.map(rule => ({ ...rule, id: nextDuplicateName(rule.id, usedIds), inputId: remapId(rule.inputId), ...(rule.comparisonInputId ? { comparisonInputId: remapId(rule.comparisonInputId) } : {}), text: remapText(rule.text) }))
+            element.conditions = element.conditions.map(rule => ({ ...rule, id: nextDuplicateName(rule.id, usedIds), inputId: remapId(rule.inputId), ...(rule.calculation ? { calculation: { ...rule.calculation, inputIds: rule.calculation.inputIds.map(remapId) } } : {}), ...(rule.comparisonInputId ? { comparisonInputId: remapId(rule.comparisonInputId) } : {}), ...(rule.offsetInputId ? { offsetInputId: remapId(rule.offsetInputId) } : {}), text: remapText(rule.text) }))
         }
         return element
     })
@@ -117,7 +119,13 @@ export const removeElement = (elements: Array<ElementType>, id: string) => {
         if (element.type === "Generate button") return { ...element, link: Array.isArray(element.link) ? generatedTextIds(element.link).filter(target => !removed.has(target)) : removed.has(element.link) ? "" : element.link }
         if (element.type === "Copy button" && removed.has(element.link)) return { ...element, link: "" }
         // Retain affected conditions so the editor can ask for a replacement variable.
-        if (element.type === "Output text") return { ...element, visibility: element.visibility && removed.has(element.visibility.inputId) ? { ...element.visibility, inputId: "" } : element.visibility, conditions: element.conditions.map(condition => removed.has(condition.inputId) ? { ...condition, inputId: "" } : condition) }
+        if (element.type === "Output text") return { ...element, visibility: element.visibility && removed.has(element.visibility.inputId) ? { ...element.visibility, inputId: "" } : element.visibility, conditions: element.conditions.map(condition => ({
+            ...condition,
+            inputId: removed.has(condition.inputId) ? "" : condition.inputId,
+            ...(condition.comparisonInputId !== undefined && removed.has(condition.comparisonInputId) ? { comparisonInputId: "" } : {}),
+            ...(condition.offsetInputId !== undefined && removed.has(condition.offsetInputId) ? { offsetInputId: "" } : {}),
+            ...(condition.calculation ? { calculation: { ...condition.calculation, inputIds: condition.calculation.inputIds.map(inputId => removed.has(inputId) ? "" : inputId) } } : {}),
+        })) }
         if (element.type === "Container" && element.visibility && removed.has(element.visibility.inputId)) return { ...element, visibility: { ...element.visibility, inputId: "" } }
         return element
     })
@@ -239,6 +247,10 @@ export const validateTool = (tool: ToolType, categories?: Array<ToolCategoryType
         }
         if (element.type === "Number input" && element.min !== undefined && element.max !== undefined && element.min > element.max) errors.push(`${name}: minimum must not exceed maximum.`)
         if (element.type === "Number input" && [element.min, element.max].some(value => value !== undefined && !Number.isFinite(value))) errors.push(`${name}: number limits must be finite.`)
+        if (element.type === "Number input" && element.defaultValue !== undefined && !Number.isFinite(element.defaultValue)) errors.push(`${name}: default value must be a finite number.`)
+        if (element.type === "Number input" && element.defaultValue !== undefined && element.min !== undefined && element.defaultValue < element.min) errors.push(`${name}: default value must be at least ${element.min}.`)
+        if (element.type === "Number input" && element.defaultValue !== undefined && element.max !== undefined && element.defaultValue > element.max) errors.push(`${name}: default value must be no greater than ${element.max}.`)
+        if (element.type === "Number input" && element.defaultValue !== undefined && element.step > 0 && Math.abs((element.defaultValue - (element.min ?? 0)) / element.step - Math.round((element.defaultValue - (element.min ?? 0)) / element.step)) > 0.0000001) errors.push(`${name}: default value must use increments of ${element.step}.`)
         if (element.type === "Number input" && (!Number.isFinite(element.step) || element.step <= 0)) errors.push(`${name}: step must be greater than zero.`)
         if (element.type === "Date input") {
             if ([element.min, element.max].some(limit => limit.mode === "fixed" && !isCalendarDate(limit.value))) errors.push(`${name}: enter a valid fixed date limit.`)
@@ -248,23 +260,41 @@ export const validateTool = (tool: ToolType, categories?: Array<ToolCategoryType
         }
         if (element.type === "Radio button" && (!element.options.length || element.options.some(option => !option.label.trim() || !option.value.trim()) || new Set(element.options.map(option => option.value)).size !== element.options.length)) errors.push(`${name}: include at least one option with a label and a unique, nonempty value.`)
         if (element.type === "Output text") {
-            for (const template of [element.generatedText.default, ...element.conditions.map(condition => condition.text)]) {
+            for (const [templateIndex, template] of [element.generatedText.default, ...element.conditions.map(condition => condition.text)].entries()) {
                 for (const match of template.matchAll(/\$\{([^}]+)\}/g)) {
-                    if (!inputs.some(input => input.variableName === match[1])) errors.push(`Generated text references an unknown variable: ${match[1]}.`)
+                    const expression = match[1]
+                    if (expression === "calc.result") {
+                        if (templateIndex === 0 || !element.conditions[templateIndex - 1]?.calculation) errors.push("The ${calc.result} variable is only available in text for a calculation condition.")
+                    } else if (/[()+\-*/\d]/.test(expression)) {
+                        const analysis = analyzeExpression(expression)
+                        if (analysis.error) errors.push(`Generated text formula: ${analysis.error}`)
+                        for (const variableName of analysis.variableNames) {
+                            const input = inputs.find(candidate => candidate.variableName === variableName)
+                            if (!input) errors.push(`Generated text formula references an unknown variable: ${variableName}.`)
+                            else if (input.type !== "Number input") errors.push(`Generated text formula variable ${variableName} must be a number input.`)
+                        }
+                    } else if (!inputs.some(input => input.variableName === expression)) errors.push(`Generated text references an unknown variable: ${expression}.`)
                 }
             }
             element.conditions.forEach((condition, index) => {
                 const input = inputs.find(candidate => candidate.id === condition.inputId)
+                const inputType = condition.calculation ? "Number input" : input?.type
                 const prefix = `Generated text, rule ${index + 1}`
-                if (!input || !["Number input", "Date input", "Radio button"].includes(input.type)) errors.push(`${prefix}: choose a number, date, or radio variable.`)
-                else if (condition.comparisonInputId !== undefined) {
+                if (condition.calculation) {
+                    const issue = calculationDefinitionError(condition.calculation, inputs)
+                    if (issue) errors.push(`${prefix}: ${issue}`)
+                } else if (!input || !["Number input", "Date input", "Radio button"].includes(input.type)) errors.push(`${prefix}: choose a number, date, or radio variable.`)
+                if (condition.comparisonInputId !== undefined) {
                     const comparison = inputs.find(candidate => candidate.id === condition.comparisonInputId)
-                    if (!comparison || comparison.type !== input.type || !["Number input", "Date input"].includes(comparison.type)) errors.push(`${prefix}: choose a comparison variable of the same type.`)
+                    if (!comparison || comparison.type !== inputType || !["Number input", "Date input"].includes(comparison.type)) errors.push(`${prefix}: choose a comparison variable of the same type.`)
                 }
-                else if (input.type === "Number input" && (!condition.value.trim() || !Number.isFinite(Number(condition.value)))) errors.push(`${prefix}: enter a number to compare.`)
-                else if (input.type === "Date input" && condition.value !== "today" && !isCalendarDate(condition.value)) errors.push(`${prefix}: enter a valid date or today.`)
-                else if (input.type === "Radio button" && (!input.options.some(option => option.value === condition.value) || !["equals", "not-equals"].includes(condition.operator))) errors.push(`${prefix}: choose a valid radio option and equality comparison.`)
-                if (condition.offset !== undefined && (!Number.isFinite(condition.offset) || (input?.type === "Date input" && !Number.isInteger(condition.offset)))) errors.push(`${prefix}: enter a valid offset${input?.type === "Date input" ? " in whole days" : ""}.`)
+                else if (inputType === "Number input" && (!condition.value.trim() || !Number.isFinite(Number(condition.value)))) errors.push(`${prefix}: enter a number to compare.`)
+                else if (inputType === "Date input" && condition.value !== "today" && !isCalendarDate(condition.value)) errors.push(`${prefix}: enter a valid date or today.`)
+                else if (input?.type === "Radio button" && !condition.calculation && (!input.options.some(option => option.value === condition.value) || !["equals", "not-equals"].includes(condition.operator))) errors.push(`${prefix}: choose a valid radio option and equality comparison.`)
+                if (!["equals", "not-equals", "greater-than", "less-than", "at-least", "at-most"].includes(condition.operator)) errors.push(`${prefix}: choose a valid comparison.`)
+                if (condition.offset !== undefined && (!Number.isFinite(condition.offset) || (inputType === "Date input" && !Number.isInteger(condition.offset)))) errors.push(`${prefix}: enter a valid offset${inputType === "Date input" ? " in whole days" : ""}.`)
+                if (condition.offsetInputId !== undefined && (inputType !== "Date input" || !inputs.some(candidate => candidate.id === condition.offsetInputId && candidate.type === "Number input"))) errors.push(`${prefix}: choose a number input for the date offset.`)
+                if (inputType === "Date input" && condition.offsetUnit !== undefined && !["days", "months", "years"].includes(condition.offsetUnit)) errors.push(`${prefix}: choose days, months, or years for the date offset.`)
             })
         }
         for (const dimension of [element.size.width, element.size.height]) {
