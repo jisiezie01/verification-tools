@@ -86,7 +86,7 @@ try {
     await fill("Age", "12")
     await fill("Reference date", "2000-01-01")
     await clickText("Generate", consumerScope)
-    assert.equal(await readConsumerOutput(), "Dated: 2000-01-01")
+    assert.equal(await readConsumerOutput(), "Dated: 01/01/2000")
     await clickText("Reset", consumerScope)
     assert.equal(await evaluate("document.querySelector('[data-runtime-element=\"agreement-name\"] input').value"), "alex")
     await fill("Local name", "team")

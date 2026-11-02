@@ -52,7 +52,7 @@ test("Global inputs share all input types, keep local variables independent, and
     assert.equal(scope.inputs.length, 6)
     assert.equal(generateOutput(output.id, consumer, { "local-name": "local" }, scope), "Jane Doe / Local")
     output.generatedText.default = "${global.email_input} | ${global.phone_input} | ${global.age} | ${global.reference_date} | ${global.consent}"
-    assert.equal(generateOutput(output.id, consumer, {}, scope), "jane@example.com | (123) 456-7890 | 29 | 2020-10-19 | yes")
+    assert.equal(generateOutput(output.id, consumer, {}, scope), "jane@example.com | (123) 456-7890 | 29 | 10/19/2020 | yes")
     const text = catalog.tools[0].elements.find(element => element.id === "agreement-name")
     text.textCase = "none"
     values.agreement["agreement-name"] = "<b>${global.age}</b>"

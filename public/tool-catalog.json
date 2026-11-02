@@ -38,6 +38,10 @@
         ],
         "removedToolIds": []
       }
+    },
+    {
+      "id": "02d2b126-27c5-48e5-9e56-256080fe7397",
+      "name": "Calculator"
     }
   ],
   "tools": [

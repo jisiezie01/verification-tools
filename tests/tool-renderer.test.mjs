@@ -76,12 +76,30 @@ test("conditional generation uses first matching radio, numeric or date rule wit
     const tool = makeCatalog().tools[0]
     assert.equal(runtime.generateOutput("agreement-output", tool, { "agreement-consent": "yes", "agreement-name": "jane doe", "agreement-age": "30" }), "I, Jane Doe agree")
     assert.equal(runtime.generateOutput("agreement-output", tool, { "agreement-consent": "no", "agreement-age": "30", "agreement-name": "jane" }), "Adult: Jane")
-    assert.equal(runtime.generateOutput("agreement-output", tool, { "agreement-date": "2000-01-01" }), "Earlier date: 2000-01-01")
+    assert.equal(runtime.generateOutput("agreement-output", tool, { "agreement-date": "2000-01-01" }), "Earlier date: 01/01/2000")
     assert.equal(runtime.generateOutput("agreement-output", tool, {}), "I disagree")
     assert.equal(runtime.matchesCondition({ inputId: "agreement-age", operator: "not-equals", value: "18" }, tool, {}), false)
     assert.equal(runtime.matchesCondition({ inputId: "agreement-age", operator: "greater-than", value: "9" }, tool, { "agreement-age": "10" }), true)
     assert.equal(runtime.matchesCondition({ inputId: "agreement-date", operator: "equals", value: "today" }, tool, { "agreement-date": runtime.localDate() }), true)
 })
+test("date output and copies use MM/DD/YYYY while conditions and stored values keep ISO dates", () => {
+    const tool = makeCatalog().tools[0]
+    const output = tool.elements.find(element => element.id === "agreement-output")
+    output.generatedText.default = "Date: ${reference_date} / ${name_input}"
+    output.conditions = [{ id: "leap-day", inputId: "agreement-date", operator: "equals", value: "2024-02-29", text: "Leap day: ${reference_date} / ${name_input}" }]
+    const state = { ...runtime.createRuntimeState(tool), values: { "agreement-date": "2024-02-29", "agreement-name": "2024-02-29" } }
+    const generated = runtime.generateRuntimeState(tool, state, output.id)
+    assert.equal(generated.message, "")
+    assert.equal(generated.outputs[output.id], "Leap day: 02/29/2024 / 2024-02-29")
+    assert.equal(runtime.getCopyValue(output.id, tool, generated), generated.outputs[output.id])
+    assert.equal(runtime.getCopyValue("agreement-date", tool, generated), "02/29/2024")
+    assert.equal(generated.values["agreement-date"], "2024-02-29")
+    assert.equal(state.values["agreement-date"], "2024-02-29")
+    assert.equal(runtime.generateOutput(output.id, tool, { "agreement-date": "2026-01-05" }), "Date: 01/05/2026 / ")
+    assert.equal(runtime.resolveTemplate("Date: ${reference_date}", tool, {}), "Date: ")
+    assert.equal(runtime.getCopyValue("agreement-date", tool, runtime.resetRuntimeState()), "")
+})
+
 test("templates treat inserted data as literal text and never evaluate expressions", () => {
     const tool = makeCatalog().tools[0]
     assert.equal(runtime.resolveTemplate("Hello ${name_input}", tool, { "agreement-name": "${consent}<script>alert(1)</script>" }), "Hello ${consent}<script>alert(1)</script>")

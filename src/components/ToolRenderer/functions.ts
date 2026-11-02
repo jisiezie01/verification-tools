@@ -86,8 +86,10 @@ export const matchesCondition = (condition: TextConditionType, tool: ToolType, v
         case "at-most": return actual <= expected
     }
 }
+// Keep ISO dates in runtime state for native inputs and comparisons; format only text output.
+const formatInputText = (element: RuntimeInputType, value: string) => element.type === "Date input" ? value.replace(/^(\d{4})-(\d{2})-(\d{2})$/, "$2/$3/$1") : value
 export const resolveTemplate = (template: string, tool: ToolType, values: RuntimeValuesType) => {
-    const variables = new Map(tool.elements.filter(isRuntimeInput).map(element => [element.variableName, values[element.id] ?? ""]))
+    const variables = new Map(tool.elements.filter(isRuntimeInput).map(element => [element.variableName, formatInputText(element, values[element.id] ?? "")]))
     // A single replacement pass keeps user input literal, including ${...} text.
     return template.replace(/\$\{([^}]+)\}/g, (_match, name: string) => variables.get(name) ?? "")
 }
@@ -192,7 +194,7 @@ export const getCopyValue = (targetId: string, tool: ToolType, state: ToolRuntim
     const target = tool.elements.find(element => element.id === targetId)
     if (!target) throw new Error("This copy button is not linked to an element.")
     if (target.type === "Output text") return state.outputs[targetId] ?? ""
-    if (isRuntimeInput(target)) return normalizeInput(target, state.values[targetId] ?? "")
+    if (isRuntimeInput(target)) return formatInputText(target, normalizeInput(target, state.values[targetId] ?? ""))
     throw new Error("This element cannot be copied.")
 }
 export const runtimeElementStyle = (element: ElementType): CSSProperties => ({

@@ -42,6 +42,8 @@ The board also wraps placed tools in `ContainerCategoryRuntime`, allowing tools 
 
 Text formatting is applied on blur and before generation/copy. Phone inputs format progressively and retain at most ten digits. Email, phone, number, and date validation appears below the input; empty optional inputs remain valid. Today fills the local date when it is within the configured limits.
 
+Date variables use `MM/DD/YYYY` in generated text and when copied, including Global date variables. Runtime values and date comparisons use `YYYY-MM-DD`; formatting does not depend on the browser's timezone or locale.
+
 Generated text follows the editor's default-template and ordered-condition contract. Number comparisons are numeric, dates compare calendar days, and radio comparisons use option values. Empty inputs do not match conditions. Input values are inserted as plain text in one pass; templates never execute JavaScript or HTML. Invalid values prevent generation until corrected.
 
 Generate shows a snapshot of its linked output. Copy visibility follows its target configuration; clipboard success triggers the configured alert, and clipboard failures are shown in the tool. Reset clears all inputs and selections, clears every output, and hides outputs and linked conditional copy buttons. Runtime actions are scoped to that tool instance.

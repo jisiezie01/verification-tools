@@ -60,7 +60,7 @@ try {
     await fill("Age", "0")
     await fill("Reference date", "2000-01-01")
     await clickText("Generate", agreementScope)
-    assert.equal(await evaluate("document.querySelector('[data-runtime-element=\"agreement-output\"]').textContent"), "Earlier date: 2000-01-01")
+    assert.equal(await evaluate("document.querySelector('[data-runtime-element=\"agreement-output\"]').textContent"), "Earlier date: 01/01/2000")
     await clickText("Reset", agreementScope)
     await clickText("Today", agreementScope)
     assert.match(await evaluate("document.querySelector('[data-runtime-element=\"agreement-date\"] input').value"), /^\d{4}-\d{2}-\d{2}$/)
