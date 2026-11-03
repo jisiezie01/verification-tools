@@ -96,6 +96,8 @@ type TextConditionType = {
     offset?: number
     offsetInputId?: string
     offsetUnit?: "days" | "months" | "years"
+    // Applied to the comparison date after the main date offset.
+    additionalOffsetDays?: number
     text: string
 }
 type ElementOutputTextType = {
@@ -152,6 +154,7 @@ type ElementNumberInputType = ElementInputSettingsType & {
     min?: number
     max?: number
     step: number
+    repeatable?: { enabled: boolean; buttonText: string }
 }
 type ElementEmailInputType = ElementInputSettingsType & {
     type: "Email input"

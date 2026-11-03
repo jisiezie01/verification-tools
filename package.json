@@ -8,7 +8,7 @@
 		"dev": "vite",
 		"build": "tsc -b && vite build && node scripts/build-pages.mjs",
 		"lint": "oxlint",
-		"test": "node --test tests/create-tool.test.mjs tests/manage-tools.test.mjs tests/tool-renderer.test.mjs tests/tools.test.mjs tests/catalog.test.mjs tests/catalog-server.test.mjs tests/container-visibility.test.mjs tests/multiple-outputs.test.mjs tests/calculations.test.mjs",
+		"test": "node --test tests/create-tool.test.mjs tests/manage-tools.test.mjs tests/tool-renderer.test.mjs tests/tools.test.mjs tests/catalog.test.mjs tests/catalog-server.test.mjs tests/container-visibility.test.mjs tests/multiple-outputs.test.mjs tests/calculations.test.mjs tests/date-offsets.test.mjs tests/repeated-numbers.test.mjs",
 		"test:tools-browser": "node tests/tools.browser.mjs",
 		"test:manage-browser": "node tests/manage-tools.browser.mjs",
 		"test:browser": "node tests/create-tool.browser.mjs",
@@ -18,6 +18,8 @@
 		"test:outputs-browser": "node tests/multiple-outputs.browser.mjs",
 		"test:analytics-browser": "node tests/analytics.browser.mjs",
 		"test:calculations-browser": "node tests/calculations.browser.mjs",
+		"test:date-offsets-browser": "node tests/date-offsets.browser.mjs",
+		"test:repeated-numbers-browser": "node tests/repeated-numbers.browser.mjs",
 		"predeploy": "npm run build",
 		"deploy": "gh-pages -d dist"
 	},

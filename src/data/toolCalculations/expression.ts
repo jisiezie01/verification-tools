@@ -1,6 +1,6 @@
 const tokenize = (expression: string) => {
     const tokens: Array<string> = []
-    const pattern = /\s*((?:\d+(?:\.\d*)?|\.\d+)(?:[eE][+-]?\d+)?|[A-Za-z_][A-Za-z0-9_]*|[()+\-*/])/gy
+    const pattern = /\s*((?:\d+(?:\.\d*)?|\.\d+)(?:[eE][+-]?\d+)?|(?:global\.)?[A-Za-z_][A-Za-z0-9_]*|[()+\-*/])/gy
     let position = 0
     while (position < expression.length) {
         if (!expression.slice(position).trim()) break
@@ -13,7 +13,7 @@ const tokenize = (expression: string) => {
     return { tokens, error: "" }
 }
 
-const isVariable = (token: string) => /^[A-Za-z_][A-Za-z0-9_]*$/.test(token)
+const isVariable = (token: string) => /^(?:global\.)?[A-Za-z_][A-Za-z0-9_]*$/.test(token)
 const currencyPattern = /^Currency\s*\(\s*(.+?)\s*(?:,\s*["']([A-Za-z]{3})["'])?\s*\)$/
 export const isFormulaExpression = (expression: string) => {
     // Digits are valid in local and shared variable names, not just in formulas.

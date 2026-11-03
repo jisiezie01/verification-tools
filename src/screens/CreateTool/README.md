@@ -63,6 +63,32 @@ Each condition contains `id`, `inputId`, `operator`, `value`, and `text`. It com
 - Dates compare calendar days with the same operators. A condition value of `today` means the local date at generation time.
 - Radios compare option values with `equals` or `not-equals`.
 
+Date rules add the main **Offset** (days, months, or years) to the comparison date, then apply **Additional offset (days)**. This optional setting accepts positive or negative whole days; blank or `0` leaves the main offset unchanged. Month and year offsets clamp to the last valid day of the target month before applying the extra days.
+
+For a rental-history requirement with a 15-day allowance, choose **When variable** `move_out_date_input`, **Comparison** **is at least / on or after**, **Compare against** **Another variable**, **Comparison date** `move_in_date_input`, **Offset unit** **Months**, **Offset (months) source** **Number input**, **Offset (months) variable** `required_months_rh_input`, and **Additional offset (days)** `-15`. This checks `move-out >= (move-in + required calendar months) - 15 days`. A move-in date of July 25, 2022 with 12 required months qualifies from July 10, 2023 onward. Saved rules store the adjustment in the optional `additionalOffsetDays` field; existing rules retain their behavior.
+
+In a date rule's **Use this text when matched**, insert **`${date.remainingDays}`** to show the calendar days from **When variable** to that rule's comparison date, after applying both offsets. It returns `0` on or after the comparison date. For a shortfall message, use **is less than / before** with text such as `You need ${date.remainingDays} more days to meet the requirement.` Using the example above, a move-out date of July 9, 2023 produces `1`; July 1 produces `9`. Without the additional `-15` adjustment, July 9 produces `16`. The count uses calendar days and handles leap years and month ends. This variable belongs to its own date condition, so it is unavailable in default text or non-date rules. Missing or invalid inputs must be corrected before generating.
+
+To display the original shortfall while a grace allowance makes the rule match, insert **`${date.remainingDaysBeforeAdjustment}`**. This counts calendar days to **Comparison date + the main Offset**, excluding **Additional offset (days)**, and returns `0` once that original date is reached. For move-in `10/10/2022`, move-out `09/30/2023` (MM/DD/YYYY), 12 required months, and an additional offset of `-15`, an **is at least / on or after** rule matches and `The requirement would be met by adding ${date.remainingDaysBeforeAdjustment} days.` produces `The requirement would be met by adding 10 days.` In that same rule `${date.remainingDays}` is `0` because the adjusted cutoff has already been reached. Both variables are available from insertion buttons in date-rule text.
+
+### Repeating number fields
+
+Select a **Number input**, enable **Allow additional fields**, and customize **Add field button text** (defaults to `Add field`). The tool starts with one field; each click adds one empty field. Extra fields can be removed. A label such as `Months stayed on address 1` increments to address 2, 3, and so on. Labels without a trailing number get a number appended; `{index}` can place the number elsewhere, such as `Address {index}: months stayed`.
+
+The existing variable represents the sum of all fields. For example, give the repeated input the variable name `months_stayed_on_addresses` and use this generated-text rule:
+
+| Setting | Value |
+| --- | --- |
+| Condition source | Single variable |
+| When variable | `months_stayed_on_addresses` |
+| Comparison | is at least / on or after |
+| Compare against | Another variable |
+| Comparison variable | `required_months_rh_input` |
+| Offset | `0` |
+| Use this text when matched | `Requirement met: ${months_stayed_on_addresses} months total.` |
+
+Values of `4`, `5`, and `3` give a total of `12`, so the rule matches a required value of `12`. This total also works in formulas, calculation operands, comparison values, date offsets, copy buttons, and Global variables. Minimum, maximum, and step apply to each entry, not to the total. All added fields must be completed or removed when the group is used by the generated text; a blank field does not count as zero. Reset removes the added fields and restores the first field's default value, if configured. Saving/exporting stores `repeatable: { enabled, buttonText }`; entered values and added rows remain runtime state.
+
 ### Formulas in generated text
 
 Write arithmetic directly inside a generated-text placeholder. For example, `The total is ${((Hourly_Rate_input * Hours_per_Week_input) * 52) / 12}`. The app calculates it when generating the text and asks for the number inputs used by the formula. Formulas support number-input variable names, numeric constants, parentheses, unary signs, and `+`, `-`, `*`, `/`. Every formula variable must be a Number input; division by zero and nonfinite results block generation. Wrap the full formula in `Currency(...)` to format it as USD, or pass a three-letter ISO code such as `Currency(((Hourly_Rate_input * Hours_per_Week_input * 52) / 12), "JPY")`. Currency values display with two decimal places, including JPY.
@@ -84,6 +110,8 @@ Deleting an input clears affected condition references and flags unresolved temp
 ## Verification
 
 `tests/calculations.test.mjs` covers arithmetic conditions, validation, shared inputs, save/reload, and container operations. After `npm run build`, `npm run test:calculations-browser` checks the production editor and workspace using an isolated Chromium profile on debugging port 9223. It serves an in-memory fixture on port 4176, blocks analytics requests, and does not modify the author's catalog.
+
+`tests/date-offsets.test.mjs` covers additional day offsets, cutoff dates, month-end clamping, Global inputs, validation, and persistence. After building, `npm run test:date-offsets-browser` checks the date-rule editor and generation with the same isolated-browser setup and an in-memory catalog.
 
 Run `npm run build`, `npm run lint`, and `npm test` (use `npm.cmd` on Windows if PowerShell blocks npm.ps1).
 

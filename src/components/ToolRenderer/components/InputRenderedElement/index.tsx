@@ -3,15 +3,18 @@ import Button from "../../../Button"
 import InputText from "../../../InputText"
 import InputDate from "../../../InputDate"
 import InputRadio from "../../../InputRadio"
+import InputRepeatedNumber from "../InputRepeatedNumber"
 import { dateBoundary, formatDateInput, inputError, localDate, parseDateInput } from "../../functions"
 import { COPY_BUTTON_STYLE } from "./data"
 import type { InputRenderedElementProps } from "./types"
 import { BUTTON_VARIANTS } from "@/components/Button/data"
 
-const InputRenderedElement = ({ element, state, onInput, onBlur, onCopy, className = "" }: InputRenderedElementProps) => {
+const InputRenderedElement = (props: InputRenderedElementProps) => {
+    const { element, state, onInput, onBlur, onCopy, className = "" } = props
     const id = useId()
     const value = state.values[element.id] ?? ""
     const error = state.errors[element.id]
+    if (element.type === "Number input" && element.repeatable?.enabled) return <InputRepeatedNumber {...props} />
     return <div className={`min-w-[180px] space-y-2 ${className}`}>
         {element.showLabel && <label id={`${id}-label`} htmlFor={element.type === "Radio button" ? undefined : id} className="block text-sm font-medium text-slate-700">{element.label}</label>}
         {element.type === "Radio button" ? <div role="radiogroup" aria-label={element.label || element.variableName} className="flex" style={{ flexDirection: element.direction ?? "column", flexWrap: element.wrap ?? "nowrap", justifyContent: element.justifyContent ?? "flex-start", alignContent: element.alignContent ?? "stretch", gap: element.gap ?? 8 }}>{element.options.map(option => <InputRadio key={option.id} name={id} value={option.value} checked={value === option.value} onChange={() => onInput(element, option.value)}>{option.label}</InputRadio>)}</div> : <div className="flex items-start gap-2">

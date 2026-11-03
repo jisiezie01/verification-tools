@@ -252,6 +252,10 @@ export const validateTool = (tool: ToolType, categories?: Array<ToolCategoryType
         if (element.type === "Number input" && element.defaultValue !== undefined && element.max !== undefined && element.defaultValue > element.max) errors.push(`${name}: default value must be no greater than ${element.max}.`)
         if (element.type === "Number input" && element.defaultValue !== undefined && element.step > 0 && Math.abs((element.defaultValue - (element.min ?? 0)) / element.step - Math.round((element.defaultValue - (element.min ?? 0)) / element.step)) > 0.0000001) errors.push(`${name}: default value must use increments of ${element.step}.`)
         if (element.type === "Number input" && (!Number.isFinite(element.step) || element.step <= 0)) errors.push(`${name}: step must be greater than zero.`)
+        if (element.type === "Number input" && element.repeatable !== undefined) {
+            if (!element.repeatable || typeof element.repeatable.enabled !== "boolean" || typeof element.repeatable.buttonText !== "string") errors.push(`${name}: additional field settings must include an enabled flag and button text.`)
+            else if (element.repeatable.enabled && !element.repeatable.buttonText.trim()) errors.push(`${name}: enter the Add field button text.`)
+        }
         if (element.type === "Date input") {
             if ([element.min, element.max].some(limit => limit.mode === "fixed" && !isCalendarDate(limit.value))) errors.push(`${name}: enter a valid fixed date limit.`)
             const min = resolveDateLimit(element.min)
@@ -265,6 +269,9 @@ export const validateTool = (tool: ToolType, categories?: Array<ToolCategoryType
                     const expression = match[1]
                     if (expression === "calc.result") {
                         if (templateIndex === 0 || !element.conditions[templateIndex - 1]?.calculation) errors.push("The ${calc.result} variable is only available in text for a calculation condition.")
+                    } else if (expression === "date.remainingDays" || expression === "date.remainingDaysBeforeAdjustment") {
+                        const rule = element.conditions[templateIndex - 1]
+                        if (!rule || rule.calculation || !inputs.some(input => input.id === rule.inputId && input.type === "Date input")) errors.push("The ${" + expression + "} variable is only available in text for a date condition.")
                     } else if (isFormulaExpression(expression)) {
                         const analysis = analyzeExpression(expression)
                         if (analysis.error) errors.push(`Generated text formula: ${analysis.error}`)
@@ -295,6 +302,10 @@ export const validateTool = (tool: ToolType, categories?: Array<ToolCategoryType
                 if (condition.offset !== undefined && (!Number.isFinite(condition.offset) || (inputType === "Date input" && !Number.isInteger(condition.offset)))) errors.push(`${prefix}: enter a valid offset${inputType === "Date input" ? " in whole days" : ""}.`)
                 if (condition.offsetInputId !== undefined && (inputType !== "Date input" || !inputs.some(candidate => candidate.id === condition.offsetInputId && candidate.type === "Number input"))) errors.push(`${prefix}: choose a number input for the date offset.`)
                 if (inputType === "Date input" && condition.offsetUnit !== undefined && !["days", "months", "years"].includes(condition.offsetUnit)) errors.push(`${prefix}: choose days, months, or years for the date offset.`)
+                if (condition.additionalOffsetDays !== undefined) {
+                    if (inputType !== "Date input") errors.push(`${prefix}: additional day offsets require a date condition.`)
+                    if (!Number.isInteger(condition.additionalOffsetDays)) errors.push(`${prefix}: additional offset must be a whole number of days.`)
+                }
             })
         }
         for (const dimension of [element.size.width, element.size.height]) {
