@@ -1,0 +1,325 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>How to Build Verification Tools: A Step-by-Step Guide</title>
+    <meta name="description" content="Build verification forms without coding. Follow real examples for conditional text, rental-history dates, 15-day allowances, repeated fields, and salary calculations." />
+    <meta name="robots" content="index,follow,max-image-preview:large" />
+    <meta name="theme-color" content="#f7f9fc" />
+    <link rel="canonical" href="https://jisiezie01.github.io/verification-tools/guide/" />
+    <link rel="icon" type="image/svg+xml" href="%BASE_URL%brand.svg" />
+    <link rel="stylesheet" href="/src/guide.css" />
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-E0HDVB3SYT"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag("js", new Date());
+        gtag("config", "G-E0HDVB3SYT");
+    </script>
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="Verification Tools" />
+    <meta property="og:title" content="How to Build Verification Tools: A Step-by-Step Guide" />
+    <meta property="og:description" content="Learn the visual builder with real Formatter and Calculator examples, including rental-history rules and totals from additional fields." />
+    <meta property="og:url" content="https://jisiezie01.github.io/verification-tools/guide/" />
+    <meta property="og:image" content="https://jisiezie01.github.io/verification-tools/assets/Sample%20Tool.JPG" />
+    <meta property="og:image:width" content="874" />
+    <meta property="og:image:height" content="627" />
+    <meta property="og:image:alt" content="A sample verification form with generated notes in Verification Tools" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Build Verification Tools: A Practical Guide" />
+    <meta name="twitter:description" content="Step-by-step examples for forms, conditional text, rental history, date allowances, and repeated number fields." />
+    <meta name="twitter:image" content="https://jisiezie01.github.io/verification-tools/assets/Sample%20Tool.JPG" />
+    <meta name="twitter:image:alt" content="A sample verification form with generated notes" />
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "TechArticle",
+          "@id": "https://jisiezie01.github.io/verification-tools/guide/#article",
+          "headline": "How to Build Verification Tools: A Step-by-Step Guide",
+          "description": "A beginner-friendly guide to building forms, conditional text, rental-history date rules, repeated number fields, and salary calculations in Verification Tools.",
+          "url": "https://jisiezie01.github.io/verification-tools/guide/",
+          "mainEntityOfPage": "https://jisiezie01.github.io/verification-tools/guide/",
+          "inLanguage": "en",
+          "proficiencyLevel": "Beginner",
+          "image": "https://jisiezie01.github.io/verification-tools/assets/Sample%20Tool.JPG",
+          "isPartOf": { "@id": "https://jisiezie01.github.io/verification-tools/#website" }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Verification Tools", "item": "https://jisiezie01.github.io/verification-tools/" },
+            { "@type": "ListItem", "position": 2, "name": "Building guide", "item": "https://jisiezie01.github.io/verification-tools/guide/" }
+          ]
+        }
+      ]
+    }
+    </script>
+</head>
+<body class="guide-page">
+    <a class="skip-link" href="#main">Skip to guide</a>
+    <header class="site-header wrap">
+        <a class="brand" href="%BASE_URL%" aria-label="Verification Tools home"><img src="%BASE_URL%brand.svg" width="34" height="34" alt="" />Verification<span>Tools</span></a>
+        <nav aria-label="Main navigation"><a class="nav-section" href="%BASE_URL%">Home</a><a class="nav-section" href="%BASE_URL%guide/" aria-current="page">Building guide</a><a class="button button-small" href="%BASE_URL%tools/">Open workspace</a></nav>
+    </header>
+    <main id="main" class="wrap">
+        <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="%BASE_URL%">Home</a> / Building guide</nav>
+        <div class="guide-hero" id="top">
+            <p class="eyebrow">THE VERIFICATION TOOLS HANDBOOK</p>
+            <h1>How to build<br />verification tools.</h1>
+            <p class="intro">A step-by-step guide to turning questions, numbers, and dates into ready-to-copy text. Start with a simple form, then follow the actual Formatter and Calculator examples. No coding experience needed.</p>
+        </div>
+        <div class="guide-layout">
+            <nav class="guide-nav" aria-label="Guide contents">
+                <strong>In this guide</strong>
+                <a href="#basics">1. Understand the pieces</a>
+                <a href="#first-tool">2. Build your first tool</a>
+                <a href="#variables">3. Put answers into text</a>
+                <a href="#radio-rules">4. Re-open request rules</a>
+                <a href="#rental-history">5. Rental-history dates</a>
+                <a href="#allowance">6. Allowances &amp; missing days</a>
+                <a href="#multiple-addresses">7. Add fields &amp; show the sum</a>
+                <a href="#calculations">8. Salary &amp; calculations</a>
+                <a href="#lease-overlap">9. The 60-day boundary</a>
+                <a href="#organize">10. Organize &amp; share inputs</a>
+                <a href="#test-save">11. Test, save &amp; keep work</a>
+                <a href="#troubleshooting">12. Troubleshooting</a>
+            </nav>
+            <article class="guide-article" aria-label="How to build verification tools">
+                <section id="basics">
+                    <h2>1. Understand the pieces</h2>
+                    <p>A tool is a small form with instructions for what to write. You choose the questions, decide when particular wording should appear, and connect buttons to the finished text.</p>
+                    <ol class="flow" aria-label="How a tool works">
+                        <li><strong>01 / Collect</strong><span>Ask for a name, date, number, or choice.</span></li>
+                        <li><strong>02 / Decide</strong><span>Check a rule, such as “total months is at least 12.”</span></li>
+                        <li><strong>03 / Write</strong><span>Fill a template with those answers, then copy it.</span></li>
+                    </ol>
+                    <div class="table-scroll"><table><caption>Words you will see in the builder</caption><thead><tr><th scope="col">Word</th><th scope="col">What it means</th></tr></thead><tbody>
+                        <tr><th scope="row">Input</th><td>A field someone fills in when using the tool.</td></tr>
+                        <tr><th scope="row">Label</th><td>The question or name shown above a field, such as “Move in date.”</td></tr>
+                        <tr><th scope="row">Variable name</th><td>The name the tool uses to find that field’s answer, such as <code>move_in_date_input</code>.</td></tr>
+                        <tr><th scope="row">Generated text</th><td>The finished message. Its template can contain ordinary words and variables.</td></tr>
+                        <tr><th scope="row">Condition / rule</th><td>An instruction: “If this is true, use this text.” Rules are checked from top to bottom.</td></tr>
+                        <tr><th scope="row">Default generated text</th><td>The text used when no rule matches. Give it useful wording so an unmatched case is understandable.</td></tr>
+                        <tr><th scope="row">Container</th><td>A group of related fields or buttons that can be arranged or shown together.</td></tr>
+                        <tr><th scope="row">Offset</th><td>An amount added to the value being compared against. With dates, this moves the comparison date forward or backward.</td></tr>
+                    </tbody></table></div>
+                    <p>Use <strong>Text input</strong> for names or short answers, <strong>Number input</strong> for amounts, <strong>Date input</strong> for dates, and <strong>Radio button group</strong> when someone must choose one answer. Email and Phone inputs help format and check contact details.</p>
+                </section>
+                <section id="first-tool">
+                    <p class="recipe-tag">Start here / Discontinue Request</p>
+                    <h2>2. Build your first tool</h2>
+                    <p>The existing <strong>Discontinue Request</strong> tool collects a name and phone number and puts them into one sentence. This simplified version is a good first project.</p>
+                    <ol>
+                        <li>Open <a href="%BASE_URL%manage-tools/">Manage tools</a>, choose a category, and select <strong>Create new tool</strong>. Give it a <strong>Tool name</strong>, such as “Discontinue request practice,” and choose its category.</li>
+                        <li>Add a <strong>Text input</strong> from the elements palette. Select it on the canvas. Set <strong>Label</strong> to “Name” and <strong>Variable name</strong> to <code>name_input</code>.</li>
+                        <li>Add a <strong>Phone input</strong>. Set its label to “Phone” and its variable name to <code>phone_input</code>.</li>
+                        <li>Add <strong>Generated text</strong>. Set <strong>Generated text ID</strong> to <code>discontinue_note</code>, then click <strong>Apply ID</strong>. This identifies the output that your buttons will use.</li>
+                        <li>In <strong>Default generated text</strong>, paste the example below. Leave <strong>Hide until generated</strong> enabled if you want the result to appear only after clicking Generate.</li>
+                        <li>Add a <strong>Generate button</strong>. Select it and enable <code>discontinue_note</code> under <strong>Linked generated text</strong>.</li>
+                        <li>Add a <strong>Copy button</strong> and choose <code>discontinue_note</code> under <strong>Copy from</strong>. Add a <strong>Reset button</strong> to clear the form for the next task.</li>
+                        <li>Click <strong>Save tool</strong>. Return to the workspace through Manage tools and <strong>Use tools</strong>. Enter sample details, click Generate, and review the result.</li>
+                    </ol>
+                    <pre><code>We received a request from the property staff ${name_input} using the phone number ${phone_input} requesting to discontinue the verification.</code></pre>
+                    <p>The canvas is for building and selecting elements. Test the working controls in the tool workspace after saving. If a saved tool is not on the category board, add it from <strong>Available tools</strong> in Manage tools and save the board changes.</p>
+                    <aside class="note"><p><strong>Using the public demo?</strong> Save applies changes to the current demo session. Refreshing restores the published tools. See <a href="#test-save">saving and keeping your work</a> before leaving.</p></aside>
+                </section>
+                <section id="variables">
+                    <h2>3. Put someone’s answer into your text</h2>
+                    <p>A variable is a reusable blank in a sentence. Select your Generated text element, place the cursor where the answer belongs, and use the variable insertion buttons. You can also type the variable between <code>${</code> and <code>}</code>.</p>
+                    <pre><code>Incoming call from ${name_input} using ${phone_input}.</code></pre>
+                    <p>Use the <strong>Variable name</strong>, not the visible label. Match its spelling and capitalization exactly. Names use letters, numbers, and underscores; each input needs a different name within its tool.</p>
+                    <p>An ordinary variable inserts an answer. A formula does arithmetic: <code>${hourly_rate * hours_per_week}</code> multiplies two numbers. A radio choice can be inserted as text, but it cannot be multiplied or added as a number.</p>
+                    <p>A radio option has a label and a stored value. For example, the Formatter displays <strong>Rental</strong> but stores <code>rental</code>. Inserting that variable writes <code>rental</code> into the sentence.</p>
+                </section>
+                <section id="radio-rules">
+                    <p class="recipe-tag">Formatter / Re-open Request</p>
+                    <h2>4. Let one choice pick the wording and another fill it in</h2>
+                    <p>In the existing <strong>Formatter</strong>, <code>re_open_request_radio_group_1</code> chooses the reason for reopening. A second group, <code>re_open_request_radio_group_2</code>, chooses Rental or Employment. The second choice becomes a word inside the sentence.</p>
+                    <p>Select the Generated text with ID <code>re_open_request_gen_id</code>, click <strong>Add condition</strong>, and use these settings:</p>
+                    <div class="table-scroll"><table><caption>Re-open request: first rule</caption><tbody>
+                        <tr><th scope="row">Condition source</th><td>Single variable</td></tr>
+                        <tr><th scope="row">When variable</th><td><code>re_open_request_radio_group_1</code></td></tr>
+                        <tr><th scope="row">Comparison</th><td>is equal to</td></tr>
+                        <tr><th scope="row">Selected option</th><td>Information Available from Reference</td></tr>
+                        <tr><th scope="row">Use this text when matched</th><td>Use the template below.</td></tr>
+                    </tbody></table></div>
+                    <pre><code>We received a request from the property staff ${name_input} using the phone number ${phone_input} to re-open the ${re_open_request_radio_group_2} verification.</code></pre>
+                    <p>Add a second rule with the same When variable, but choose <strong>Add Verification Comments</strong> as the Selected option. Its text can be:</p>
+                    <pre><code>${name_input} requested to re-open the ${re_open_request_radio_group_2} verification.</code></pre>
+                    <p>Test both reasons with both Rental and Employment. You do not need to make the second radio group the condition just to include its answer in the output.</p>
+                    <aside class="note"><p><strong>First match wins.</strong> The app uses the first matching rule’s complete text. It does not join the text from every matching rule. Use <strong>Move earlier</strong> and <strong>Move later</strong> to set the order.</p></aside>
+                </section>
+                <section id="rental-history">
+                    <p class="recipe-tag">Calculator / RH Calculator</p>
+                    <h2>5. Check whether a stay reaches the required months</h2>
+                    <p>The existing Calculator uses these three inputs and the Generated text ID <code>rh_calc_gen_text</code>. “RH” means rental history.</p>
+                    <div class="table-scroll"><table><caption>Fields for the rental-history calculator</caption><thead><tr><th scope="col">Field</th><th scope="col">Type and variable name</th></tr></thead><tbody>
+                        <tr><th scope="row">Move in date</th><td>Date input: <code>move_in_date_input</code></td></tr>
+                        <tr><th scope="row">Move out date</th><td>Date input: <code>move_out_date_input</code></td></tr>
+                        <tr><th scope="row">Required months of RH</th><td>Number input: <code>required_months_rh_input</code>. Set Default value to <code>12</code>, Minimum number to <code>0</code>, and Step to <code>1</code>.</td></tr>
+                    </tbody></table></div>
+                    <p>Start from the move-in date and add the required number of calendar months. Then check whether the move-out date reaches that date.</p>
+                    <div class="table-scroll"><table><caption>Full rental-history requirement</caption><tbody>
+                        <tr><th scope="row">Condition source</th><td>Single variable</td></tr>
+                        <tr><th scope="row">When variable</th><td><code>move_out_date_input</code></td></tr>
+                        <tr><th scope="row">Comparison</th><td>is at least / on or after</td></tr>
+                        <tr><th scope="row">Compare against</th><td>Another variable</td></tr>
+                        <tr><th scope="row">Comparison date</th><td><code>move_in_date_input</code></td></tr>
+                        <tr><th scope="row">Offset unit</th><td>Months</td></tr>
+                        <tr><th scope="row">Offset (months) source</th><td>Number input</td></tr>
+                        <tr><th scope="row">Offset (months) variable</th><td><code>required_months_rh_input</code></td></tr>
+                        <tr><th scope="row">Additional offset (days)</th><td>Leave blank or enter <code>0</code>.</td></tr>
+                        <tr><th scope="row">Use this text when matched</th><td>The required rental history has been met.</td></tr>
+                    </tbody></table></div>
+                    <p>For move-in <strong>July 25, 2022</strong>, 12 months gives a target of <strong>July 25, 2023</strong>. A move-out date of November 3, 2023 matches. Reversing the two date variables asks a different question and will not give this result.</p>
+                    <p><strong>Enter dates as MM/DD/YYYY.</strong> September 30, 2023 is <code>09/30/2023</code>, not <code>30/09/2023</code>. The calendar picker can help avoid confusion. Months are calendar months, not a fixed 30 days: January 31 plus one month becomes the last day of February.</p>
+                    <h3>Put an invalid-date rule first</h3>
+                    <p>Before the full-requirement rule, add a rule with When variable <code>move_in_date_input</code>, Comparison <strong>is greater than / after</strong>, Compare against <strong>Another variable</strong>, and Comparison date <code>move_out_date_input</code>. Choose Days and a fixed offset of <code>0</code>; leave the additional offset blank. Use “Move-in date cannot be later than move-out date.”</p>
+                    <p>This is a recommended correction to the saved example’s one-day offset. Zero catches a move-in date even one day after move-out.</p>
+                </section>
+                <section id="allowance">
+                    <h2>6. Allow 15 days, but show the original shortfall</h2>
+                    <p>Keep the full-requirement rule above. Add another rule immediately after it, with the same settings except <strong>Additional offset (days)</strong> is <strong>-15</strong>. This moves the target date 15 days earlier.</p>
+                    <figure class="timeline">
+                        <ol>
+                            <li><time datetime="2023-09-25">September 25</time><strong>Allowance begins</strong><span>15 days before the full target</span></li>
+                            <li><time datetime="2023-09-30">September 30</time><strong>Example move-out</strong><span>Within the allowance</span></li>
+                            <li><time datetime="2023-10-10">October 10</time><strong>Full target</strong><span>12 months after move-in</span></li>
+                        </ol>
+                        <figcaption>Move-in: October 10, 2022. Required history: 12 months. The example is 10 calendar days short of the original target.</figcaption>
+                    </figure>
+                    <p>In this allowance rule’s <strong>Use this text when matched</strong>, insert:</p>
+                    <pre><code>The required months would be met by adding ${date.remainingDaysBeforeAdjustment} days.</code></pre>
+                    <p>With move-in <code>10/10/2022</code> and move-out <code>09/30/2023</code>, the result says <strong>10 days</strong>. The additional adjustment affects whether the rule matches; this variable still counts to the original target.</p>
+                    <div class="table-scroll"><table><caption>Which remaining-days variable should I use?</caption><thead><tr><th scope="col">Variable</th><th scope="col">Meaning and example</th></tr></thead><tbody>
+                        <tr><th scope="row"><code>${date.remainingDaysBeforeAdjustment}</code></th><td>Days until the full target, before the extra day adjustment. Shows <strong>10</strong> in the example above.</td></tr>
+                        <tr><th scope="row"><code>${date.remainingDays}</code></th><td>Days until the adjusted target, including the allowance. Shows <strong>0</strong> because September 30 is already past September 25.</td></tr>
+                    </tbody></table></div>
+                    <p>Both counts stop at zero after their target is reached. They belong in a date rule’s matched text, not the default text or a radio/number rule.</p>
+                    <h3>Cover dates outside the allowance too</h3>
+                    <p>For a useful shortfall message, add a fourth rule. Use the allowance rule’s settings, including <code>-15</code>, but change Comparison to <strong>is less than / before</strong>. Write:</p>
+                    <pre><code>The stay is ${date.remainingDaysBeforeAdjustment} days short of the full requirement, and ${date.remainingDays} days short even with the allowance.</code></pre>
+                    <p>The recommended order is: <strong>invalid dates → full requirement → within allowance → outside allowance</strong>. This extends the existing Calculator’s three-rule example and avoids leaving unmatched dates with an empty result. Use a default such as “Review the entered dates.” as a final fallback.</p>
+                    <div class="table-scroll"><table><caption>Test with move-in 10/10/2022, 12 required months, and a -15-day allowance</caption><thead><tr><th scope="col">Move-out</th><th scope="col">Expected result</th></tr></thead><tbody>
+                        <tr><th scope="row">09/24/2023</th><td>Outside allowance: 16 days short of the full target; 1 day short of the adjusted target.</td></tr>
+                        <tr><th scope="row">09/25/2023</th><td>Within allowance: 15 days short of the full target.</td></tr>
+                        <tr><th scope="row">09/30/2023</th><td>Within allowance: 10 days short of the full target.</td></tr>
+                        <tr><th scope="row">10/10/2023</th><td>Full requirement met. The earlier full-requirement rule wins.</td></tr>
+                    </tbody></table></div>
+                    <aside class="note"><p><strong>The sign matters.</strong> <code>-15</code> allows a stay to end earlier. <code>15</code> moves the target later and requires 15 extra days. The app adds months first, then applies the extra days.</p></aside>
+                </section>
+                <section id="multiple-addresses">
+                    <p class="recipe-tag">Calculator / Multiple RH</p>
+                    <h2>7. Add as many address fields as needed and use their total</h2>
+                    <p>The existing Multiple RH example uses a repeatable Number input. Someone enters the months for the first address, then adds more fields for additional addresses. The same variable automatically becomes the sum of all entries.</p>
+                    <ol>
+                        <li>Add a Number input labelled “Required months.” Use variable name <code>multiple_rh_required_number_input</code>, Default value <code>12</code>, Minimum number <code>0</code>, and Step <code>1</code>.</li>
+                        <li>Add a Number input labelled “Months stayed on address 1.” Use the existing example’s variable name <code>months_stayed_number_on_address_input</code>.</li>
+                        <li>Enable <strong>Allow additional fields</strong>. Set <strong>Add field button text</strong> to “Add another address.” Set Minimum number to <code>0</code> and Step to <code>1</code> for whole months, or a suitable decimal step if your workflow accepts fractions.</li>
+                        <li>Add or select Generated text with ID <code>Multiple_RH_gen_text</code>. Add the rule below, then link a Generate button to this output.</li>
+                    </ol>
+                    <div class="table-scroll"><table><caption>Check the combined rental history</caption><tbody>
+                        <tr><th scope="row">Condition source</th><td>Single variable</td></tr>
+                        <tr><th scope="row">When variable</th><td><code>months_stayed_number_on_address_input</code></td></tr>
+                        <tr><th scope="row">Comparison</th><td>is at least / on or after</td></tr>
+                        <tr><th scope="row">Compare against</th><td>Another variable</td></tr>
+                        <tr><th scope="row">Comparison number</th><td><code>multiple_rh_required_number_input</code></td></tr>
+                        <tr><th scope="row">Offset</th><td>Leave blank or enter <code>0</code>.</td></tr>
+                    </tbody></table></div>
+                    <p>Use this matched text:</p>
+                    <pre><code>Verified correct: The required rental history has been met with a total of ${months_stayed_number_on_address_input} months verified.</code></pre>
+                    <p>Add a second rule with Comparison <strong>is less than / before</strong> and the same comparison number. Its text can be:</p>
+                    <pre><code>${months_stayed_number_on_address_input} months verified from the combined addresses - does not meet the required RH.</code></pre>
+                    <ol class="flow" aria-label="Repeated fields add up to one variable">
+                        <li><strong>Address 1</strong><span>4 months</span></li>
+                        <li><strong>Address 2</strong><span>5 months</span></li>
+                        <li><strong>Address 3</strong><span>3 months</span></li>
+                    </ol>
+                    <p><strong>4 + 5 + 3 = 12.</strong> The variable inserts <strong>12</strong>, and the first rule matches a required value of 12. You can also insert this variable directly into Default generated text; a condition is not required just to display the sum.</p>
+                    <p>The tool begins with one field. Click Add another address twice to reach three fields. Labels ending in 1 become 2, 3, and so on. You can instead write <code>Address {index}: months stayed</code> to choose where the number appears.</p>
+                    <p>Complete every added field or remove unused ones. Blank entries do not count as zero. Minimum, maximum, and step apply to each field individually. Reset removes added fields and restores the first field’s configured default, if any.</p>
+                    <p>This feature adds the numbers entered. It does not inspect address dates or remove overlapping periods. Enter the month amounts you intend to count.</p>
+                </section>
+                <section id="calculations">
+                    <p class="recipe-tag">Calculator / Salary Calculator</p>
+                    <h2>8. Calculate amounts inside generated text</h2>
+                    <p>The Salary Calculator has two Number inputs: <code>Hourly_Rate_input</code> and <code>Hours_per_Week_input</code>. It uses formulas in the Default generated text of separate outputs.</p>
+                    <div class="table-scroll"><table><caption>Copy these salary templates</caption><thead><tr><th scope="col">Output</th><th scope="col">Template</th></tr></thead><tbody>
+                        <tr><th scope="row">Weekly</th><td><code>${Currency(Hourly_Rate_input * Hours_per_Week_input)}</code></td></tr>
+                        <tr><th scope="row">Every two weeks</th><td><code>${Currency((Hourly_Rate_input * Hours_per_Week_input) * 2)}</code></td></tr>
+                        <tr><th scope="row">Annual</th><td><code>${Currency((Hourly_Rate_input * Hours_per_Week_input) * 52)}</code></td></tr>
+                        <tr><th scope="row">Monthly average</th><td><code>${Currency(((Hourly_Rate_input * Hours_per_Week_input) * 52) / 12)}</code></td></tr>
+                        <tr><th scope="row">Twice a month</th><td><code>${Currency(((Hourly_Rate_input * Hours_per_Week_input) * 52) / 24)}</code></td></tr>
+                    </tbody></table></div>
+                    <p><code>*</code> means multiply, <code>/</code> means divide, and parentheses group the steps. <code>Currency(...)</code> displays the answer as US dollars with two decimal places. These examples assume the same weekly hours for 52 weeks; the monthly result is an average.</p>
+                    <p>Test with an hourly rate of <strong>20</strong> and <strong>40</strong> hours per week: weekly <strong>$800.00</strong>, annual <strong>$41,600.00</strong>, and monthly average <strong>$3,466.67</strong>. A single Generate button can select all these outputs under Linked generated text.</p>
+                    <h3>Choose wording based on a calculation</h3>
+                    <p>If you have separate Number inputs for several amounts, choose <strong>Condition source → Calculation</strong>, then <strong>Operation → Sum</strong>. Select each input under Number 1, Number 2, and so on. Use <strong>Add number input</strong> for another amount. Choose your Comparison and Comparison number.</p>
+                    <p>For example, if Income 1 and Income 2 total at least 5,000, use <code>Total income: ${calc.result}.</code> in that rule’s matched text. This special variable belongs to a Calculation rule. For a single repeatable input, use its own variable as explained in <a href="#multiple-addresses">Multiple RH</a>; it already provides the sum.</p>
+                    <p>Sum adds; Difference subtracts later amounts from the first; Product multiplies; Quotient divides in order. Division by zero or missing values prevents generation until corrected.</p>
+                </section>
+                <section id="lease-overlap">
+                    <p class="recipe-tag">Calculator / 60-day Lease Overlap Calculator</p>
+                    <h2>9. Decide what happens exactly at the boundary</h2>
+                    <p>The Calculator’s 60-day example compares <code>lease_end_date_input</code> with <code>applications_start_date_input</code> plus 60 days.</p>
+                    <p>Choose Single variable, When variable <code>lease_end_date_input</code>, Compare against Another variable, and Comparison date <code>applications_start_date_input</code>. Set Offset unit to Days, Offset (days) source to Specific number of days, and Offset (days) to <code>60</code>.</p>
+                    <div class="table-scroll"><table><caption>Choose the comparison that matches your intended wording</caption><thead><tr><th scope="col">Intended threshold</th><th scope="col">Comparison</th></tr></thead><tbody>
+                        <tr><th scope="row">60 days or more</th><td>is at least / on or after</td></tr>
+                        <tr><th scope="row">More than 60 days</th><td>is greater than / after</td></tr>
+                        <tr><th scope="row">Less than 60 days</th><td>is less than / before</td></tr>
+                    </tbody></table></div>
+                    <p>The existing Calculator includes exactly 60 days in its “detected” result. The separate <strong>60-Day Lease Overlap</strong> tool uses “greater than 60” and “less than 60,” leaving exactly 60 to its default text. When adapting that tool, choose which result should include equality or add an equality rule.</p>
+                    <p>Test 59, 60, and 61 days. With application start January 1, 2023, these dates are March 1, March 2, and March 3. This guide explains how the configured comparison behaves; choose the threshold your workflow calls for.</p>
+                </section>
+                <section id="organize">
+                    <h2>10. Keep complex tools easy to use</h2>
+                    <h3>Group related fields</h3>
+                    <p>Use a Container for each task or section. A column places items one below another; a row places them side by side. Keep labels descriptive, use spacing between sections, and check the layout at a narrow browser width.</p>
+                    <p>The Formatter groups its Re-open Request, Release of Information, and other scenarios. The Calculator groups Salary Calculator, RH Calculator, 60-day Lease Overlap Calculator, and Multiple RH under a radio selection.</p>
+                    <h3>Show only the relevant section</h3>
+                    <p>Give the tool a Radio button group with an option for each section. Keep this group outside the containers it controls. Select a Container and set <strong>Container visibility</strong> to <strong>Show when selected</strong>, then choose its <strong>Visibility radio group</strong> and <strong>Visibility selected option</strong>. Put the related fields and controls inside it. A Generated text element also has <strong>Show when selected</strong>, <strong>Visibility radio group</strong>, and <strong>Visibility selected option</strong> settings.</p>
+                    <p>Generated text with Show when selected updates immediately from the current answers. If you prefer a deliberate Generate step, leave it off and use Hide until generated with a linked Generate button. Showing a container controls its visibility; the Generated text’s own settings still determine when its result appears.</p>
+                    <h3>Share an answer between tools</h3>
+                    <p>Enable <strong>Global tool</strong> in the source tool’s settings to make its inputs available to other tools in the same category. Keep that source tool on the category board. In another tool, select its variable beginning with <code>global.</code>, such as <code>${global.name_input}</code>.</p>
+                    <p>Give shared inputs unique variable names. Reset the source tool to reset those shared answers. Use local inputs when each tool should collect its own answer.</p>
+                </section>
+                <section id="test-save">
+                    <h2>11. Test, save, and keep your work</h2>
+                    <p>Test each branch before using a tool for real work. A successful Save checks the configuration, but it cannot tell whether your wording and thresholds match what you intended.</p>
+                    <ul>
+                        <li><strong>Typical values:</strong> Does the expected rule produce the right sentence?</li>
+                        <li><strong>Exact boundaries:</strong> Test below, exactly at, and above the requirement.</li>
+                        <li><strong>Missing answers:</strong> Leave a needed input blank and confirm the tool asks for it.</li>
+                        <li><strong>Every choice:</strong> Try each radio option and check the visible fields and output.</li>
+                        <li><strong>Repeatable fields:</strong> Add, edit, and remove entries; verify the total and the generated wording.</li>
+                        <li><strong>Copy and Reset:</strong> Check that Copy targets the right result and Reset returns the form to its starting state. Number inputs restore configured defaults.</li>
+                    </ul>
+                    <h3>What Save keeps</h3>
+                    <p>Save tool keeps the tool design in the current environment: its fields, labels, rules, templates, and button links. It does not save the answers typed during use or the generated notes.</p>
+                    <p>On the <strong>public demo</strong>, changes are temporary and disappear when the page refreshes. Click <strong>Download tool JSON</strong> in the editor to keep a copy of the tool definition, then give that file to the person maintaining your published workspace. A JSON file is a saved description of the tool, not a document containing completed verification notes. Correct any configuration errors first if the download button is unavailable.</p>
+                    <p>In the <strong>local authoring version</strong>, Save writes the tool to the project’s catalog. Publishing those changes is a separate step for the site maintainer. Copy completed notes before resetting or leaving the workspace.</p>
+                    <p>To keep this guide for later, use your browser’s <strong>Print → Save as PDF</strong>. The guide has a print layout and can be read without JavaScript.</p>
+                </section>
+                <section id="troubleshooting">
+                    <h2>12. Find the cause when a result looks wrong</h2>
+                    <details open><summary>The generated text is empty.</summary><p>Check that Generate is linked to the right Generated text ID. Fill the inputs used by the rule or template. If no rule matches and Default generated text is blank, the result is blank. Add a useful default and check whether the output is inside a hidden container.</p></details>
+                    <details open><summary>A date rule does not match even though the stay is long enough.</summary><p>For a minimum stay, When variable is the move-out date; Comparison date is the move-in date. Add the required months to the move-in date. Check the date format, selected offset unit, and the order of rules. An earlier matching rule prevents later rules from being used.</p></details>
+                    <details open><summary>The 15-day allowance makes the requirement harder to meet.</summary><p>Use <code>-15</code> for Additional offset (days). A positive <code>15</code> moves the comparison date later. Make sure the full-requirement rule is above the allowance rule.</p></details>
+                    <details open><summary>I expected a 10-day shortfall, but the result says zero.</summary><p>Insert <code>${date.remainingDaysBeforeAdjustment}</code> inside the date rule’s matched text. <code>${date.remainingDays}</code> includes the allowance, so it returns zero once the adjusted date has been reached.</p></details>
+                    <details open><summary>A radio variable is reported as needing to be a Number input.</summary><p>Insert the radio value by itself, for example <code>${re_open_request_radio_group_2}</code>. Do not put it inside arithmetic or Currency. Numbered variable names are valid; the final <code>_2</code> does not make a radio answer a number. Also confirm that the tool has that exact variable name.</p></details>
+                    <details open><summary>How do I display the total of all additional fields?</summary><p>Use the repeatable Number input’s existing variable, such as <code>${months_stayed_number_on_address_input}</code>. It includes the first field and every added field. You do not need to create a separate total input or refer to each added row.</p></details>
+                    <details open><summary>The wrong rule’s text appears.</summary><p>Only the first matching rule supplies the result. Put the more specific rule first. For rental history, a fully completed stay also meets an earlier allowance cutoff, so the full-requirement rule must appear above the allowance rule.</p></details>
+                    <details open><summary>My edits disappeared after refreshing.</summary><p>The public demo does not permanently publish your edits. Download the tool definition before leaving, or use the local authoring version and have the site maintainer publish the saved catalog.</p></details>
+                    <p>Ready to try an example? <a href="%BASE_URL%manage-tools/">Open Manage tools</a> to inspect Formatter and Calculator, or <a href="%BASE_URL%create-tool/">create a practice tool</a>.</p>
+                    <a class="back-top" href="#top">Back to the top</a>
+                </section>
+            </article>
+        </div>
+    </main>
+    <footer class="site-footer wrap"><a class="brand" href="%BASE_URL%"><img src="%BASE_URL%brand.svg" width="28" height="28" alt="" />Verification<span>Tools</span></a><p>A little structure for your everyday work.</p><nav aria-label="Footer navigation"><a href="%BASE_URL%">Home</a><a href="%BASE_URL%guide/">Building guide</a><a href="%BASE_URL%tools/">Workspace</a></nav></footer>
+    <script type="module" src="/src/guide.ts"></script>
+</body>
+</html>

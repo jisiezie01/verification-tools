@@ -4,6 +4,8 @@ The shared catalog is `public/tool-catalog.json`. It contains the version, all t
 
 ## Edit locally
 
+The beginner-facing [building guide](guide/index.html) is a standalone HTML page at `/guide/` locally and `/verification-tools/guide/` on GitHub Pages. Edit its content in `guide/index.html` and its styling in `src/guide.css`. Vite builds it as its own page; it does not require the React app, catalog fetching, or JavaScript to display its content. The landing page, builder, and sitemap link to it.
+
 1. Run `npm install`, then `npm run dev`.
 2. Open `/tools/` and choose **Manage tools**, or open `/create-tool`. The root `/` is the public landing page.
 3. Create categories, edit tools, and arrange boards. **Save tool** and **Save changes** write the complete catalog to `public/tool-catalog.json`. Category creation saves immediately. Element deletions and board removals are included when you save their draft; Discard does not change the file.
@@ -32,12 +34,14 @@ The published app includes a temporary demo of Manage tools and the visual edito
 - `npm run lint`: lint checks.
 - Browser suites: `npm run test:browser`, `npm run test:manage-browser`, and `npm run test:tools-browser`. Run sequentially against a local dev server on port 5173 and an isolated Chromium profile with debugging port 9223. These temporarily seed `public/tool-catalog.json` and restore it afterward; do not edit the catalog concurrently.
 
-## GA4 tool usage
+## GA4 guide and tool usage
 
-The Google tags in `index.html` and `tools/index.html` initialize property `G-E0HDVB3SYT`. `src/analytics.ts` reuses that tag for custom events in production builds. Workspace tools and individual tool pages report these events:
+The Google tags in `index.html`, `guide/index.html`, and `tools/index.html` initialize measurement ID `G-E0HDVB3SYT`. See [Google Analytics reporting setup](docs/analytics.md) for the custom dimensions and report configurations. `src/analytics.ts` reuses that tag for custom events in production builds. Workspace tools and individual tool pages report these events:
 
 | Event | When it fires |
 | --- | --- |
+| `tool_view` | Once per mounted tool after it intersects the viewport for one continuous second in a visible tab. Scrolling away and back or pressing Reset does not repeat it; reopening/remounting the tool can. |
+| `tool_action_click` | Every Generate, Copy, or Reset activation, with `tool_action` set to `generate`, `copy`, or `reset`. Includes attempts that fail validation or clipboard access. |
 | `tool_use` | First changed input, successful Generate, or successful Copy in a use cycle. Further typing and actions do not repeat this event until Reset or the tool is reopened. |
 | `tool_generate` | Once per successful Generate action, including buttons that generate multiple outputs. Invalid inputs or broken links do not count. |
 | `tool_copy` | After a successful clipboard write, including input copy buttons. Failed copies do not count. |
@@ -45,7 +49,9 @@ The Google tags in `index.html` and `tools/index.html` initialize property `G-E0
 
 Each event includes `tool_id`, `tool_name`, `tool_category_id`, `tool_category`, and `tool_source` (`workspace` or `tool_page`). These identify the tool and its category; they never include entered values, generated notes, copied text, or templates. Metadata strings are limited to 100 characters. IDs remain stable when tools are renamed. `tool_use` counts starts of use cycles, not completed tasks or unique visitors.
 
-Loading a board, editing tool definitions, and using Manage tools previews do not send these custom events. `npm run dev` also disables custom usage events; the existing HTML Google tags still control their own automatic events. Custom events run in production builds, including `npm run preview`. The tools continue working if analytics is unavailable.
+Loading a board can send `tool_view` for visible tools but does not count as `tool_use`. Editing tool definitions and using Manage tools previews do not send tool events. `npm run dev` also disables custom usage events; the existing HTML Google tags still control their own automatic events. Custom events run in production builds, including `npm run preview`. The tools continue working if analytics is unavailable.
+
+`src/guide.ts` reports `guide_view`, `guide_section_view`, and `guide_click`. Guide views require one continuous second in a visible tab; a section view requires its heading to intersect the viewport for that duration. Each impression is sent once per page load. Clicks report fixed section and navigation metadata without URL queries. The guide's text remains fully available without JavaScript; analytics is progressive enhancement.
 
 ### View which tools are used
 

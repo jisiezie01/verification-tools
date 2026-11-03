@@ -77,6 +77,7 @@ const ContainerToolBuilder = ({ initialTool, categories: suppliedCategories, onS
                         <Button variant="primary" className="w-full" onClick={handleSave} disabled={isSaving}>{isSaving ? "Saving…" : "Save tool"}</Button>
                         <p role="status" className="text-center text-[11px] leading-5 text-slate-500">{isSaved ? onSave ? "Your tool has been saved." : import.meta.env.DEV ? "Saved to tool-catalog.json. Ready to publish." : "Applied to this demo only. Refreshing discards your changes." : "Save your tool when everything looks right."}</p>
                         <Button className="w-full text-xs" disabled={!!validateTool(tool, categories, catalog.tools).length} onClick={() => downloadTool(createSavedTool(tool, catalog.tools))}>Download tool JSON</Button>
+                        <a href={`${import.meta.env.BASE_URL}guide/`} target="_blank" rel="noopener noreferrer" className="block rounded-lg py-2 text-center text-xs font-medium text-blue-700 underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-blue-500">Building guide (opens in a new tab)</a>
                         {savedTool && <details className="text-xs text-slate-500"><summary className="cursor-pointer py-1">View last saved object</summary><pre className="mt-2 max-h-60 overflow-auto rounded-xl border border-slate-200 bg-white/70 p-3 text-[10px]">{JSON.stringify(savedTool, null, 2)}</pre></details>}
                     </div>
                 </aside>

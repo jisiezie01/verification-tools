@@ -1,7 +1,7 @@
 import type { ToolType } from "./types"
 
 export type ToolAnalyticsContext = { categoryName: string; source: "workspace" | "tool_page" }
-export type ToolAnalyticsEvent = "tool_use" | "tool_generate" | "tool_copy" | "tool_reset"
+export type ToolAnalyticsEvent = "tool_view" | "tool_action_click" | "tool_use" | "tool_generate" | "tool_copy" | "tool_reset"
 
 declare global {
     interface Window {
@@ -10,7 +10,7 @@ declare global {
 }
 
 // Reuse the Google tag in the HTML. Only explicitly enabled runtime screens report usage.
-export const trackToolEvent = (event: ToolAnalyticsEvent, tool: ToolType, context?: ToolAnalyticsContext): boolean => {
+export const trackToolEvent = (event: ToolAnalyticsEvent, tool: ToolType, context?: ToolAnalyticsContext, action?: "generate" | "copy" | "reset"): boolean => {
     if (!import.meta.env.PROD || !context || typeof window === "undefined") return false
     try {
         if (typeof window.gtag !== "function") return false
@@ -21,6 +21,7 @@ export const trackToolEvent = (event: ToolAnalyticsEvent, tool: ToolType, contex
             tool_category_id: tool.categoryId.slice(0, 100),
             tool_category: context.categoryName.slice(0, 100),
             tool_source: context.source,
+            ...(event === "tool_action_click" && action ? { tool_action: action } : {}),
         })
         return true
     } catch {

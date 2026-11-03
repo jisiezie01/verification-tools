@@ -9,7 +9,7 @@ export default defineConfig(({ command, isPreview }) => ({
     appType: 'mpa',
     base: command === 'build' || isPreview ? '/verification-tools/' : '/',
     build: {
-        rollupOptions: { input: { landing: path.resolve(__dirname, 'index.html'), tools: path.resolve(__dirname, 'tools/index.html') } },
+        rollupOptions: { input: { landing: path.resolve(__dirname, 'index.html'), guide: path.resolve(__dirname, 'guide/index.html'), tools: path.resolve(__dirname, 'tools/index.html') } },
     },
     plugins: [
         {

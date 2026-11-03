@@ -25,7 +25,8 @@ for (const id of ["agreement-output", "agreement-generate", "agreement-copy", "a
 const scope = `document.querySelector('[data-tool-content="${agreement.id}"]')`
 const server = await startPagesServer(4176, fixture)
 const browser = await connectBrowser()
-const events = () => browser.evaluate("(window.dataLayer ?? []).filter(item => item[0] === 'event').map(item => Array.from(item))")
+const allEvents = () => browser.evaluate("(window.dataLayer ?? []).filter(item => item[0] === 'event').map(item => Array.from(item))")
+const events = async () => (await allEvents()).filter(event => !["tool_view", "tool_action_click"].includes(event[1]))
 const count = async name => (await events()).filter(event => event[1] === name).length
 const mockClipboard = () => browser.evaluate("window.copied = []; Object.defineProperty(navigator, 'clipboard', { configurable: true, value: { writeText: async value => { window.copied.push(value) } } })")
 
@@ -38,6 +39,9 @@ try {
     assert.deepEqual(await events(), [], "Rendering tools must not count as use")
     await browser.clickText("Generate", scope)
     assert.deepEqual(await events(), [], "Failed validation must not count as generation or use")
+    assert.equal((await allEvents()).filter(event => event[1] === "tool_action_click" && event[2].tool_action === "generate").length, 1, "Failed validation still counts as a button click")
+    await browser.evaluate(`${scope}.scrollIntoView({ block: 'start' })`)
+    await browser.waitFor(`(window.dataLayer ?? []).some(event => event[1] === 'tool_view' && event[2].tool_id === ${JSON.stringify(agreement.id)})`)
 
     await browser.fill("Full name", "Private Sentinel")
     await browser.fill("Full name", "Private Sentinel Updated")
@@ -50,6 +54,7 @@ try {
     await browser.evaluate("Object.defineProperty(navigator, 'clipboard', { configurable: true, value: { writeText: async () => { throw new Error('Clipboard denied') } } })")
     await browser.clickText("Copy result", scope)
     assert.equal(await count("tool_copy"), 0, "A rejected clipboard write must not count as a copy")
+    assert.equal((await allEvents()).filter(event => event[1] === "tool_action_click" && event[2].tool_action === "copy").length, 1)
     await mockClipboard()
     await browser.clickText("Copy result", scope)
     await browser.waitFor("window.copied.length === 1")
@@ -68,6 +73,7 @@ try {
 
     await browser.clickText("Reset", scope)
     assert.equal(await count("tool_reset"), 1)
+    assert.equal((await allEvents()).filter(event => event[1] === "tool_action_click" && event[2].tool_action === "reset").length, 1)
     await browser.fill("Full name", "Another private entry")
     assert.equal(await count("tool_use"), 2, "Reset starts a new use cycle")
     await browser.fill("Phone to format", "4155550123")
@@ -86,11 +92,11 @@ try {
     await browser.clickText("Generate")
     assert.equal(await count("tool_use"), 5, "Generating static text starts use without typing")
     assert.equal(await count("tool_generate"), 2)
-    const beforePreview = await events()
+    const beforePreview = await allEvents()
     await browser.clickText("Manage tools")
     await browser.waitFor("!!document.querySelector('[data-category-board]')")
     await browser.fill("Date to copy", "2026-10-02")
-    assert.deepEqual(await events(), beforePreview, "Management previews must not report usage")
+    assert.deepEqual(await allEvents(), beforePreview, "Management previews must not report views, clicks, or usage")
 
     await browser.navigate(`http://127.0.0.1:4176${pagesPrefix}tools/${encodeURIComponent(agreement.id)}/`)
     await browser.fill("Full name", "Standalone private entry")
@@ -113,6 +119,15 @@ try {
     assert.equal(await browser.evaluate("window.copied[0]"), "I, No Analytics agree")
     assert.equal(await count("tool_generate"), 1)
     assert.equal(await count("tool_copy"), 0)
+    await browser.navigate(`http://127.0.0.1:4176${pagesPrefix}guide/`)
+    await browser.waitFor("(window.dataLayer ?? []).some(event => event[1] === 'guide_view')")
+    await browser.click('.guide-nav a[href="#rental-history"]')
+    await browser.waitFor("(window.dataLayer ?? []).some(event => event[1] === 'guide_section_view' && event[2].guide_section_id === 'rental-history')")
+    assert.equal((await allEvents()).filter(event => event[1] === "guide_click" && event[2].guide_target === "section:rental-history").length, 1)
+    await browser.click('.guide-nav a[href="#basics"]')
+    await browser.click('.guide-nav a[href="#rental-history"]')
+    await browser.settle()
+    assert.equal((await allEvents()).filter(event => event[1] === "guide_section_view" && event[2].guide_section_id === "rental-history").length, 1)
     assert.deepEqual(browser.runtimeErrors, [])
     console.log("Analytics browser checks passed: real gtag queue, usage deduplication, successful actions, reset cycles, per-tool/category metadata, preview exclusion, direct tool pages, private input exclusion, and missing/broken analytics.")
 } finally {
