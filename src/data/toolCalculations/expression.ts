@@ -15,7 +15,11 @@ const tokenize = (expression: string) => {
 
 const isVariable = (token: string) => /^[A-Za-z_][A-Za-z0-9_]*$/.test(token)
 const currencyPattern = /^Currency\s*\(\s*(.+?)\s*(?:,\s*["']([A-Za-z]{3})["'])?\s*\)$/
-export const isFormulaExpression = (expression: string) => /^Currency\s*\(/.test(expression.trim()) || /[()+\-*/\d]/.test(expression)
+export const isFormulaExpression = (expression: string) => {
+    // Digits are valid in local and shared variable names, not just in formulas.
+    if (/^(?:global\.)?[A-Za-z_][A-Za-z0-9_]*$/.test(expression)) return false
+    return /[()+\-*/\d]/.test(expression)
+}
 
 const currencyFormat = (value: number, currency: string) => {
     try {

@@ -59,6 +59,75 @@ test("generated text evaluates arithmetic formulas and requests their number inp
     assert.ok(builder.validateTool(tool).some(message => message.includes("not a supported ISO currency code")))
 })
 
+test("conditional text inserts a numbered radio variable selected independently of the condition", () => {
+    const { tool, output, state } = setup()
+    const trigger = { ...builder.createElement("Radio button", tool), id: "request-source", variableName: "re_open_request_radio_group_1",
+        options: [{ id: "staff", label: "Property staff", value: "staff" }, { id: "other", label: "Other", value: "other" }] }
+    const selection = { ...builder.createElement("Radio button", tool), id: "verification-type", variableName: "re_open_request_radio_group_2",
+        options: [{ id: "rental", label: "Rental", value: "rental" }, { id: "employment", label: "Employment", value: "employment" }] }
+    tool.elements.push(trigger, selection)
+    output.conditions = [{ id: "request", inputId: trigger.id, operator: "equals", value: "staff", text: "Staff requested to re-open the ${re_open_request_radio_group_2} verification." }]
+    output.generatedText.default = "Re-open the ${re_open_request_radio_group_2} verification."
+    assert.deepEqual(builder.validateTool(tool), [])
+    const saved = builder.createSavedTool(tool)
+    for (const value of ["rental", "employment"]) {
+        state.values = { [trigger.id]: "staff", [selection.id]: value }
+        const generated = runtime.generateRuntimeState(saved, state, output.id)
+        assert.equal(generated.message, "")
+        assert.equal(generated.outputs.result, `Staff requested to re-open the ${value} verification.`)
+        state.values[trigger.id] = "other"
+        assert.equal(runtime.generateRuntimeState(saved, state, output.id).outputs.result, `Re-open the ${value} verification.`)
+    }
+    state.values = { [trigger.id]: "staff" }
+    const missing = runtime.generateRuntimeState(saved, state, output.id)
+    assert.equal(missing.errors[selection.id], "Please select an option.")
+    assert.deepEqual(missing.outputs, {})
+    output.conditions[0].text = "${re_open_request_radio_group_2 + 1}"
+    assert.ok(builder.validateTool(tool).some(message => message.includes("must be a number input")))
+    state.values[selection.id] = "rental"
+    assert.match(runtime.generateRuntimeState(tool, state, output.id).message, /must be a number input/)
+})
+
+for (const [type, value, expected] of [
+    ["Radio button", "option_1", "option_1"],
+    ["Text input", "${amount_a + 1}", "${amount_a + 1}"],
+    ["Name input", "Jane Doe", "Jane Doe"],
+    ["Email input", "jane@example.com", "jane@example.com"],
+    ["Phone input", "1234567890", "(123) 456-7890"],
+    ["Date input", "2026-11-03", "11/03/2026"],
+    ["Number input", "0", "0"],
+]) {
+    for (const shared of [false, true]) test(`${shared ? "Global" : "local"} ${type} with a numbered name remains a text variable`, () => {
+        const { tool, output, state } = setup()
+        const source = shared ? { id: "shared", name: "Shared inputs", categoryId: tool.categoryId, isGlobal: true, elements: [] } : tool
+        const input = { ...builder.createElement(type, source), id: "value", variableName: "input_2", ...(type === "Text input" ? { textCase: "none" } : {}) }
+        source.elements.push(input)
+        output.conditions = []
+        output.generatedText.default = shared ? "Value: ${global.input_2}" : "Value: ${input_2}"
+        const catalog = shared ? [tool, source] : [tool]
+        assert.deepEqual(builder.validateTool(tool, undefined, catalog), [])
+        state.values = shared ? {} : { value }
+        const scope = shared ? getSharedScope(tool, catalog, { [source.id]: { value } }) : undefined
+        const generated = runtime.generateRuntimeState(tool, state, output.id, scope)
+        assert.equal(generated.message, "")
+        assert.equal(generated.outputs.result, `Value: ${expected}`)
+        const missing = runtime.generateRuntimeState(tool, { ...state, values: {} }, output.id, shared ? getSharedScope(tool, catalog, {}) : undefined)
+        assert.match(missing.message, /Please (enter|select)/)
+        assert.deepEqual(missing.outputs, {})
+    })
+}
+
+test("numbered variables still work in arithmetic and currency formulas alongside numeric literals", () => {
+    const { tool, output, state } = setup()
+    tool.elements.find(element => element.id === "a").variableName = "amount_2"
+    output.conditions = []
+    output.generatedText.default = "${amount_2 + 1} / ${Currency(amount_2)} / ${42} / ${1e2}"
+    assert.deepEqual(builder.validateTool(tool), [])
+    const generated = runtime.generateRuntimeState(tool, state, output.id)
+    assert.equal(generated.message, "")
+    assert.equal(generated.outputs.result, "21 / $20.00 / 42 / 100")
+})
+
 test("difference and quotient follow operand order, including negatives and a zero numerator", () => {
     for (const [operation, expected] of [["difference", -17], ["quotient", 0.125]]) {
         const { tool, rule, state } = setup(operation)

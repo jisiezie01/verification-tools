@@ -1,7 +1,7 @@
 import type { CSSProperties } from "react"
 import { generatedTextIds } from "../../data/toolLinks/functions"
 import { calculateNumbers, calculationDefinitionError, conditionInputIds } from "../../data/toolCalculations/functions"
-import { analyzeExpression, calculateExpression } from "../../data/toolCalculations/expression"
+import { analyzeExpression, calculateExpression, isFormulaExpression } from "../../data/toolCalculations/expression"
 import type { SharedRuntimeScopeType } from "../../data/toolVariables/types"
 import type { DateLimitType, ElementType, TextConditionType, ToolType } from "../../types"
 import type { RuntimeInputType, RuntimeValuesType, ToolRuntimeStateType } from "./types"
@@ -163,7 +163,7 @@ export const outputCalculationError = (tool: ToolType, outputId: string, values:
     const numberVariables = new Set(tool.elements.filter(element => element.type === "Number input").map(element => element.variableName))
     for (const match of template.matchAll(/\$\{([^}]+)\}/g)) {
         const expression = match[1]
-        if (expression === "calc.result" || !/[()+\-*/\d]/.test(expression)) continue
+        if (expression === "calc.result" || !isFormulaExpression(expression)) continue
         const result = calculateExpression(expression, variables, numberVariables)
         if (result.error) return `Generated text formula: ${result.error}`
     }
@@ -178,7 +178,7 @@ export const resolveTemplate = (template: string, tool: ToolType, values: Runtim
     // A single replacement pass keeps user input literal, including ${...} text.
     return template.replace(/\$\{([^}]+)\}/g, (_match, name: string) => {
         if (name === "calc.result") return calculationResult === undefined ? "" : String(calculationResult)
-        if (!/[()+\-*/\d]/.test(name)) {
+        if (!isFormulaExpression(name)) {
             const input = inputs.find(element => element.variableName === name)
             return input ? formatInputText(input, variables.get(name) ?? "") : ""
         }
@@ -234,7 +234,7 @@ export const requiredOutputInputs = (tool: ToolType, targets: Array<string>, val
         if (resolved) {
             const names = new Set([...template.matchAll(/\$\{([^}]+)\}/g)].flatMap(match => {
                 if (match[1] === "calc.result") return []
-                return /[()+\-*/\d]/.test(match[1]) ? analyzeExpression(match[1]).variableNames : [match[1]]
+                return isFormulaExpression(match[1]) ? analyzeExpression(match[1]).variableNames : [match[1]]
             }))
             tool.elements.filter(isRuntimeInput).forEach(input => { if (names.has(input.variableName)) required.add(input.id) })
         }

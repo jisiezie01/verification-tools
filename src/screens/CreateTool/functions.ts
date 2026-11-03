@@ -1,7 +1,7 @@
 import type { CSSProperties } from "react"
 import { generatedTextIds } from "../../data/toolLinks/functions"
 import { calculationDefinitionError } from "../../data/toolCalculations/functions"
-import { analyzeExpression } from "../../data/toolCalculations/expression"
+import { analyzeExpression, isFormulaExpression } from "../../data/toolCalculations/expression"
 import { readToolCatalog, updateToolCatalog } from "../../data/toolCatalog/functions"
 import { getGlobalInputs, globalVariableConflicts } from "../../data/toolVariables/functions"
 import type { DateLimitType, ElementBaseType, ElementType, InputCopyButtonType, ToolCategoryType, ToolType } from "../../types"
@@ -265,7 +265,7 @@ export const validateTool = (tool: ToolType, categories?: Array<ToolCategoryType
                     const expression = match[1]
                     if (expression === "calc.result") {
                         if (templateIndex === 0 || !element.conditions[templateIndex - 1]?.calculation) errors.push("The ${calc.result} variable is only available in text for a calculation condition.")
-                    } else if (/[()+\-*/\d]/.test(expression)) {
+                    } else if (isFormulaExpression(expression)) {
                         const analysis = analyzeExpression(expression)
                         if (analysis.error) errors.push(`Generated text formula: ${analysis.error}`)
                         for (const variableName of analysis.variableNames) {
