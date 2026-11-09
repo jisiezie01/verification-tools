@@ -408,6 +408,50 @@
           "containerId": "7123b25d-8ac6-453c-91e3-267ee33cb87e"
         },
         {
+          "id": "565e2824-4541-47c8-801c-f431fade881f",
+          "toolId": "b6e2a46b-e390-462d-84b2-595368217184",
+          "categoryId": "a5fdac86-18c1-4733-855f-242170dc0061",
+          "style": {},
+          "size": {
+            "width": {
+              "unit": "%",
+              "value": 100
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Container",
+          "direction": "column",
+          "gap": 16,
+          "padding": 0,
+          "containerId": "7123b25d-8ac6-453c-91e3-267ee33cb87e"
+        },
+        {
+          "id": "1e4a7e70-6087-4b9a-b230-0d92d159aaf1",
+          "toolId": "b6e2a46b-e390-462d-84b2-595368217184",
+          "categoryId": "a5fdac86-18c1-4733-855f-242170dc0061",
+          "style": {
+            "color": "#334155",
+            "fontSize": 16,
+            "fontWeight": 400
+          },
+          "size": {
+            "width": {
+              "unit": "%",
+              "value": 100
+            },
+            "height": {
+              "unit": "auto",
+              "value": 0
+            }
+          },
+          "type": "Text",
+          "text": "Reference Calls",
+          "containerId": "565e2824-4541-47c8-801c-f431fade881f"
+        },
+        {
           "id": "ea68c617-e065-46f5-8d6b-c9fbe726a8e0",
           "toolId": "b6e2a46b-e390-462d-84b2-595368217184",
           "categoryId": "a5fdac86-18c1-4733-855f-242170dc0061",
@@ -5930,7 +5974,7 @@
             }
           },
           "variableName": "Application_Start_Date_Date_Today_1",
-          "label": "Application’s Start Date/ Date Today",
+          "label": "Lease Start  Date or Date Today",
           "showLabel": true,
           "placeholder": "",
           "type": "Date input",
@@ -5992,7 +6036,7 @@
               "inputId": "1f59036d-59d9-4bf5-97fb-f5ebf9b7170b_1",
               "operator": "greater-than",
               "value": "",
-              "text": "Verified correct from the incoming call of ${Name} using the phone number ${phone_input}. Employment is scheduled to start on ${Lease_End_Date_1} which is more than 60 days from the lease start date of this application on ${Application_Start_Date_Date_Today_1}.",
+              "text": "Verified correct with a negative reference from the incoming call of ${Name} using the phone number ${phone_input}. Employment is scheduled to start on ${Lease_End_Date_1} which is more than 60 days from the lease start date of this application on ${Application_Start_Date_Date_Today_1}.",
               "comparisonInputId": "e651f55f-1bad-4531-b611-b92683cfb480_1",
               "offset": 60
             },
@@ -6001,7 +6045,7 @@
               "inputId": "1f59036d-59d9-4bf5-97fb-f5ebf9b7170b_1",
               "operator": "less-than",
               "value": "",
-              "text": "Not a negative reference, please check again.",
+              "text": "Not a negative reference, please check the dates entered. ",
               "comparisonInputId": "e651f55f-1bad-4531-b611-b92683cfb480_1",
               "offset": 60
             }
@@ -6946,7 +6990,7 @@
           "placeholder": "",
           "type": "Date input",
           "todayButton": {
-            "enabled": true,
+            "enabled": false,
             "text": "Today"
           },
           "min": {
@@ -6980,7 +7024,7 @@
           "placeholder": "",
           "type": "Date input",
           "todayButton": {
-            "enabled": false,
+            "enabled": true,
             "text": "Today"
           },
           "min": {
@@ -6988,7 +7032,7 @@
             "value": ""
           },
           "max": {
-            "mode": "none",
+            "mode": "today",
             "value": ""
           },
           "containerId": "26a9556d-a7b6-467b-a793-69c159b9f8d5"
@@ -7059,7 +7103,7 @@
           },
           "type": "Output text",
           "generatedText": {
-            "default": ""
+            "default": "NO CONDITION MET"
           },
           "conditions": [
             {
@@ -7092,6 +7136,16 @@
               "offsetUnit": "months",
               "offsetInputId": "fb6e5aaa-1438-4b11-b71c-33b7219c4c37",
               "additionalOffsetDays": -15
+            },
+            {
+              "id": "bb713c80-9b59-45f3-969c-1cc1e1889cf6",
+              "inputId": "918fa623-2ff1-428b-bd9b-5a6b665039d1",
+              "operator": "at-least",
+              "value": "",
+              "text": "hala ka",
+              "comparisonInputId": "68707304-6919-4c21-a838-ffce56279e1b",
+              "offsetInputId": "fb6e5aaa-1438-4b11-b71c-33b7219c4c37",
+              "offsetUnit": "months"
             }
           ],
           "initiallyHidden": true,
@@ -7223,8 +7277,8 @@
           "style": {},
           "size": {
             "width": {
-              "unit": "%",
-              "value": 100
+              "unit": "px",
+              "value": 655
             },
             "height": {
               "unit": "auto",
@@ -7341,7 +7395,7 @@
               "inputId": "23eff102-1fbc-4386-a185-a4325615d770",
               "operator": "less-than",
               "value": "",
-              "text": "not a 60-day lease overlap",
+              "text": "Not a 60-day lease overlap. ",
               "comparisonInputId": "f7bcaa82-5aa4-4f28-90b3-018a76a662bb",
               "offset": 60
             },
@@ -7517,7 +7571,7 @@
             }
           },
           "variableName": "months_stayed_number_on_address_input",
-          "label": "Months stayed on address 1",
+          "label": "Verified Months for Address 1",
           "showLabel": true,
           "placeholder": "Enter number of months stayed",
           "type": "Number input",
@@ -7578,7 +7632,7 @@
               "inputId": "41a0fb7a-fa93-44ce-ab07-3fcfdf67c764",
               "operator": "at-least",
               "value": "",
-              "text": "Verified correct: The required rental history has been met with a total of ${months_stayed_number_on_address_input} months verified.",
+              "text": "Marking as verified correct: The required rental history has been met with a total of ${months_stayed_number_on_address_input} months verified.",
               "comparisonInputId": "20dd319c-46de-4906-bc02-39f05131fa65"
             },
             {
@@ -7586,7 +7640,7 @@
               "inputId": "41a0fb7a-fa93-44ce-ab07-3fcfdf67c764",
               "operator": "less-than",
               "value": "",
-              "text": "${months_stayed_number_on_address_input} months verified from the combined addresses - does not meet the required RH.",
+              "text": "**(${months_stayed_number_on_address_input} of ${required_months_rh_input} months) verified from the incoming call of (NAME) using the phone number (NUMBER)** Marking unable to verify - no 3rd party history provided at this time because we have not been able to verify the length of prior rental history, as required by your property's criteria.",
               "comparisonInputId": "20dd319c-46de-4906-bc02-39f05131fa65"
             }
           ],
