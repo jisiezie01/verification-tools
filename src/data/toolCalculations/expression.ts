@@ -1,3 +1,5 @@
+import { analyzeDateDifference, calculateDateDifference, isDateDifference } from "./dateDifference"
+
 const tokenize = (expression: string) => {
     const tokens: Array<string> = []
     const pattern = /\s*((?:\d+(?:\.\d*)?|\.\d+)(?:[eE][+-]?\d+)?|(?:global\.)?[A-Za-z_][A-Za-z0-9_]*|[()+\-*/])/gy
@@ -16,6 +18,7 @@ const tokenize = (expression: string) => {
 const isVariable = (token: string) => /^(?:global\.)?[A-Za-z_][A-Za-z0-9_]*$/.test(token)
 const currencyPattern = /^Currency\s*\(\s*(.+?)\s*(?:,\s*["']([A-Za-z]{3})["'])?\s*\)$/
 export const isFormulaExpression = (expression: string) => {
+    if (isDateDifference(expression)) return true
     // Digits are valid in local and shared variable names, not just in formulas.
     if (/^(?:global\.)?[A-Za-z_][A-Za-z0-9_]*$/.test(expression)) return false
     return /[()+\-*/\d]/.test(expression)
@@ -90,7 +93,7 @@ const expressionDetails = (expression: string) => {
     return { formula: expression, currency: undefined, error: "" }
 }
 
-export const analyzeExpression = (expression: string) => {
+const analyzeNumberExpression = (expression: string) => {
     const details = expressionDetails(expression)
     const { tokens } = tokenize(details.formula)
     const variableNames = [...new Set(tokens.filter(isVariable))]
@@ -104,7 +107,12 @@ export const analyzeExpression = (expression: string) => {
     return { variableNames, error: "" }
 }
 
-export const calculateExpression = (expression: string, values: Map<string, string>, numberVariables: Set<string>) => {
+export const analyzeExpression = (expression: string) => isDateDifference(expression)
+    ? { ...analyzeDateDifference(expression), inputType: "Date input" as const }
+    : { ...analyzeNumberExpression(expression), inputType: "Number input" as const }
+
+export const calculateExpression = (expression: string, values: Map<string, string>, numberVariables: Set<string>, dateVariables = new Set<string>()) => {
+    if (isDateDifference(expression)) return calculateDateDifference(expression, values, dateVariables)
     const details = expressionDetails(expression)
     const analysis = analyzeExpression(expression)
     if (analysis.error) return { value: undefined, formatted: undefined, error: analysis.error }

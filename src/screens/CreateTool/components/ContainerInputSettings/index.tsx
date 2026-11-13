@@ -8,6 +8,8 @@ import type { ContainerInputSettingsProps } from "./types"
 const ContainerInputSettings = ({ element, elements, onChange, className = "" }: ContainerInputSettingsProps) => {
     return <div className={`space-y-4 ${className}`}>
         <InputSetting label="Variable name" value={element.variableName} onChange={variableName => onChange({ ...element, variableName })} hint="Use letters, numbers, and underscores. Renaming updates existing templates." />
+        <InputToggle label="Share value through URL" checked={element.syncWithUrl ?? false} onChange={syncWithUrl => onChange({ ...element, syncWithUrl })} />
+        {element.syncWithUrl && <p className="text-xs leading-5 text-slate-500">Uses the URL parameter <span className="font-mono">{element.variableName}</span>. Enable this on inputs with the same variable name to share values across tools and categories. Values are included when you copy the URL.</p>}
         <InputSetting label="Label" value={element.label} onChange={label => onChange({ ...element, label })} hint={element.type === "Number input" && element.repeatable?.enabled ? "Labels are numbered automatically. A trailing number increments for each field; use {index} to place the number elsewhere." : undefined} />
         <InputToggle label="Show label above input" checked={element.showLabel} onChange={showLabel => onChange({ ...element, showLabel })} />
         {element.type !== "Radio button" && element.type !== "Date input" && <InputSetting label="Placeholder" value={element.placeholder} onChange={placeholder => onChange({ ...element, placeholder })} />}

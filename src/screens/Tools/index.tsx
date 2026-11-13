@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { useNavigate, useSearchParams } from "react-router-dom"
+import { withCategory } from "../../data/toolUrlInputs/functions"
 import Button from "../../components/Button"
 import ContainerCategoryRuntime from "../../components/ContainerCategoryRuntime"
 import SvgBuilderIcon from "../../components/svg/SvgBuilderIcon"
@@ -25,7 +26,7 @@ const ScreenTools = ({ className = "" }: ScreenToolsProps) => {
 
                     {!catalog.error && category && (
                         <nav aria-label="Tool categories" className="flex min-w-0 gap-2 overflow-x-auto">
-                            {workspace.categories.map(item => <button key={item.id} type="button" aria-current={item.id === category.id ? "page" : undefined} onClick={() => setParams({ category: item.id })} className={`cursor-pointer shrink-0 rounded-full px-4 py-2.5 text-xs font-semibold transition-colors ${item.id === category.id ? "bg-slate-900 text-white shadow-sm" : "text-slate-500 hover:bg-white/80 hover:text-slate-800"}`}>{item.name}</button>)}</nav>)}
+                            {workspace.categories.map(item => <button key={item.id} type="button" aria-current={item.id === category.id ? "page" : undefined} onClick={() => setParams(withCategory(params, item.id))} className={`cursor-pointer shrink-0 rounded-full px-4 py-2.5 text-xs font-semibold transition-colors ${item.id === category.id ? "bg-slate-900 text-white shadow-sm" : "text-slate-500 hover:bg-white/80 hover:text-slate-800"}`}>{item.name}</button>)}</nav>)}
                     <div className="flex flex-row gap-16 items-center gap-4">
                         <a
                             href={import.meta.env.BASE_URL}
@@ -33,7 +34,7 @@ const ScreenTools = ({ className = "" }: ScreenToolsProps) => {
                             <img src={`${import.meta.env.BASE_URL}brand.svg`} width="24" height="24" alt="" />
                             Landing Page
                         </a>
-                        <Button onClick={() => navigate(category ? `/manage-tools?category=${encodeURIComponent(category.id)}` : "/manage-tools")}>Manage tools</Button>
+                        <Button onClick={() => navigate(`/manage-tools?${withCategory(params, category?.id)}`)}>Manage tools</Button>
                     </div>
                 </header>
                 {catalog.error ? <section role="alert" className="rounded-3xl border border-red-100 bg-white/70 p-8"><h2 className="font-semibold">Your tools could not be loaded</h2><p className="mt-2 text-sm text-red-700">{catalog.error}</p>
@@ -44,7 +45,7 @@ const ScreenTools = ({ className = "" }: ScreenToolsProps) => {
                             <ContainerCategoryRuntime key={`${category.id}:${JSON.stringify(workspace.tools)}`} tools={workspace.tools}>
                                 <div data-tools-board={category.id} style={{ flexDirection: board.direction, flexWrap: board.wrap, gap: board.gap, height: board.direction.startsWith("column") && board.wrap !== "nowrap" ? "100%" : undefined }} className="flex min-h-[460px] min-w-full content-start items-start">
                                     {board.placements.map(placement => { const tool = workspace.tools.find(item => item.id === placement.toolId); return tool ? <ContainerPublishedTool key={tool.id} tool={tool} placement={placement} categoryName={category.name} /> : null })}
-                                    {!workspace.tools.length && <div className="flex min-h-[420px] w-full flex-col items-center justify-center rounded-2xl border border-dashed border-slate-200 bg-white/30 p-8 text-center"><SvgBuilderIcon name="container" className="mb-4 size-10 text-slate-400" /><h3 className="text-sm font-semibold text-slate-600">No tools on this board yet</h3><p className="mt-2 max-w-xs text-xs leading-6 text-slate-500">Add tools in Manage tools, then save your layout to see them here.</p><Button className="mt-5" onClick={() => navigate(`/manage-tools?category=${encodeURIComponent(category.id)}`)}>Arrange this category</Button></div>}
+                                    {!workspace.tools.length && <div className="flex min-h-[420px] w-full flex-col items-center justify-center rounded-2xl border border-dashed border-slate-200 bg-white/30 p-8 text-center"><SvgBuilderIcon name="container" className="mb-4 size-10 text-slate-400" /><h3 className="text-sm font-semibold text-slate-600">No tools on this board yet</h3><p className="mt-2 max-w-xs text-xs leading-6 text-slate-500">Add tools in Manage tools, then save your layout to see them here.</p><Button className="mt-5" onClick={() => navigate(`/manage-tools?${withCategory(params, category.id)}`)}>Arrange this category</Button></div>}
                                 </div>
                             </ContainerCategoryRuntime>
                         </section>

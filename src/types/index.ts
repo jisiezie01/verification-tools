@@ -138,6 +138,7 @@ type InputCopyButtonType = {
 }
 type ElementInputSettingsType = {
     variableName: string
+    syncWithUrl?: boolean
     label: string
     showLabel: boolean
     placeholder: string

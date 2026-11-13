@@ -16,7 +16,7 @@ export const parseDateInput = (value: string) => {
     const match = value.match(/^(\d{2})\/(\d{2})\/(\d{4})$/)
     const iso = match ? `${match[3]}-${match[1]}-${match[2]}` : value
     if (!/^\d{4}-\d{2}-\d{2}$/.test(iso)) return undefined
-    const date = new Date(`${iso}T12:00:00Z`)
+    const date = new Date(`${iso}T00:00:00Z`)
     return Number.isNaN(date.getTime()) || date.toISOString().slice(0, 10) !== iso ? undefined : iso
 }
 export const formatDateInput = (value: string) => {
@@ -24,6 +24,11 @@ export const formatDateInput = (value: string) => {
     return match ? `${match[2]}/${match[3]}/${match[1]}` : value
 }
 export const dateBoundary = (limit: DateLimitType) => limit.mode === "today" ? localDate() : limit.mode === "fixed" ? limit.value : undefined
+const dateAtMidnight = (value: string) => {
+    const date = parseDateInput(value)
+    // Use the same midnight for both operands, independent of local time and DST.
+    return date ? Date.parse(`${date}T00:00:00Z`) : NaN
+}
 const addDateOffset = (timestamp: number, offset: number, unit: NonNullable<TextConditionType["offsetUnit"]>) => {
     const date = new Date(timestamp)
     if (unit === "days") return timestamp + offset * 86400000
@@ -122,9 +127,9 @@ const evaluateConditionComparison = (condition: TextConditionType, tool: ToolTyp
         if (!comparison.trim() || !Number.isFinite(actual) || !Number.isFinite(expected)) return false
     } else if (inputType === "Date input") {
         const date = comparison === "today" ? localDate() : comparison
-        const timestamp = Date.parse(`${date}T00:00:00Z`)
-        if (!Number.isInteger(offset) || !Number.isFinite(timestamp) || new Date(timestamp).toISOString().slice(0, 10) !== date) return false
-        actual = Date.parse(`${raw}T00:00:00Z`)
+        const timestamp = dateAtMidnight(date)
+        if (!Number.isInteger(offset) || !Number.isFinite(timestamp)) return false
+        actual = dateAtMidnight(raw)
         if (!Number.isInteger(offset) || !["days", "months", "years"].includes(condition.offsetUnit ?? "days")) return false
         const offsetDate = addDateOffset(timestamp, offset, condition.offsetUnit ?? "days")
         expected = addDateOffset(offsetDate, condition.additionalOffsetDays ?? 0, "days")
@@ -187,10 +192,11 @@ export const outputCalculationError = (tool: ToolType, outputId: string, values:
     }
     const variables = new Map(tool.elements.filter(isRuntimeInput).map(element => [element.variableName, runtimeInputValue(element, values[element.id] ?? "")]))
     const numberVariables = new Set(tool.elements.filter(element => element.type === "Number input").map(element => element.variableName))
+    const dateVariables = new Set(tool.elements.filter(element => element.type === "Date input").map(element => element.variableName))
     for (const match of template.matchAll(/\$\{([^}]+)\}/g)) {
         const expression = match[1]
         if (expression === "calc.result" || !isFormulaExpression(expression)) continue
-        const result = calculateExpression(expression, variables, numberVariables)
+        const result = calculateExpression(expression, variables, numberVariables, dateVariables)
         if (result.error) return `Generated text formula: ${result.error}`
     }
     return ""
@@ -201,6 +207,7 @@ export const resolveTemplate = (template: string, tool: ToolType, values: Runtim
     const inputs = tool.elements.filter(isRuntimeInput)
     const variables = new Map(inputs.map(element => [element.variableName, runtimeInputValue(element, values[element.id] ?? "")]))
     const numberVariables = new Set(inputs.filter(element => element.type === "Number input").map(element => element.variableName))
+    const dateVariables = new Set(inputs.filter(element => element.type === "Date input").map(element => element.variableName))
     // A single replacement pass keeps user input literal, including ${...} text.
     return template.replace(/\$\{([^}]+)\}/g, (_match, name: string) => {
         if (name === "calc.result") return calculationResult === undefined ? "" : String(calculationResult)
@@ -210,7 +217,7 @@ export const resolveTemplate = (template: string, tool: ToolType, values: Runtim
             const input = inputs.find(element => element.variableName === name)
             return input ? formatInputText(input, values[input.id] ?? "") : ""
         }
-        const result = calculateExpression(name, variables, numberVariables)
+        const result = calculateExpression(name, variables, numberVariables, dateVariables)
         return result.formatted ?? (result.value === undefined ? "" : String(result.value))
     })
 }
@@ -243,9 +250,9 @@ export const sharedOutputError = (tool: ToolType, outputId: string, shared?: Sha
 }
 export const getDefaultInputValues = (tool: ToolType): RuntimeValuesType => Object.fromEntries(tool.elements.flatMap(element =>
     element.type === "Number input" && element.defaultValue !== undefined ? [[element.id, String(element.defaultValue)]] : []))
-export const createRuntimeState = (tool: ToolType, shared?: SharedRuntimeScopeType): ToolRuntimeStateType => {
+export const createRuntimeState = (tool: ToolType, shared?: SharedRuntimeScopeType, initialValues: RuntimeValuesType = {}): ToolRuntimeStateType => {
     const visible = tool.elements.filter(element => element.type === "Output text" && !element.initiallyHidden)
-    const values = getDefaultInputValues(tool)
+    const values = { ...getDefaultInputValues(tool), ...initialValues }
     return { values, errors: {}, outputs: Object.fromEntries(visible.map(element => [element.id, generateOutput(element.id, tool, values, shared)])), visibleOutputIds: visible.map(element => element.id), message: "" }
 }
 export const requiredOutputInputs = (tool: ToolType, targets: Array<string>, values: RuntimeValuesType): Array<RuntimeInputType> => {

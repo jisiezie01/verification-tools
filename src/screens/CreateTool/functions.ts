@@ -1,9 +1,11 @@
 import type { CSSProperties } from "react"
 import { generatedTextIds } from "../../data/toolLinks/functions"
 import { calculationDefinitionError } from "../../data/toolCalculations/functions"
+import { remapDateDifference } from "../../data/toolCalculations/dateDifference"
 import { analyzeExpression, isFormulaExpression } from "../../data/toolCalculations/expression"
 import { readToolCatalog, updateToolCatalog } from "../../data/toolCatalog/functions"
 import { getGlobalInputs, globalVariableConflicts } from "../../data/toolVariables/functions"
+import { reservedUrlParameters } from "../../data/toolUrlInputs/functions"
 import type { DateLimitType, ElementBaseType, ElementType, InputCopyButtonType, ToolCategoryType, ToolType } from "../../types"
 import { DEFAULT_OUTPUT, NEW_TOOL, PALETTE_ITEMS } from "./data"
 import type { BuilderActionType, BuilderStateType, InputElementType } from "./types"
@@ -95,7 +97,7 @@ export const duplicateContainer = (elements: Array<ElementType>, id: string) => 
     const usedVariables = new Set(elements.filter(isInputElement).map(element => element.variableName))
     const variables = new Map(originals.filter(isInputElement).map(element => [element.variableName, nextDuplicateName(element.variableName, usedVariables)]))
     const remapId = (value: string) => ids.get(value) ?? value
-    const remapText = (text: string) => text.replace(/\$\{([^}]+)\}/g, (match, name: string) => variables.has(name) ? "${" + variables.get(name) + "}" : match)
+    const remapText = (text: string) => text.replace(/\$\{([^}]+)\}/g, (_match, name: string) => variables.has(name) ? "${" + variables.get(name) + "}" : "${" + remapDateDifference(name, variables) + "}")
     const copies = structuredClone(originals).map(element => {
         element.id = remapId(element.id)
         if (element.containerId) element.containerId = remapId(element.containerId)
@@ -130,7 +132,8 @@ export const removeElement = (elements: Array<ElementType>, id: string) => {
         return element
     })
 }
-export const replaceTemplateVariable = (text: string, previous: string, next: string) => text.replaceAll("${" + previous + "}", "${" + next + "}")
+export const replaceTemplateVariable = (text: string, previous: string, next: string) => text.replace(/\$\{([^}]+)\}/g, (_match, name: string) =>
+    "${" + (name === previous ? next : remapDateDifference(name, new Map([[previous, next]]))) + "}")
 export const outputIdError = (elements: Array<ElementType>, previousId: string, nextId: string): string => {
     if (!nextId || /\s/.test(nextId)) return "Use a nonempty ID without spaces."
     if (elements.some(element => element.id === nextId && element.id !== previousId)) return "Another element already uses this ID."
@@ -233,6 +236,7 @@ export const validateTool = (tool: ToolType, categories?: Array<ToolCategoryType
         ids.add(element.id)
         if (element.containerId !== undefined && (!element.containerId || !canMoveElement(tool.elements, element.id, element.containerId))) errors.push(`${name}: invalid container nesting.`)
         if (isInputElement(element)) {
+            if (element.syncWithUrl && reservedUrlParameters.has(element.variableName)) errors.push(`${name}: ${element.variableName} is reserved for navigation. Choose another variable name to share through the URL.`)
             if (!/^[A-Za-z_][A-Za-z0-9_]*$/.test(element.variableName)) errors.push(`${name}: use a variable name starting with a letter or underscore, with no spaces.`)
             if (variables.has(element.variableName)) errors.push(`${name}: variable names must be unique.`)
             variables.add(element.variableName)
@@ -278,7 +282,7 @@ export const validateTool = (tool: ToolType, categories?: Array<ToolCategoryType
                         for (const variableName of analysis.variableNames) {
                             const input = inputs.find(candidate => candidate.variableName === variableName)
                             if (!input) errors.push(`Generated text formula references an unknown variable: ${variableName}.`)
-                            else if (input.type !== "Number input") errors.push(`Generated text formula variable ${variableName} must be a number input.`)
+                            else if (input.type !== analysis.inputType) errors.push(`Generated text formula variable ${variableName} must be a ${analysis.inputType === "Date input" ? "date" : "number"} input.`)
                         }
                     } else if (!inputs.some(input => input.variableName === expression)) errors.push(`Generated text references an unknown variable: ${expression}.`)
                 }

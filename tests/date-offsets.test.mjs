@@ -18,6 +18,22 @@ function setup() {
     return { catalog, tool, output, rule, state }
 }
 
+test("date conditions normalize both operands to midnight before every comparison", () => {
+    const { tool, rule } = setup()
+    Object.assign(rule, { offsetInputId: undefined, offset: 0, additionalOffsetDays: 0 })
+    for (const [operator, expected] of [["equals", true], ["not-equals", false], ["greater-than", false], ["less-than", false], ["at-least", true], ["at-most", true]]) {
+        rule.operator = operator
+        for (const actual of ["2024-03-10", "03/10/2024"]) {
+            for (const comparison of ["2024-03-10", "03/10/2024"]) {
+                assert.equal(runtime.matchesCondition(rule, tool, { "move-out": actual, "move-in": comparison }), expected, `${actual} ${operator} ${comparison}`)
+            }
+        }
+        const fixed = { ...rule, comparisonInputId: undefined, value: "2024-03-10" }
+        assert.equal(runtime.matchesCondition(fixed, tool, { "move-out": "03/10/2024" }), expected)
+        assert.equal(runtime.matchesCondition({ ...fixed, value: "today" }, tool, { "move-out": runtime.formatDateInput(runtime.localDate()) }), expected)
+    }
+})
+
 test("extra days allow exactly a 15-day shortfall after the required calendar months", () => {
     const { tool, rule, state } = setup()
     for (const [date, matches] of [["07/09/2023", false], ["07/10/2023", true], ["07/11/2023", true], ["07/25/2023", true], ["11/03/2023", true]]) {

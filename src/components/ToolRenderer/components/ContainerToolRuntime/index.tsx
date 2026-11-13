@@ -1,4 +1,6 @@
 import { useContext, useEffect, useRef, useState } from "react"
+import { useSearchParams } from "react-router-dom"
+import { isUrlInput, updateUrlInputs, urlInputValues } from "../../../../data/toolUrlInputs/functions"
 import { trackToolEvent } from "../../../../analytics"
 import { observeVisibleOnce } from "../../../../data/analytics/functions"
 import { CategoryRuntimeContext } from "../../../ContainerCategoryRuntime/data"
@@ -9,9 +11,15 @@ import ContainerRenderedElements from "../ContainerRenderedElements"
 import type { ContainerToolRuntimeProps } from "./types"
 
 const ContainerToolRuntime = ({ tool, analytics, className = "" }: ContainerToolRuntimeProps) => {
+    const [params, setParams] = useSearchParams()
+    const syncUrl = (inputs: Array<RuntimeInputType>, values?: Record<string, string>) => {
+        if (!inputs.some(isUrlInput)) return
+        const next = updateUrlInputs(params, inputs, values)
+        if (next.toString() !== params.toString()) setParams(next, { replace: true, preventScrollReset: true })
+    }
     const category = useContext(CategoryRuntimeContext)
     const shared = getSharedScope(tool, category?.tools ?? [], category?.values ?? {})
-    const [localState, setState] = useState(() => createRuntimeState(tool, shared))
+    const [localState, setState] = useState(() => createRuntimeState(tool, shared, urlInputValues(tool, params)))
     const used = useRef(false)
     const content = useRef<HTMLDivElement>(null)
     const viewed = useRef(false)
@@ -27,21 +35,29 @@ const ContainerToolRuntime = ({ tool, analytics, className = "" }: ContainerTool
     const trackUse = () => {
         if (!used.current) used.current = trackToolEvent("tool_use", tool, analytics)
     }
-    const state = resolveRadioOutputs(tool, tool.isGlobal && category ? { ...localState, values: category.values[tool.id] ?? {} } : localState, shared)
+    const urlValues = urlInputValues(tool, params)
+    const state = resolveRadioOutputs(tool, { ...localState,
+        values: { ...(tool.isGlobal && category ? category.values[tool.id] ?? {} : localState.values), ...urlValues },
+        errors: { ...localState.errors, ...Object.fromEntries(tool.elements.filter(isUrlInput).map(input => [input.id,
+            localState.values[input.id] === urlValues[input.id] ? localState.errors[input.id] ?? "" : inputError(input, urlValues[input.id])])) },
+    }, shared)
     const onInput = (element: RuntimeInputType, raw: string) => {
         const value = element.type === "Phone input" ? formatPhone(raw) : raw
+        syncUrl([element], { [element.id]: value })
         if (tool.isGlobal) category?.setInput(tool.id, element.id, value)
         setState(current => ({ ...current, values: { ...current.values, [element.id]: value }, errors: { ...current.errors, [element.id]: inputError(element, value) }, message: "" }))
         if (value !== (state.values[element.id] ?? "")) trackUse()
     }
     const onBlur = (element: RuntimeInputType) => {
         const value = normalizeInput(element, state.values[element.id] ?? "")
+        syncUrl([element], { [element.id]: value })
         if (tool.isGlobal) category?.setInput(tool.id, element.id, value)
         setState(current => ({ ...current, values: { ...current.values, [element.id]: value }, errors: { ...current.errors, [element.id]: inputError(element, value) } }))
     }
     const onGenerate = (outputId: string | Array<string>) => {
         trackToolEvent("tool_action_click", tool, analytics, "generate")
         const next = generateRuntimeState(tool, state, outputId, shared)
+        syncUrl(tool.elements.filter(isUrlInput), next.values)
         if (tool.isGlobal) Object.entries(next.values).forEach(([inputId, value]) => category?.setInput(tool.id, inputId, value))
         setState(next)
         if (!next.message) {
@@ -50,6 +66,7 @@ const ContainerToolRuntime = ({ tool, analytics, className = "" }: ContainerTool
         }
     }
     const onReset = () => {
+        syncUrl(tool.elements.filter(isUrlInput))
         trackToolEvent("tool_action_click", tool, analytics, "reset")
         if (tool.isGlobal) category?.resetInputs(tool.id)
         setState(resetRuntimeState(tool))

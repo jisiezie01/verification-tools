@@ -49,11 +49,17 @@ Every element has `id`, `toolId`, `categoryId`, `style`, and `size`. The saved a
 
 All inputs expose `variableName`, `label`, `showLabel`, and `placeholder`. Text, email, and phone inputs carry `copyButton` settings for the paired action on the right; that action copies its own input and is enabled by default. Date inputs carry `todayButton`, also enabled by default. Empty optional input values should not show an invalid-state error.
 
+**Share value through URL** (`syncWithUrl`) is off by default. Enabled inputs read and write a query parameter using their editable variable name, such as `name_input=John%20Doe`. Enable it on inputs with the same variable name across tools and categories to share their values. Internal generated element IDs remain independent. Typing updates the current URL without adding history entries; category navigation preserves the parameters, and reloads or shared links restore the values. Values are included in copied URLs. Navigation names `category`, `categoryId`, and `toolId` are reserved.
+
+An explicitly empty parameter clears matching inputs, including number defaults. Reset removes only the current tool's enabled input parameters; matching inputs return to their own defaults or empty values. Disabled inputs never read or write these parameters. Repeated number inputs share their full list of entries. Global tools publish restored URL values to their consumers. Generated output remains a snapshot until Generate is clicked, except outputs configured to show for a radio selection.
+
 The palette calls `Output text` “Generated text” and `Radio button` “Radio button group.” Existing heading, Label, and Name input discriminants remain supported for typed integration.
 
 ## Generated text and conditions
 
 Templates use literal `${variableName}` placeholders, resolved from any input in the same tool, including nested inputs. Inserted values are plain text. Renaming a variable in the editor updates placeholders in default and conditional templates. Unresolved variables prevent saving.
+
+Default and conditional generated text also support `${date.diff(start_date, end_date, "days")}`. Use the variable names of two Date inputs, including `global.` variables, and choose `"days"`, `"weeks"`, `"months"`, or `"years"` (single quotes also work). This computes end minus start with both dates at midnight UTC. Days are whole calendar days; weeks are days divided by seven and may be fractional. Months and years count completed calendar periods, clamping anniversaries to the destination month's last day (January 31 to February 28 is one month; February 29, 2024 to February 28, 2025 is one year). Reversing dates negates the result. Missing or invalid dates block generation and preserve previous output. Date differences are standalone expressions; nesting them in arithmetic or Currency is not supported. Renaming inputs and duplicating containers update their date-difference references.
 
 Enable **Global tool** to publish this tool's inputs to its category. Other tools in that category can select `${global.variableName}` placeholders and Global number/date/radio conditions. Local names remain separate. The editor checks for conflicting published names and saves `ToolType.isGlobal`. See [Global input variables](../Tools/README.md#global-input-variables) for runtime, validation, and reset behavior.
 
